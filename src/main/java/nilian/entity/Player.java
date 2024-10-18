@@ -39,7 +39,7 @@ public class Player extends Entity{
 		worldx = 256  ; 
 		worldy = p.screenHeight / 2 ;
 		speed = 4 ;
-		direction = "normal" ;
+		direction = PlayerDirection.normal ;
 	}
 	public void getPlayerImage()
 	{
@@ -172,25 +172,23 @@ public class Player extends Entity{
         } else {
             worldy = 200;
         }
-		if(key.upPressed == true || key.rightPressed == true || key.leftPressed == true)
+		if(key.upPressed || key.rightPressed || key.leftPressed)
 		{
-			if(key.upPressed == true || isJumping == true)
+			if(key.upPressed || isJumping)
 			{
-				direction = "jump" ;
+				direction = PlayerDirection.jump ;
 				jump() ;
 			}
-			else if(key.rightPressed == true)
+			else if(key.rightPressed)
 			{
-				direction = "run" ;
+				direction = PlayerDirection.run ;
 			}
-			else if(key.leftPressed == true)
+			else if(key.leftPressed)
 			{
-				direction = "runback" ;
+				direction = PlayerDirection.runback ;
 			}
-		}
-		else
-		{
-			direction = "idle" ;
+		} else {
+			direction = PlayerDirection.idle ;
 		}
 		sprite() ;
 	}
@@ -254,21 +252,21 @@ public class Player extends Entity{
 		switch(direction) 
 		{
 		
-		case "jump" :
+		case jump :
 			image = jumpparts[spritejump].image ;
 			break ;
 			
 			
-		case "idle" :
+		case idle :
 			image = idleparts[spriteidle].image ;
 			break ;
 			
 			
-		case "run" :
+		case run :
 			image = runparts[spriterun].image ;
 			break ;
 			
-		case "runback" :
+		case runback :
 			image = runbackparts[spriterun].image ;
 			break ;
 		}

@@ -9,7 +9,7 @@ public class Main {
         JFrame jf = new JFrame() ;
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.setResizable(false);
-        jf.setTitle("Dragon");
+        jf.setTitle("Wizard: The Beginning Of Story");
         GamePanel gamePanel = new GamePanel() ;
         jf.add(gamePanel) ;
         jf.pack();

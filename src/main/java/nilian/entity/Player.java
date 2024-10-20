@@ -9,14 +9,18 @@ import javax.imageio.ImageIO;
 import nilian.main.GamePanel;
 import nilian.main.KeyHandler;
 
+
+/**
+ * Player object which includes all stuff a Player object must Contain
+ */
 public class Player extends Entity{
 	
-	Image[] idleparts;
-	Image[] jumpparts;
-	Image[] runparts;
-	Image[] runbackparts ;
+	Image[] idleParts;
+	Image[] jumpParts;
+	Image[] runParts;
+	Image[] runBackParts;
 	
-    private int jumpHeight = 20;
+    private final int jumpHeight = 20;
     private boolean isJumping = false;
     private boolean back = false ;
     private int jumpCount = 0;
@@ -25,6 +29,8 @@ public class Player extends Entity{
 	public final int screeny ;
     GamePanel p;
 	KeyHandler key;
+
+
 	public Player(GamePanel p, KeyHandler key)
 	{
 		this.p = p ;
@@ -34,6 +40,8 @@ public class Player extends Entity{
 		setDefaultValues() ;
 		getPlayerImage() ;
 	}
+
+
 	public void setDefaultValues()
 	{
 		worldx = 256  ; 
@@ -41,6 +49,8 @@ public class Player extends Entity{
 		speed = 4 ;
 		direction = "normal" ;
 	}
+
+
 	public void getPlayerImage()
 	{
 		try
@@ -57,6 +67,8 @@ public class Player extends Entity{
 			e.printStackTrace();
 		}
 	}
+
+
 	public void separate()
 	{
 		int width = idle.getWidth();
@@ -64,7 +76,7 @@ public class Player extends Entity{
 		int partWidth = 48;
 		int num = width / partWidth;
 		int remainingWidth = width % partWidth;
-		idleparts = new Image[num];
+		idleParts = new Image[num];
 		for (int i = 0; i < num; i++) {
 		    int x = i * partWidth;
 		    int y = 0;
@@ -74,8 +86,8 @@ public class Player extends Entity{
 		    }
 		    BufferedImage part = idle.getSubimage(x, y, partWidth, partHeight);
 
-		    idleparts[i] = new Image();
-		    idleparts[i].image = part;
+		    idleParts[i] = new Image();
+		    idleParts[i].image = part;
 		}
 		
 		width = jump.getWidth();
@@ -83,7 +95,7 @@ public class Player extends Entity{
 		partWidth = 48;
 		num = width / partWidth;
 		remainingWidth = width % partWidth;
-		jumpparts = new Image[num];
+		jumpParts = new Image[num];
 		for (int i = 0; i < num; i++) {
 		    int x = i * partWidth;
 		    int y = 0;
@@ -93,8 +105,8 @@ public class Player extends Entity{
 		    }
 		    BufferedImage part = jump.getSubimage(x, y, partWidth, partHeight);
 
-		    jumpparts[i] = new Image();
-		    jumpparts[i].image = part;
+		    jumpParts[i] = new Image();
+		    jumpParts[i].image = part;
 		}
 		
 		width = run.getWidth();
@@ -102,7 +114,7 @@ public class Player extends Entity{
 		partWidth = 48;
 		num = width / partWidth;
 		remainingWidth = width % partWidth;
-		runparts = new Image[num];
+		runParts = new Image[num];
 		for (int i = 0; i < num; i++) {
 		    int x = i * partWidth;
 		    int y = 0;
@@ -112,8 +124,8 @@ public class Player extends Entity{
 		    }
 		    BufferedImage part = run.getSubimage(x, y, partWidth, partHeight);
 
-		    runparts[i] = new Image();
-		    runparts[i].image = part;
+		    runParts[i] = new Image();
+		    runParts[i].image = part;
 		}
 		
 		width = runback.getWidth();
@@ -121,7 +133,7 @@ public class Player extends Entity{
 		partWidth = 48;
 		num = width / partWidth;
 		remainingWidth = width % partWidth;
-		runbackparts = new Image[num];
+		runBackParts = new Image[num];
 		for (int i = 0; i < num; i++) {
 		    int x = i * partWidth;
 		    int y = 0;
@@ -131,10 +143,12 @@ public class Player extends Entity{
 		    }
 		    BufferedImage part = runback.getSubimage(x, y, partWidth, partHeight);
 
-		    runbackparts[i] = new Image();
-		    runbackparts[i].image = part;
+		    runBackParts[i] = new Image();
+		    runBackParts[i].image = part;
 		}
 	}
+
+
 	public void jump()
 	{
 		if (!isJumping) {
@@ -172,18 +186,18 @@ public class Player extends Entity{
         } else {
             worldy = 200;
         }
-		if(key.upPressed == true || key.rightPressed == true || key.leftPressed == true)
+		if(key.upPressed || key.rightPressed || key.leftPressed)
 		{
-			if(key.upPressed == true || isJumping == true)
+			if(key.upPressed || isJumping)
 			{
 				direction = "jump" ;
 				jump() ;
 			}
-			else if(key.rightPressed == true)
+			else if(key.rightPressed)
 			{
 				direction = "run" ;
 			}
-			else if(key.leftPressed == true)
+			else if(key.leftPressed)
 			{
 				direction = "runback" ;
 			}
@@ -196,51 +210,47 @@ public class Player extends Entity{
 	}
 	
 	
-	
-	
-	
-	
-	
-	public int spriteidle = 0 ;
-	public int spritejump = 0 ;
-	public int spriterun = 0 ;
-	public int totalidle = 4 ;
-	public int totaljump = 4 ;
-	public int totalrun = 6 ;
+	public int spriteIdle = 0 ;
+	public int spriteJump = 0 ;
+	public int spriteRun = 0 ;
+	public int totalIdle = 4 ;
+	public int totalJump = 4 ;
+	public int totalRun = 6 ;
+
 	public void sprite()
 	{
 		spriteCounter ++ ;
 		if(spriteCounter > 6)
 		{
 			//sprite for idle images
-			if(spriteidle == totalidle-1)
+			if(spriteIdle == totalIdle-1)
 			{
-				spriteidle = 0 ;
+				spriteIdle = 0 ;
 				spriteCounter = 0 ;
 			}
-		    else if(spriteidle < totalidle)
+		    else if(spriteIdle < totalIdle)
 			{
-				spriteidle ++ ;
+				spriteIdle ++ ;
 			}
 			//sprite for jump images
-			if(spritejump == totaljump-1)
+			if(spriteJump == totalJump-1)
 			{
-				spritejump = 0 ;
+				spriteJump = 0 ;
 				spriteCounter = 0 ;
 			}
-		    else if(spritejump < totaljump)
+		    else if(spriteJump < totalJump)
 			{
-		    	spritejump ++ ;
+		    	spriteJump ++ ;
 			}	
 			//sprite for run images
-			if(spriterun == totalrun-1)
+			if(spriteRun == totalRun-1)
 			{
-				spriterun = 0 ;
+				spriteRun = 0 ;
 				spriteCounter = 0 ;
 			}
-		    else if(spriterun < totalrun)
+		    else if(spriteRun < totalRun)
 			{
-		    	spriterun ++ ;
+		    	spriteRun ++ ;
 			}
 		}
 	}
@@ -255,21 +265,21 @@ public class Player extends Entity{
 		{
 		
 		case "jump" :
-			image = jumpparts[spritejump].image ;
+			image = jumpParts[spriteJump].image ;
 			break ;
 			
 			
 		case "idle" :
-			image = idleparts[spriteidle].image ;
+			image = idleParts[spriteIdle].image ;
 			break ;
 			
 			
 		case "run" :
-			image = runparts[spriterun].image ;
+			image = runParts[spriteRun].image ;
 			break ;
 			
 		case "runback" :
-			image = runbackparts[spriterun].image ;
+			image = runBackParts[spriteRun].image ;
 			break ;
 		}
 		g2.drawImage(image, screenx, screeny, p.tileSize, p.tileSize , null) ;

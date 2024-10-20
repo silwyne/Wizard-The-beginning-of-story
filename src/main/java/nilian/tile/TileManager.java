@@ -10,24 +10,44 @@ import javax.imageio.ImageIO;
 
 import nilian.main.GamePanel;
 
+/**
+ * Manages all the tiles and returns the Map matrix
+ */
 public class TileManager {
 	GamePanel gp ;
 	Tile[] tile ;
-	int mapTileNum[] [] ;
-	
+	int[][] mapTileNum ;
+
+	/**
+	 * This handles all the Tiles and the map of the game
+	 * @param gp main GamePanel of the game
+	 */
 	public TileManager (GamePanel gp)
 	{
 		this.gp = gp ;
 		
-		tile = new Tile[10] ;
 		mapTileNum = new int[gp.maxworldcol][gp.maxworldrow] ;
-		
-		getTileImage() ;
-		loadMap("/maps/world.txt") ;
+
+		//Loading the  tiles!
+		tile = new Tile[3] ;//number  of tiles !
+		tile[0] = getTileImage("/tiles/grass.png") ;
+		tile[1] = getTileImage("/tiles/wall.png") ;
+		tile[2] = getTileImage("/tiles/water.png") ;
+
+		//loading the map
+		mapTileNum = loadMap("/maps/world.txt", gp.maxworldcol, gp.maxworldrow) ;
 	}
-	
-	public void loadMap (String filePath)
+
+	/**
+	 * Loads the map you want and returns a matrix in return!
+	 * @param filePath path to map file
+	 * @param maxCol max col you want to get read
+	 * @param maxRow max col you want to get read
+	 * @return matrix of integers as map!
+	 */
+	public int[][] loadMap (String filePath, int maxCol, int maxRow)
 	{
+		int[][] resultMatrix = new int[maxCol][maxRow];
 		try
 		{
 			InputStream is = getClass().getResourceAsStream(filePath) ;
@@ -35,17 +55,17 @@ public class TileManager {
 			
 			int col = 0 ; 
 			int row = 0 ;
-			while(col < gp.maxworldcol && row < gp.maxworldrow)
+			while(col < maxCol && row < maxRow)
 			{
 				String Line = br.readLine();
-				while(col < gp.maxworldcol)
+				while(col < maxCol)
 				{
 					String numbers[] = Line.split(" ") ;
 					int num = Integer.parseInt(numbers[col]) ;
-					mapTileNum[col][row] = num ;
+					resultMatrix[col][row] = num ;
 					col ++ ;
 				}			
-				if(col == gp.maxworldcol)
+				if(col == maxCol)
 				{
 					col = 0 ;
 					row ++ ;
@@ -57,26 +77,24 @@ public class TileManager {
 		{
 			e.printStackTrace();
 		}
+		return resultMatrix ;
 	}
-	
-	public void getTileImage()
+
+	/**
+	 * Loads the Tile you want!
+	 * @param tilePath path to Tile image!
+	 * @return tile object!
+	 */
+	public Tile getTileImage(String tilePath)
 	{
-		try
-		{
-			tile[0] = new Tile() ;
-			tile[0].image  = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png")) ;
-			
-			tile[1] = new Tile() ;
-			tile[1].image  = ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png")) ;
-
-			tile[2] = new Tile() ;
-			tile[2].image  = ImageIO.read(getClass().getResourceAsStream("/tiles/water.png")) ;
-
-		}
-		catch(IOException e)
-		{
+		Tile tile = null;
+		try{
+			tile = new Tile();
+			tile.image = ImageIO.read(getClass().getResourceAsStream(tilePath));
+		} catch (IOException e){
 			e.printStackTrace();
 		}
+		return tile ;
 	}
 	
 	public void draw(Graphics2D g2)

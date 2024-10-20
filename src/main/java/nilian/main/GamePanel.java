@@ -7,6 +7,11 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 import nilian.entity.Player ;
 import nilian.tile.TileManager;
+
+/**
+ * The main Class of the Game
+ * contains what ever you see
+ */
 public class GamePanel extends JPanel implements Runnable 
 {
 	public final int originalTileSize = 16 ;
@@ -29,9 +34,11 @@ public class GamePanel extends JPanel implements Runnable
 	public final int maxworldrow = 11 ;
 	public final int worldwidth = tileSize * maxworldcol ;
 	public final int worldheight = tileSize * maxworldrow ;
-	
-	
-	
+
+
+	/**
+	 * This sets the main Settings of the JPanel
+	 */
 	public GamePanel()
 	{
 		
@@ -41,13 +48,20 @@ public class GamePanel extends JPanel implements Runnable
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
 	}
-	
+
+	/**
+	 * Initializes the game Thread!
+	 */
 	public void startGameThread()
 	{
 		gameThread = new Thread(this) ;
 		gameThread.start();
 	}
 
+	/**
+	 * This is the main engine of the Game
+	 * In each frame of the game this updates the details and more ...
+	 */
 	@Override
 	public void run()
 	{
@@ -67,10 +81,18 @@ public class GamePanel extends JPanel implements Runnable
 			}	
 		}
 	}
-	public void update()
-	{
+
+	/**
+	 * Updates All details of the game
+	 */
+	public void update() {
 		player.update();
 	}
+
+	/**
+	 * Paints the new details of the game
+	 * @param g the <code>Graphics</code> object to protect
+	 */
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g) ;
@@ -79,7 +101,7 @@ public class GamePanel extends JPanel implements Runnable
 		//first tiles
 		tileM.draw(g2);//--1
 		
-		//this way player comes above the back ground and then you can see the player and back ground to gether
+		//this way player comes above the background then you can see the player and background together
 		
 		//then player
 		player.draw(g2) ;//--2
@@ -87,16 +109,3 @@ public class GamePanel extends JPanel implements Runnable
 		g2.dispose() ;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

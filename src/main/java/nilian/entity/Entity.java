@@ -1,5 +1,7 @@
 package nilian.entity;
 
+import nilian.Player.PlayerDirection;
+
 import java.awt.image.BufferedImage;
 
 public class Entity {

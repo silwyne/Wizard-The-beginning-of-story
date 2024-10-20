@@ -1,4 +1,4 @@
-package nilian.entity;
+package nilian.Player;
 
 public enum PlayerDirection {
 

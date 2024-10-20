@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Objects;
 
 import javax.imageio.ImageIO;
 
@@ -51,31 +52,35 @@ public class TileManager {
 		try
 		{
 			InputStream is = getClass().getResourceAsStream(filePath) ;
-			BufferedReader br = new BufferedReader(new InputStreamReader(is)) ;	
-			
-			int col = 0 ; 
-			int row = 0 ;
-			while(col < maxCol && row < maxRow)
-			{
-				String Line = br.readLine();
-				while(col < maxCol)
+			BufferedReader br ;
+			if(is != null){
+				br = new BufferedReader(new InputStreamReader(is)) ;
+				int col = 0 ;
+				int row = 0 ;
+				while(col < maxCol && row < maxRow)
 				{
-					String numbers[] = Line.split(" ") ;
-					int num = Integer.parseInt(numbers[col]) ;
-					resultMatrix[col][row] = num ;
-					col ++ ;
-				}			
-				if(col == maxCol)
-				{
-					col = 0 ;
-					row ++ ;
+					String Line = br.readLine();
+					while(col < maxCol)
+					{
+						String[] numbers = Line.split(" ") ;
+						int num = Integer.parseInt(numbers[col]) ;
+						resultMatrix[col][row] = num ;
+						col ++ ;
+					}
+					if(col == maxCol)
+					{
+						col = 0 ;
+						row ++ ;
+					}
 				}
+				br.close() ;
 			}
-			br.close() ;
+			else {
+				throw new Exception("BufferedReader object : br is null!");
+			}
 		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
+		catch(Exception e) {
+			e.printStackTrace(System.out);
 		}
 		return resultMatrix ;
 	}
@@ -90,39 +95,39 @@ public class TileManager {
 		Tile tile = null;
 		try{
 			tile = new Tile();
-			tile.image = ImageIO.read(getClass().getResourceAsStream(tilePath));
+			tile.image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(tilePath)));
 		} catch (IOException e){
-			e.printStackTrace();
+			e.printStackTrace(System.out);
 		}
 		return tile ;
 	}
 	
 	public void draw(Graphics2D g2)
 	{
-		int worldcol = 0;
-		int worldrow = 0 ;
+		int worldCol = 0;
+		int worldRow = 0 ;
 
-		while(worldcol < gp.maxworldcol && worldrow < gp.maxworldrow) 
+		while(worldCol < gp.maxworldcol && worldRow < gp.maxworldrow)
 		{
 			
-			int tileNum = mapTileNum[worldcol][worldrow] ;
-			int worldx = worldcol * gp.tileSize ;
-			int worldy = worldrow * gp.tileSize ;
-			int screenx = worldx - gp.player.worldx + gp.player.screenx ;
-			int screeny = worldy - gp.player.worldy + gp.player.screeny ;
-			if( worldx + gp.tileSize > gp.player.worldx - gp.player.screenx &&
-				worldx - gp.tileSize < gp.player.worldx + gp.player.screenx && 
-				worldy + gp.tileSize > gp.player.worldy - gp.player.screeny &&
-				worldy - gp.tileSize < gp.player.worldy + gp.player.screeny)
+			int tileNum = mapTileNum[worldCol][worldRow] ;
+			int worldX = worldCol * gp.tileSize ;
+			int worldY = worldRow * gp.tileSize ;
+			int screenX = worldX - gp.player.worldx + gp.player.screenX;
+			int screenY = worldY - gp.player.worldy + gp.player.screenY;
+			if( worldX + gp.tileSize > gp.player.worldx - gp.player.screenX &&
+				worldX - gp.tileSize < gp.player.worldx + gp.player.screenX &&
+				worldY + gp.tileSize > gp.player.worldy - gp.player.screenY &&
+				worldY - gp.tileSize < gp.player.worldy + gp.player.screenY)
 			{
-				g2.drawImage(tile[tileNum].image , screenx , screeny , gp.tileSize, gp.tileSize , null);
+				g2.drawImage(tile[tileNum].image , screenX , screenY , gp.tileSize, gp.tileSize , null);
 			}
 
-			worldcol ++ ;
-			if (worldcol == gp.maxworldcol)
+			worldCol ++ ;
+			if (worldCol == gp.maxworldcol)
 			{
-				worldcol = 0 ;
-				worldrow ++ ;
+				worldCol = 0 ;
+				worldRow ++ ;
 			}
 		}
 	}

@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
-import nilian.entity.Player ;
+import nilian.Player.Player;
 import nilian.tile.TileManager;
 
 /**

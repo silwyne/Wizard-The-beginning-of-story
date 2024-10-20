@@ -2,5 +2,5 @@ package nilian.entity;
 
 public enum PlayerDirection {
 
-    idle, runback, run, jump, normal;
+    idle, runback, run, jump, normal
 }

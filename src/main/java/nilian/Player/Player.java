@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import nilian.entity.Entity;
 import nilian.main.GamePanel;
 import nilian.main.KeyHandler;
 
@@ -13,9 +12,9 @@ import nilian.main.KeyHandler;
  * Player object which includes all stuff a Player object must Contain
  */
 public class Player extends Entity {
-	
 
-	PlayerImages playerImages = new PlayerImages();
+	private final Entity entity = new Entity() ;
+	private final PlayerImages playerImages = new PlayerImages();
 
     private boolean isJumping = false;
     private boolean back = false ;
@@ -159,6 +158,8 @@ public class Player extends Entity {
 			}
 		}
 	}
+
+
 	public void draw(Graphics2D g2)
 	{
 		BufferedImage image = null ;

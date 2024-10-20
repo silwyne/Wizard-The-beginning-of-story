@@ -1,8 +1,5 @@
 package nilian.Player;
 
-import nilian.entity.Entity;
-import nilian.entity.Image;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;

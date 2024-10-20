@@ -99,7 +99,7 @@ public class TileManager {
 	
 	public void draw(Graphics2D g2)
 	{
-		int worldcol = 0 ;
+		int worldcol = 0;
 		int worldrow = 0 ;
 
 		while(worldcol < gp.maxworldcol && worldrow < gp.maxworldrow) 

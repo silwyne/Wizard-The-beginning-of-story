@@ -55,43 +55,37 @@ public class Player extends Entity {
 	}
 
 
-	public void jump()
-	{
+	public void jump() {
 		if (!isJumping) {
-            isJumping = true;
-            jumpCount = 0;
-        }
+			isJumping = true;
+			verticalVelocity = -Math.sqrt(2 * GRAVITY * JUMP_HEIGHT); // Initial jump velocity
+			initialY = worldy; // Store the initial Y position
+		}
 	}
-	
+
+	private final int JUMP_HEIGHT = 100; // Maximum jump height in pixels
+	private final double GRAVITY = 0.5; // Gravity strength
+	private double verticalVelocity = 0; // Current vertical velocity
+	private int initialY; // Store the initial Y position when jump starts
 	
 	
 	public void update()
 	{
-		//Process of Jumping
-		if(back)
-    	{
-    		if (jumpCount >= 0) {
-				worldy += 5;
-                jumpCount--;
-            }
-            else {
-				isJumping = false;
-                back = false;
-                jumpCount = 0;
-            }
-    	}
-        if (isJumping & !back) {
-            int jumpHeight = 20;
-            if (jumpCount <= jumpHeight) {
-                worldy -= 5;
-                jumpCount++;
-                if(jumpCount == jumpHeight)
-                {
-                	back = true ;
-                }
-            }
+		// Jump logic
+		if (isJumping) {
+			// Apply gravity
+			verticalVelocity += GRAVITY;
 
-        }
+			// Update position
+			worldy += verticalVelocity;
+
+			// Check if we've returned to the ground
+			if (worldy >= initialY) {
+				worldy = initialY; // Ensure we don't go below the ground
+				isJumping = false;
+				verticalVelocity = 0;
+			}
+		}
 		//Normal Moving process
 		if(key.upPressed || key.rightPressed || key.leftPressed)
 		{

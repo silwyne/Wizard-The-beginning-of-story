@@ -17,9 +17,6 @@ public class Player extends Entity {
 	private final PlayerImages playerImages = new PlayerImages();
 
     private boolean isJumping = false;
-    private boolean back = false ;
-    private int jumpCount = 0;
-	private final int playerSpeed = 1;
 
 	public int playerX;
 	public final int playerY;
@@ -50,7 +47,7 @@ public class Player extends Entity {
 	{
 		worldx = 256  ; 
 		worldy = p.screenHeight / 2 ;
-		speed = 4 ;
+		speed = 2 ;
 		direction = PlayerDirection.normal ;
 	}
 
@@ -63,11 +60,10 @@ public class Player extends Entity {
 		}
 	}
 
-	private final int JUMP_HEIGHT = 100; // Maximum jump height in pixels
-	private final double GRAVITY = 0.5; // Gravity strength
+	private final double GRAVITY = 0.25; // Gravity strength
 	private double verticalVelocity = 0; // Current vertical velocity
 	private int initialY; // Store the initial Y position when jump starts
-	
+
 	
 	public void update()
 	{
@@ -97,12 +93,12 @@ public class Player extends Entity {
 			else if(key.rightPressed)
 			{
 				direction = PlayerDirection.run ;
-				worldx += playerSpeed;
+				worldx += speed;
 			}
 			else if(key.leftPressed)
 			{
 				direction = PlayerDirection.runback ;
-				worldx -= playerSpeed;
+				worldx -= speed;
 			}
 		} else {
 			direction = PlayerDirection.idle ;

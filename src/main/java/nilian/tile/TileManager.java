@@ -104,55 +104,56 @@ public class TileManager {
 	
 	public void draw(Graphics2D g2)
 	{
+//		int worldCol = 0;
+//		int worldRow = 0 ;
+//
+//		while(worldCol < gp.maxworldcol && worldRow < gp.maxworldrow)
+//		{
+//
+//			int tileNum = mapTileNum[worldCol][worldRow] ;
+//			int worldX = worldCol * gp.tileSize ;
+//			int worldY = worldRow * gp.tileSize ;
+//			int screenX = worldX - gp.player.worldx + gp.player.playerX;
+//			int screenY = worldY - gp.player.worldy + gp.player.playerY;
+//			if( worldX + gp.tileSize > gp.player.worldx - gp.player.playerX &&
+//				worldX - gp.tileSize < gp.player.worldx + gp.player.playerX &&
+//				worldY + gp.tileSize > gp.player.worldy - gp.player.playerY &&
+//				worldY - gp.tileSize < gp.player.worldy + gp.player.playerY)
+//			{
+//				g2.drawImage(loadTiles[tileNum].image , screenX , screenY , gp.tileSize, gp.tileSize , null);
+//			}
+//
+//			worldCol ++ ;
+//			if (worldCol == gp.maxworldcol)
+//			{
+//				worldCol = 0 ;
+//				worldRow ++ ;
+//			}
+//		}
 		int worldCol = 0;
-		int worldRow = 0 ;
+		int worldRow = 0;
 
-		while(worldCol < gp.maxworldcol && worldRow < gp.maxworldrow)
-		{
-
-			int tileNum = mapTileNum[worldCol][worldRow] ;
-			int worldX = worldCol * gp.tileSize ;
-			int worldY = worldRow * gp.tileSize ;
+		while(worldCol < gp.maxworldcol && worldRow < gp.maxworldrow) {
+			int tileNum = mapTileNum[worldCol][worldRow];
+			int worldX = worldCol * gp.tileSize;
+			int worldY = worldRow * gp.tileSize;
 			int screenX = worldX - gp.player.worldx + gp.player.playerX;
 			int screenY = worldY - gp.player.worldy + gp.player.playerY;
-			if( worldX + gp.tileSize > gp.player.worldx - gp.player.playerX &&
-				worldX - gp.tileSize < gp.player.worldx + gp.player.playerX &&
-				worldY + gp.tileSize > gp.player.worldy - gp.player.playerY &&
-				worldY - gp.tileSize < gp.player.worldy + gp.player.playerY)
-			{
-				g2.drawImage(loadTiles[tileNum].image , screenX , screenY , gp.tileSize, gp.tileSize , null);
+
+			// Adjust the condition to include the bottom edge
+			if (screenX > -gp.tileSize &&
+					screenX < gp.screenWidth &&
+					screenY > -gp.tileSize &&
+					screenY < gp.screenHeight + gp.tileSize) {
+				g2.drawImage(loadTiles[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 			}
 
-			worldCol ++ ;
-			if (worldCol == gp.maxworldcol)
-			{
-				worldCol = 0 ;
-				worldRow ++ ;
+			worldCol++;
+			if (worldCol == gp.maxworldcol) {
+				worldCol = 0;
+				worldRow++;
 			}
 		}
 	}
 
-//	public void draw(Graphics2D g2) {
-//		// Calculate the offset to center the player on the screen
-//		int offsetX = gp.screenWidth / 2 - gp.player.playerX;
-//		int offsetY = gp.screenHeight / 2 - gp.player.playerY;
-//
-//		for (int worldRow = 0; worldRow < gp.maxworldrow; worldRow++) {
-//			for (int worldCol = 0; worldCol < gp.maxworldcol; worldCol++) {
-//				int tileNum = mapTileNum[worldCol][worldRow];
-//				int worldX = worldCol * gp.tileSize;
-//				int worldY = worldRow * gp.tileSize;
-//
-//				// Calculate screen position relative to the player
-//				int screenX = worldX - gp.player.worldx + offsetX;
-//				int screenY = worldY - gp.player.worldy + offsetY;
-//
-//				// Only draw tiles that are visible on the screen
-//				if (screenX > -gp.tileSize && screenX < gp.screenWidth &&
-//						screenY > -gp.tileSize && screenY < gp.screenHeight) {
-//					g2.drawImage(loadTiles[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
-//				}
-//			}
-//		}
-//	}
 }

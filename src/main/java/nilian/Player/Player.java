@@ -14,7 +14,7 @@ import nilian.main.KeyHandler;
  */
 public class Player extends Entity {
 
-	private final String playerName = "Seyed!" ;
+	private final String playerName = "Player_1" ;
 	private final Color playerNameColor ;
 
 

@@ -1,2 +1,9 @@
 # Wizard-The-beginning-of-story
-This is an adventure game written in java. About a wizard which is at the beginning of a bigger story. 
+
+This is a game written in java. Which is going to be a combat game!
+Mainly to play with other human on socket!
+
+
+## Pictures
+- step 1
+![Alt text](images/step_1.png)

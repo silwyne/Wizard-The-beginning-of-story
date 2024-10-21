@@ -27,16 +27,16 @@ public class TileManager {
 	{
 		this.gp = gp ;
 		
-		mapTileNum = new int[gp.maxworldcol][gp.maxworldrow] ;
+		mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow] ;
 
 		//Loading the  tiles!
 		loadTiles = new Tile[3] ;//number  of tiles !
-		loadTiles[0] = getTileImage("/tiles/grass.png") ;
+		loadTiles[0] = getTileImage("/tiles/grass.png");
 		loadTiles[1] = getTileImage("/tiles/wall.png") ;
-		loadTiles[2] = getTileImage("/tiles/water.png") ;
+		loadTiles[2] = getTileImage("/tiles/water.png");
 
 		//loading the map
-		mapTileNum = loadMap("/maps/world.txt", gp.maxworldcol, gp.maxworldrow) ;
+		mapTileNum = loadMap("/maps/world.txt", gp.maxWorldCol, gp.maxWorldRow) ;
 	}
 
 	/**
@@ -46,45 +46,37 @@ public class TileManager {
 	 * @param maxRow max col you want to get read
 	 * @return matrix of integers as map!
 	 */
-	public int[][] loadMap (String filePath, int maxCol, int maxRow)
-	{
+	public int[][] loadMap(String filePath, int maxCol, int maxRow) {
 		int[][] resultMatrix = new int[maxCol][maxRow];
-		try
-		{
-			InputStream is = getClass().getResourceAsStream(filePath) ;
-			BufferedReader br ;
-			if(is != null){
-				br = new BufferedReader(new InputStreamReader(is)) ;
-				int col = 0 ;
-				int row = 0 ;
-				while(col < maxCol && row < maxRow)
-				{
-					String Line = br.readLine();
-					while(col < maxCol)
-					{
-						String[] numbers = Line.split(" ") ;
-						int num = Integer.parseInt(numbers[col]) ;
-						resultMatrix[col][row] = num ;
-						col ++ ;
-					}
-					if(col == maxCol)
-					{
-						col = 0 ;
-						row ++ ;
-					}
+		try (InputStream is = getClass().getResourceAsStream(filePath);
+			 BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+
+			if (is == null) {
+				throw new IOException("Cannot find file: " + filePath);
+			}
+
+			String line;
+			int row = 0;
+			while ((line = br.readLine()) != null && row < maxRow) {
+				String[] chars = line.trim().split("\\s+");
+				for (int col = 0; col < maxCol && col < chars.length; col++) {
+					resultMatrix[col][row] = Integer.parseInt(chars[col]);
 				}
-				br.close() ;
+				row++;
 			}
-			else {
-				throw new Exception("BufferedReader object : br is null!");
+
+			if (row < maxRow) {
+				System.out.println("Warning: File has fewer rows than expected. Filled " + row + " out of " + maxRow);
 			}
-		}
-		catch(Exception e) {
+		} catch (IOException e) {
+			System.err.println("Error reading map file: " + e.getMessage());
+			e.printStackTrace(System.out);
+		} catch (NumberFormatException e) {
+			System.err.println("Error parsing number in map file: " + e.getMessage());
 			e.printStackTrace(System.out);
 		}
-		return resultMatrix ;
+		return resultMatrix;
 	}
-
 	/**
 	 * Loads the Tile you want!
 	 * @param tilePath path to Tile image!
@@ -107,7 +99,7 @@ public class TileManager {
 		int worldCol = 0;
 		int worldRow = 0;
 
-		while(worldCol < gp.maxworldcol && worldRow < gp.maxworldrow) {
+		while(worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
 			int tileNum = mapTileNum[worldCol][worldRow];
 			int screenX = worldCol * gp.tileSize;
 			int screenY = worldRow * gp.tileSize;
@@ -118,11 +110,10 @@ public class TileManager {
 			}
 
 			worldCol++;
-			if (worldCol == gp.maxworldcol) {
+			if (worldCol == gp.maxWorldCol) {
 				worldCol = 0;
 				worldRow++;
 			}
 		}
 	}
-
 }

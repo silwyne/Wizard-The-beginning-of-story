@@ -113,12 +113,12 @@ public class TileManager {
 			int tileNum = mapTileNum[worldCol][worldRow] ;
 			int worldX = worldCol * gp.tileSize ;
 			int worldY = worldRow * gp.tileSize ;
-			int screenX = worldX - gp.player.worldx + gp.player.screenX;
-			int screenY = worldY - gp.player.worldy + gp.player.screenY;
-			if( worldX + gp.tileSize > gp.player.worldx - gp.player.screenX &&
-				worldX - gp.tileSize < gp.player.worldx + gp.player.screenX &&
-				worldY + gp.tileSize > gp.player.worldy - gp.player.screenY &&
-				worldY - gp.tileSize < gp.player.worldy + gp.player.screenY)
+			int screenX = worldX - gp.player.worldx + gp.player.playerX;
+			int screenY = worldY - gp.player.worldy + gp.player.playerY;
+			if( worldX + gp.tileSize > gp.player.worldx - gp.player.playerX &&
+				worldX - gp.tileSize < gp.player.worldx + gp.player.playerX &&
+				worldY + gp.tileSize > gp.player.worldy - gp.player.playerY &&
+				worldY - gp.tileSize < gp.player.worldy + gp.player.playerY)
 			{
 				g2.drawImage(tile[tileNum].image , screenX , screenY , gp.tileSize, gp.tileSize , null);
 			}

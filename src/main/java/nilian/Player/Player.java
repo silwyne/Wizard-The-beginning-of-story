@@ -20,8 +20,8 @@ public class Player extends Entity {
     private boolean back = false ;
     private int jumpCount = 0;
 	
-	public final int screenX;
-	public final int screenY;
+	public final int playerX;
+	public final int playerY;
     GamePanel p;
 	KeyHandler key;
 
@@ -30,8 +30,8 @@ public class Player extends Entity {
 	{
 		this.p = p ;
 		this.key = key ;
-		screenX = p.screenHeight / 2 ;
-		screenY = p.screenHeight/2 ;
+		playerX = p.screenHeight / 2 ;
+		playerY = p.screenHeight/2 ;
 		setDefaultValues() ;
 
         try {
@@ -185,6 +185,6 @@ public class Player extends Entity {
 			image = playerImages.runBackParts[spriteRun].image ;
 			break ;
 		}
-		g2.drawImage(image, screenX, screenY, p.tileSize, p.tileSize , null) ;
+		g2.drawImage(image, playerX, playerY, p.tileSize, p.tileSize , null) ;
 	}
 }

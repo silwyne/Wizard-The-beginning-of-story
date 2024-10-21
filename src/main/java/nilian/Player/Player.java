@@ -103,12 +103,12 @@ public class Player extends Entity {
 			else if(key.rightPressed)
 			{
 				direction = PlayerDirection.run ;
-				playerX += playerSpeed;
+				worldx += playerSpeed;
 			}
 			else if(key.leftPressed)
 			{
 				direction = PlayerDirection.runback ;
-				playerX -= playerSpeed;
+				worldx -= playerSpeed;
 			}
 		} else {
 			direction = PlayerDirection.idle ;

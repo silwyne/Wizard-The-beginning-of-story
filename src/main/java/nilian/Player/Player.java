@@ -1,8 +1,9 @@
 package nilian.Player;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
 
 import nilian.main.GamePanel;
 import nilian.main.KeyHandler;
@@ -13,9 +14,13 @@ import nilian.main.KeyHandler;
  */
 public class Player extends Entity {
 
+	private final String playerName = "Seyed!" ;
+	private final Color playerNameColor ;
+
+
 	private final Entity entity = new Entity() ;
 	private final PlayerImages playerImages = new PlayerImages();
-
+	private final Random random = new Random();
     private boolean isJumping = false;
 
 	public int playerX;
@@ -40,6 +45,8 @@ public class Player extends Entity {
         }
 		//cutting images into image arrays
         playerImages.separate() ;
+
+		playerNameColor = getRandomColor();
 	}
 
 
@@ -178,5 +185,25 @@ public class Player extends Entity {
 			break ;
 		}
 		g2.drawImage(image, playerX, playerY, p.tileSize, p.tileSize , null) ;
+
+		// Set up the font and color for the text
+		g2.setFont(new Font("Arial", Font.BOLD, 12)); // Adjust font and size as needed
+		g2.setColor(playerNameColor);
+
+		// The text you want to display
+		String text = playerName; // Replace with actual player name or desired text
+
+		// Calculate the position for the text
+		FontMetrics fm = g2.getFontMetrics();
+		int textWidth = fm.stringWidth(text);
+		int textX = playerX + (p.tileSize / 2) - (textWidth / 2); // Center the text above the player
+		int textY = playerY - 10; // 10 pixels above the player, adjust as needed
+
+		// Draw the text
+		g2.drawString(text, textX, textY);
+	}
+
+	private Color getRandomColor() {
+		return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
 	}
 }

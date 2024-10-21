@@ -19,8 +19,9 @@ public class Player extends Entity {
     private boolean isJumping = false;
     private boolean back = false ;
     private int jumpCount = 0;
-	
-	public final int playerX;
+	private final int playerSpeed = 1;
+
+	public int playerX;
 	public final int playerY;
     GamePanel p;
 	KeyHandler key;
@@ -102,10 +103,12 @@ public class Player extends Entity {
 			else if(key.rightPressed)
 			{
 				direction = PlayerDirection.run ;
+				playerX += playerSpeed;
 			}
 			else if(key.leftPressed)
 			{
 				direction = PlayerDirection.runback ;
+				playerX -= playerSpeed;
 			}
 		} else {
 			direction = PlayerDirection.idle ;

@@ -16,7 +16,7 @@ import nilian.main.GamePanel;
  */
 public class TileManager {
 	GamePanel gp ;
-	Tile[] tile ;
+	Tile[] loadTiles;
 	int[][] mapTileNum ;
 
 	/**
@@ -30,10 +30,10 @@ public class TileManager {
 		mapTileNum = new int[gp.maxworldcol][gp.maxworldrow] ;
 
 		//Loading the  tiles!
-		tile = new Tile[3] ;//number  of tiles !
-		tile[0] = getTileImage("/tiles/grass.png") ;
-		tile[1] = getTileImage("/tiles/wall.png") ;
-		tile[2] = getTileImage("/tiles/water.png") ;
+		loadTiles = new Tile[3] ;//number  of tiles !
+		loadTiles[0] = getTileImage("/tiles/grass.png") ;
+		loadTiles[1] = getTileImage("/tiles/wall.png") ;
+		loadTiles[2] = getTileImage("/tiles/water.png") ;
 
 		//loading the map
 		mapTileNum = loadMap("/maps/world.txt", gp.maxworldcol, gp.maxworldrow) ;
@@ -109,7 +109,7 @@ public class TileManager {
 
 		while(worldCol < gp.maxworldcol && worldRow < gp.maxworldrow)
 		{
-			
+
 			int tileNum = mapTileNum[worldCol][worldRow] ;
 			int worldX = worldCol * gp.tileSize ;
 			int worldY = worldRow * gp.tileSize ;
@@ -120,7 +120,7 @@ public class TileManager {
 				worldY + gp.tileSize > gp.player.worldy - gp.player.playerY &&
 				worldY - gp.tileSize < gp.player.worldy + gp.player.playerY)
 			{
-				g2.drawImage(tile[tileNum].image , screenX , screenY , gp.tileSize, gp.tileSize , null);
+				g2.drawImage(loadTiles[tileNum].image , screenX , screenY , gp.tileSize, gp.tileSize , null);
 			}
 
 			worldCol ++ ;
@@ -131,4 +131,28 @@ public class TileManager {
 			}
 		}
 	}
+
+//	public void draw(Graphics2D g2) {
+//		// Calculate the offset to center the player on the screen
+//		int offsetX = gp.screenWidth / 2 - gp.player.playerX;
+//		int offsetY = gp.screenHeight / 2 - gp.player.playerY;
+//
+//		for (int worldRow = 0; worldRow < gp.maxworldrow; worldRow++) {
+//			for (int worldCol = 0; worldCol < gp.maxworldcol; worldCol++) {
+//				int tileNum = mapTileNum[worldCol][worldRow];
+//				int worldX = worldCol * gp.tileSize;
+//				int worldY = worldRow * gp.tileSize;
+//
+//				// Calculate screen position relative to the player
+//				int screenX = worldX - gp.player.worldx + offsetX;
+//				int screenY = worldY - gp.player.worldy + offsetY;
+//
+//				// Only draw tiles that are visible on the screen
+//				if (screenX > -gp.tileSize && screenX < gp.screenWidth &&
+//						screenY > -gp.tileSize && screenY < gp.screenHeight) {
+//					g2.drawImage(loadTiles[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+//				}
+//			}
+//		}
+//	}
 }

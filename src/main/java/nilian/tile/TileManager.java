@@ -121,4 +121,19 @@ public class TileManager {
 			}
 		}
 	}
+
+	public Tile getTile(int x, int y){
+		// Calculate the tile column and row
+		int col = x / gp.tileSize;
+		int row = y / gp.tileSize;
+
+		// Check if the calculated column and row are within the valid range
+		if (col >= 0 && col < gp.maxScreenCol && row >= 0 && row < gp.maxScreenRow) {
+			// Return the tile at the calculated position in the matrix
+			return loadTiles[mapTileNum[row][col]];
+		} else {
+			// Return null if the coordinates are out of bounds
+			return null;
+		}
+	}
 }

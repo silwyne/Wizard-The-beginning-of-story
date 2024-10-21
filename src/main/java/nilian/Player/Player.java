@@ -18,23 +18,22 @@ public class Player extends Entity {
 	private final Color playerNameColor ;
 
 
-	private final Entity entity = new Entity() ;
 	private final PlayerImages playerImages = new PlayerImages();
 	private final Random random = new Random();
     private boolean isJumping = false;
 
 	public int playerX;
 	public int playerY;
-    GamePanel p;
+    GamePanel gamePanel;
 	KeyHandler key;
 
 
-	public Player(GamePanel p, KeyHandler key)
+	public Player(GamePanel gamePanel, KeyHandler key)
 	{
-		this.p = p ;
+		this.gamePanel = gamePanel;
 		this.key = key ;
-		playerX = p.screenHeight / 2 ;
-		playerY = p.screenHeight/2 ;
+		playerX = gamePanel.screenHeight / 2 ;
+		playerY = gamePanel.screenHeight/2 ;
 		setDefaultValues() ;
 
         try {
@@ -53,18 +52,9 @@ public class Player extends Entity {
 	public void setDefaultValues()
 	{
 		worldx = 256  ; 
-		worldy = p.screenHeight / 2 ;
+		worldy = gamePanel.screenHeight / 2 ;
 		speed = 2 ;
 		direction = PlayerDirection.normal ;
-	}
-
-
-	public void jump() {
-		if (!isJumping) {
-			isJumping = true;
-			verticalVelocity = -Math.sqrt(2 * GRAVITY * JUMP_HEIGHT); // Initial jump velocity
-			initialY = worldy; // Store the initial Y position
-		}
 	}
 
 	private final double GRAVITY = 0.25; // Gravity strength
@@ -79,7 +69,9 @@ public class Player extends Entity {
 			verticalVelocity += GRAVITY;
 
 			// Update player's position
-			playerY += verticalVelocity;
+			if(!gamePanel.tileM.getTile(playerX, (int) (playerY+verticalVelocity)).collision) {
+				playerY += verticalVelocity;
+			}
 
 			// Check if we've returned to the ground
 			if (playerY >= initialY) {
@@ -94,17 +86,27 @@ public class Player extends Entity {
 			if(key.upPressed)
 			{
 				direction = PlayerDirection.jump ;
-				jump() ;
+				if (!isJumping) {
+					isJumping = true;
+					verticalVelocity = -Math.sqrt(2 * GRAVITY * JUMP_HEIGHT); // Initial jump velocity
+					initialY = worldy; // Store the initial Y position
+				}
 			}
 			else if(key.rightPressed)
 			{
 				direction = PlayerDirection.run ;
-				playerX += speed;
+				//if it is ok to move there
+				if(!gamePanel.tileM.getTile(playerX+speed, playerY).collision){
+					playerX += speed;
+				}
 			}
 			else if(key.leftPressed)
 			{
 				direction = PlayerDirection.runback ;
-				playerX -= speed;
+				//if it is ok to move there
+				if(!gamePanel.tileM.getTile(playerX-speed, playerY).collision){
+					playerX -= speed;
+				}
 			}
 		} else {
 			direction = PlayerDirection.idle ;
@@ -120,6 +122,9 @@ public class Player extends Entity {
 	public int totalJump = 4 ;
 	public int totalRun = 6 ;
 
+	/**
+	 * Updates Player Images frame by frame!
+	 */
 	public void sprite()
 	{
 		spriteCounter ++ ;
@@ -159,10 +164,14 @@ public class Player extends Entity {
 	}
 
 
+	/**
+	 * Simply draws the player Image on the JPanel!
+	 * @param g2 Graphic Object to draw
+	 */
 	public void draw(Graphics2D g2)
 	{
+		//State Image of Player
 		BufferedImage image = null ;
-
 		switch(direction) 
 		{
 		
@@ -184,7 +193,7 @@ public class Player extends Entity {
 			image = playerImages.runBackParts[spriteRun].image ;
 			break ;
 		}
-		g2.drawImage(image, playerX, playerY, p.tileSize, p.tileSize , null) ;
+		g2.drawImage(image, playerX, playerY, gamePanel.tileSize, gamePanel.tileSize , null) ;
 
 		// Set up the font and color for the text
 		g2.setFont(new Font("Arial", Font.BOLD, 12)); // Adjust font and size as needed
@@ -196,7 +205,7 @@ public class Player extends Entity {
 		// Calculate the position for the text
 		FontMetrics fm = g2.getFontMetrics();
 		int textWidth = fm.stringWidth(text);
-		int textX = playerX + (p.tileSize / 2) - (textWidth / 2); // Center the text above the player
+		int textX = playerX + (gamePanel.tileSize / 2) - (textWidth / 2); // Center the text above the player
 		int textY = playerY - 10; // 10 pixels above the player, adjust as needed
 
 		// Draw the text

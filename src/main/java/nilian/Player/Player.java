@@ -19,7 +19,7 @@ public class Player extends Entity {
     private boolean isJumping = false;
 
 	public int playerX;
-	public final int playerY;
+	public int playerY;
     GamePanel p;
 	KeyHandler key;
 
@@ -67,17 +67,16 @@ public class Player extends Entity {
 	
 	public void update()
 	{
-		// Jump logic
 		if (isJumping) {
 			// Apply gravity
 			verticalVelocity += GRAVITY;
 
-			// Update position
-			worldy += verticalVelocity;
+			// Update player's position
+			playerY += verticalVelocity;
 
 			// Check if we've returned to the ground
-			if (worldy >= initialY) {
-				worldy = initialY; // Ensure we don't go below the ground
+			if (playerY >= initialY) {
+				playerY = initialY; // Ensure player doesn't go below the ground
 				isJumping = false;
 				verticalVelocity = 0;
 			}
@@ -93,12 +92,12 @@ public class Player extends Entity {
 			else if(key.rightPressed)
 			{
 				direction = PlayerDirection.run ;
-				worldx += speed;
+				playerX += speed;
 			}
 			else if(key.leftPressed)
 			{
 				direction = PlayerDirection.runback ;
-				worldx -= speed;
+				playerX -= speed;
 			}
 		} else {
 			direction = PlayerDirection.idle ;

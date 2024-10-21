@@ -32,8 +32,13 @@ public class TileManager {
 		//Loading the  tiles!
 		loadTiles = new Tile[3] ;//number  of tiles !
 		loadTiles[0] = getTileImage("/tiles/grass.png");
+		loadTiles[0].setCollision(false);
+
 		loadTiles[1] = getTileImage("/tiles/wall.png") ;
+		loadTiles[1].setCollision(true);
+
 		loadTiles[2] = getTileImage("/tiles/water.png");
+		loadTiles[2].setCollision(false);
 
 		//loading the map
 		mapTileNum = loadMap("/maps/world.txt", gp.maxWorldCol, gp.maxWorldRow) ;

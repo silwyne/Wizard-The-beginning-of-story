@@ -14,13 +14,12 @@ import nilian.main.KeyHandler;
  */
 public class Player extends Entity {
 
-	private final String playerName = "Player_1" ;
+	private final String playerName ;
 	private final Color playerNameColor ;
 	private final MovementHandler movementHandler ;
 
 	private final PlayerImages playerImages = new PlayerImages();
 	private final Random random = new Random();
-    private boolean isJumping = false;
 
 	public int playerX;
 	public int playerY;
@@ -28,13 +27,18 @@ public class Player extends Entity {
 	KeyHandler key;
 
 
-	public Player(GamePanel gamePanel, KeyHandler key)
+	public Player(GamePanel gamePanel, KeyHandler key, String playerName)
 	{
+		this.playerName = playerName ;
 		this.gamePanel = gamePanel;
 		this.key = key ;
 		playerX = gamePanel.screenHeight / 2 ;
 		playerY = gamePanel.screenHeight/2 ;
-		setDefaultValues() ;
+		// Set Default values
+		worldx = 256  ;
+		worldy = gamePanel.screenHeight / 2 ;
+		speed = 2 ;
+		direction = PlayerDirection.normal ;
 
         try {
 			//load player images
@@ -50,47 +54,16 @@ public class Player extends Entity {
 		this.movementHandler = new MovementHandler(this) ;
 	}
 
-
-	public void setDefaultValues()
-	{
-		worldx = 256  ; 
-		worldy = gamePanel.screenHeight / 2 ;
-		speed = 2 ;
-		direction = PlayerDirection.normal ;
-	}
-
-	private final double GRAVITY = 0.25; // Gravity strength
-	private double verticalVelocity = 0; // Current vertical velocity
-	private int initialY; // Store the initial Y position when jump starts
-
-
 	public void update()
 	{
-		if (isJumping) {
-			// Apply gravity
-			verticalVelocity += GRAVITY;
-
-			// Update player's position
-			movementHandler.movePlayer(playerX, (int) (playerY+verticalVelocity));
-
-			// Check if we've returned to the ground
-			if (playerY >= initialY) {
-				playerY = initialY; // Ensure player doesn't go below the ground
-				isJumping = false;
-				verticalVelocity = 0;
-			}
-		}
+		movementHandler.handleJump();
 		//Normal Moving process
 		if(key.upPressed || key.rightPressed || key.leftPressed)
 		{
 			if(key.upPressed)
 			{
 				direction = PlayerDirection.jump ;
-				if (!isJumping) {
-					isJumping = true;
-					verticalVelocity = -Math.sqrt(2 * GRAVITY * JUMP_HEIGHT); // Initial jump velocity
-					initialY = worldy; // Store the initial Y position
-				}
+				movementHandler.startJump();
 			}
 			else if(key.rightPressed)
 			{

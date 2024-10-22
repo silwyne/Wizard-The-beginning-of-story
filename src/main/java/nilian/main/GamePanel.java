@@ -27,7 +27,7 @@ public class GamePanel extends JPanel implements Runnable
 	public TileManager tileM = new TileManager(this) ;
 	KeyHandler keyH = new KeyHandler() ;	
 	Thread gameThread ;
-	public Player player = new Player(this , keyH) ;
+	public Player player = new Player(this , keyH, "!~player~!") ;
 	
 	
 	public final int maxWorldCol = maxScreenCol ;

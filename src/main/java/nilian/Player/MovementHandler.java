@@ -78,15 +78,16 @@ public class MovementHandler {
             int newY = (int) (player.playerY + verticalVelocity);
 
             // Attempt to move player
-            if (movePlayer(player.playerX, newY)) {
-                player.playerY = newY;
-            } else {
+            boolean moved = movePlayer(player.playerX, newY);
+
+            if (!moved) {
                 // Collision detected
                 if (verticalVelocity > 0) {
                     // We hit the ground
                     isJumping = false;
                     verticalVelocity = 0;
-                    player.playerY = alignToGround(newY);
+                    // Find the floor
+                    player.playerY = findFloor(player.playerY, newY);
                 } else {
                     // We hit a ceiling
                     verticalVelocity = 0;
@@ -108,6 +109,19 @@ public class MovementHandler {
             verticalVelocity = JUMP_FORCE;
             initialY = player.playerY;
         }
+    }
+
+    private int findFloor(int oldY, int newY) {
+        // Binary search to find the exact floor position
+        while (oldY < newY) {
+            int midY = (oldY + newY) / 2;
+            if (movePlayer(player.playerX, midY)) {
+                oldY = midY + 1;
+            } else {
+                newY = midY;
+            }
+        }
+        return oldY - 1;
     }
 
     private int alignToGround(int y) {

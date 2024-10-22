@@ -131,7 +131,7 @@ public class TileManager {
 		if (col >= 0 && col < gp.maxScreenCol && row >= 0 && row < gp.maxScreenRow) {
 			// Return the tile at the calculated position in the matrix
 			System.out.println("get tile : "+row+","+col);
-			return loadTiles[mapTileNum[row][col]];
+			return loadTiles[mapTileNum[col][row]];
 		} else {
 			// Return null if the coordinates are out of bounds
 			return null;

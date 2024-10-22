@@ -130,7 +130,6 @@ public class TileManager {
 		// Check if the calculated column and row are within the valid range
 		if (col >= 0 && col < gp.maxScreenCol && row >= 0 && row < gp.maxScreenRow) {
 			// Return the tile at the calculated position in the matrix
-			System.out.println("get tile : "+row+","+col);
 			return loadTiles[mapTileNum[col][row]];
 		} else {
 			// Return null if the coordinates are out of bounds

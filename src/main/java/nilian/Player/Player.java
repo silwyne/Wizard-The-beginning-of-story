@@ -16,7 +16,7 @@ public class Player extends Entity {
 
 	private final String playerName = "Player_1" ;
 	private final Color playerNameColor ;
-
+	private final MovementHandler movementHandler ;
 
 	private final PlayerImages playerImages = new PlayerImages();
 	private final Random random = new Random();
@@ -46,6 +46,8 @@ public class Player extends Entity {
         playerImages.separate() ;
 
 		playerNameColor = getRandomColor();
+		//movement handler
+		this.movementHandler = new MovementHandler(this) ;
 	}
 
 
@@ -61,7 +63,7 @@ public class Player extends Entity {
 	private double verticalVelocity = 0; // Current vertical velocity
 	private int initialY; // Store the initial Y position when jump starts
 
-	
+
 	public void update()
 	{
 		if (isJumping) {
@@ -69,9 +71,7 @@ public class Player extends Entity {
 			verticalVelocity += GRAVITY;
 
 			// Update player's position
-			if(!gamePanel.tileM.getTile(playerX, (int) (playerY+verticalVelocity)).collision) {
-				playerY += verticalVelocity;
-			}
+			movementHandler.movePlayer(playerX, (int) (playerY+verticalVelocity));
 
 			// Check if we've returned to the ground
 			if (playerY >= initialY) {
@@ -95,18 +95,12 @@ public class Player extends Entity {
 			else if(key.rightPressed)
 			{
 				direction = PlayerDirection.run ;
-				//if it is ok to move there
-				if(!gamePanel.tileM.getTile(playerX+speed, playerY).collision){
-					playerX += speed;
-				}
+				movementHandler.movePlayer(playerX + speed, playerY);
 			}
 			else if(key.leftPressed)
 			{
 				direction = PlayerDirection.runback ;
-				//if it is ok to move there
-				if(!gamePanel.tileM.getTile(playerX-speed, playerY).collision){
-					playerX -= speed;
-				}
+				movementHandler.movePlayer(playerX - speed, playerY);
 			}
 		} else {
 			direction = PlayerDirection.idle ;
@@ -206,7 +200,7 @@ public class Player extends Entity {
 		FontMetrics fm = g2.getFontMetrics();
 		int textWidth = fm.stringWidth(text);
 		int textX = playerX + (gamePanel.tileSize / 2) - (textWidth / 2); // Center the text above the player
-		int textY = playerY - 10; // 10 pixels above the player, adjust as needed
+		int textY = playerY - 2; // 2 pixels above the player, adjust as needed
 
 		// Draw the text
 		g2.drawString(text, textX, textY);

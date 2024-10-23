@@ -30,7 +30,7 @@ public class MovementHandler {
             player.playerX = dx;
             moved = true ;
         } else {
-            player.playerX = alignToGrid(player.playerX, dx);
+//            player.playerX = alignToGrid(player.playerX, dx);
         }
 
         // Check vertical movement
@@ -38,7 +38,7 @@ public class MovementHandler {
             player.playerY = dy;
             moved = true ;
         } else {
-            player.playerY = alignToGrid(player.playerY, dy);
+//            player.playerY = alignToGrid(player.playerY, dy);
         }
         return moved ;
     }

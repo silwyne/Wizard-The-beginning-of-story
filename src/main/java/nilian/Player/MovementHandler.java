@@ -46,12 +46,13 @@ public class MovementHandler {
     private boolean canMove(int x, int y) {
         int playerWidth = player.gamePanel.tileSize;
         int playerHeight = player.gamePanel.tileSize;
-        int pertValue = player.gamePanel.tileSize / 3 ;
+        int pertXValue = player.gamePanel.tileSize / 3;
+        int pertYValue = player.gamePanel.tileSize / 8;
         // Check all four corners of the player
         return checkCollision(x, y) &&
-                checkCollision(x + playerWidth - pertValue, y) &&
-                checkCollision(x, y + playerHeight - pertValue) &&
-                checkCollision(x + playerWidth - pertValue, y + playerHeight - pertValue);
+                checkCollision(x + playerWidth - pertXValue, y) &&
+                checkCollision(x, y + playerHeight - pertYValue) &&
+                checkCollision(x + playerWidth - pertXValue, y + playerHeight - pertYValue);
     }
 
     private boolean checkCollision(int x, int y) {

@@ -27,7 +27,7 @@ public class GamePanel extends JPanel implements Runnable
 	public TileManager tileM = new TileManager(this) ;
 	KeyHandler keyH = new KeyHandler() ;	
 	Thread gameThread ;
-	public Player player = new Player(this , keyH, "!~player~!") ;
+    public final Player player ;
 	
 	
 	public final int maxWorldCol = maxScreenCol ;
@@ -37,9 +37,10 @@ public class GamePanel extends JPanel implements Runnable
 	/**
 	 * This sets the main Settings of the JPanel
 	 */
-	public GamePanel()
+	public GamePanel(String plName)
 	{
-		
+        this.player = new Player(this , keyH, plName) ;
+
 		this.setPreferredSize(new Dimension(screenWidth , screenHeight)) ;
 		this.setBackground(Color.black) ;
 		this.setDoubleBuffered(true);

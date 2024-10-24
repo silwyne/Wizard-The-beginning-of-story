@@ -29,17 +29,14 @@ public class MovementHandler {
         if (canMove(dx, player.playerY)) {
             player.playerX = dx;
             moved = true ;
-        } else {
-//            player.playerX = alignToGrid(player.playerX, dx);
         }
 
         // Check vertical movement
         if (canMove(player.playerX, dy)) {
             player.playerY = dy;
             moved = true ;
-        } else {
-//            player.playerY = alignToGrid(player.playerY, dy);
         }
+
         return moved ;
     }
 
@@ -57,14 +54,6 @@ public class MovementHandler {
 
     private boolean checkCollision(int x, int y) {
         return !player.gamePanel.tileM.getTile(x, y).collision ;
-    }
-
-    private int alignToGrid(int position, int movement) {
-        if (movement > 0) {
-            return (position / player.gamePanel.tileSize) * player.gamePanel.tileSize;
-        } else {
-            return ((position / player.gamePanel.tileSize) + 1) * player.gamePanel.tileSize - 1;
-        }
     }
 
     public void handleJump() {
@@ -125,8 +114,6 @@ public class MovementHandler {
         return oldY - 1;
     }
 
-    private int alignToGround(int y) {
-        // Align to the top of the tile below the player
-        return (y / player.gamePanel.tileSize) * player.gamePanel.tileSize;
-    }
+
+
 }

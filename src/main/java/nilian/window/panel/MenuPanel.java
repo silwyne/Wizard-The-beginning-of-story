@@ -75,12 +75,12 @@ public class MenuPanel extends JPanel {
         // Apply the custom font
         label.setFont(customFont);
         // Set foreground color
-        label.setForeground(new Color(0, 255, 102));
+        label.setForeground(new Color(255, 222, 0));
         // Add a subtle shadow effect
         label.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createEmptyBorder(2, 2, 2, 2),
                 BorderFactory.createCompoundBorder(
-                        BorderFactory.createLineBorder(new Color(200, 200, 200)),
+                        BorderFactory.createLineBorder(new Color(255, 0, 0)),
                         BorderFactory.createEmptyBorder(5, 10, 5, 10)
                 )
         ));

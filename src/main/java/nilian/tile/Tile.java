@@ -5,11 +5,11 @@ import java.awt.image.BufferedImage;
 public class Tile 
 {
 	public BufferedImage image ;
-	public boolean collision = false ;
+	public boolean moveable = true ;
 
 	public Tile() {}
 
-	public void setCollision(boolean collision) {
-		this.collision = collision;
+	public void setMoveable(boolean moveable) {
+		this.moveable = moveable;
 	}
 }

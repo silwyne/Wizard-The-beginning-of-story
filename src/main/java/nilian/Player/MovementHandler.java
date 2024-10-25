@@ -7,12 +7,12 @@ public class MovementHandler {
     private static final double GRAVITY = 0.6;
     private static final double JUMP_FORCE = -10; // Negative because y-axis is inverted in most game coordinate systems
     private static final double MAX_FALL_SPEED = 10;
-    private boolean isJumping = false;
+    public boolean isJumping = false;
     private double verticalVelocity = 0; // Current vertical velocity
     private int initialY; // Store the initial Y position when jump starts
 
     public MovementHandler(Player player) {
-        this.player = player ;
+        this.player = player;
     }
 
 
@@ -46,14 +46,14 @@ public class MovementHandler {
         int pertXValue = player.gamePanel.tileSize / 3;
         int pertYValue = player.gamePanel.tileSize / 8;
         // Check all four corners of the player
-        return checkCollision(x, y) &&
-                checkCollision(x + playerWidth - pertXValue, y) &&
-                checkCollision(x, y + playerHeight - pertYValue) &&
-                checkCollision(x + playerWidth - pertXValue, y + playerHeight - pertYValue);
+        return checkMoveable(x, y) &&
+                checkMoveable(x + playerWidth - pertXValue, y) &&
+                checkMoveable(x, y + playerHeight - pertYValue) &&
+                checkMoveable(x + playerWidth - pertXValue, y + playerHeight - pertYValue);
     }
 
-    private boolean checkCollision(int x, int y) {
-        return !player.gamePanel.tileM.getTile(x, y).collision ;
+    private boolean checkMoveable(int x, int y) {
+        return player.gamePanel.tileM.getTile(x, y).moveable ;
     }
 
     public void handleJump() {

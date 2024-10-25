@@ -75,13 +75,19 @@ public class Player extends Entity {
 				direction = PlayerDirection.runback ;
 				movementHandler.movePlayer(playerX - speed, playerY);
 			}
-		} else {
-			direction = PlayerDirection.idle ;
+		}
+		else if(movementHandler.isJumping) {// if player is on jump !
+			direction = PlayerDirection.jump ;
+
+		}
+		else {
+		direction = PlayerDirection.idle ;
+
 		}
 		sprite() ;
 	}
 	
-	
+
 	public int spriteIdle = 0 ;
 	public int spriteJump = 0 ;
 	public int spriteRun = 0 ;

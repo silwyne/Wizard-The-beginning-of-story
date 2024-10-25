@@ -1,30 +1,38 @@
 package nilian.window;
 
 import nilian.main.GamePanel;
-import nilian.mode.GameMode;
 
 import javax.swing.*;
 import java.util.Properties;
 
 public class GameWindow {
 
-    static JFrame gameWindow;
+    private static JFrame gameWindow;
+    private static GamePanel gamePanel ;
 
 
-    public static void show(Properties props) {
-        gameWindow = new JFrame() ;
+    public static void show(Properties props){
+
+        gameWindow = new JFrame();
         gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameWindow.setResizable(false);
-        gameWindow.setTitle("Wizard: The Beginning Of Story");
+        gameWindow.setTitle(WindowEntity.WINDOW_TITLE);
 
-        GamePanel gamePanel = new GamePanel(props.getProperty("player.name")) ;
-        gameWindow.add(gamePanel) ;
+        gamePanel = new GamePanel(props);
+
+        gameWindow.add(gamePanel);
         gameWindow.pack();
         gameWindow.setLocationRelativeTo(null);
-
-        //This is for finally making the game full screen
-//        gameWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
         gameWindow.setVisible(true);
+
         gamePanel.startGameThread();
+    }
+
+    public static void dispose() {
+        gameWindow.dispose();
+    }
+
+    public static GamePanel getGamePanel() {
+        return gamePanel;
     }
 }

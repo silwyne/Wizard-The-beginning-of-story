@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.Properties;
 
 import javax.swing.JPanel;
 import nilian.Player.Player;
@@ -37,9 +38,9 @@ public class GamePanel extends JPanel implements Runnable
 	/**
 	 * This sets the main Settings of the JPanel
 	 */
-	public GamePanel(String plName)
+	public GamePanel(Properties props)
 	{
-        this.player = new Player(this , keyH, plName) ;
+        this.player = new Player(this , keyH, props.getProperty("player.name")) ;
 
 		this.setPreferredSize(new Dimension(screenWidth , screenHeight)) ;
 		this.setBackground(Color.black) ;

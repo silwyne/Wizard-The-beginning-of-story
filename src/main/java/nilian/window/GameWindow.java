@@ -4,19 +4,20 @@ import nilian.main.GamePanel;
 import nilian.mode.GameMode;
 
 import javax.swing.*;
+import java.util.Properties;
 
 public class GameWindow {
 
     static JFrame gameWindow;
 
 
-    public static void show(String playerName, GameMode gameMode) {
+    public static void show(Properties props) {
         gameWindow = new JFrame() ;
         gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameWindow.setResizable(false);
         gameWindow.setTitle("Wizard: The Beginning Of Story");
 
-        GamePanel gamePanel = new GamePanel(playerName) ;
+        GamePanel gamePanel = new GamePanel(props.getProperty("player.name")) ;
         gameWindow.add(gamePanel) ;
         gameWindow.pack();
         gameWindow.setLocationRelativeTo(null);

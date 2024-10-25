@@ -5,6 +5,7 @@ import nilian.mode.GameMode;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
+import java.util.Properties;
 
 public class MainWindow {
 
@@ -41,10 +42,15 @@ public class MainWindow {
         // play button
         playB = new JButton("Play");
         playB.addActionListener((i) -> {
-                String playerName = playerNameF.getText();
-                GameMode gameSelectedMode = (GameMode) gameMode.getSelectedItem();
-                GameWindow.show(playerName, gameSelectedMode);
-                mainWindow.dispose();
+
+            // preparing the properties
+            Properties props = new Properties();
+            props.setProperty("player.name", playerNameF.getText());
+            props.setProperty("game.mode", Objects.requireNonNull(gameMode.getSelectedItem()).toString());
+
+            GameWindow.show(props);
+
+            mainWindow.dispose();
             });
         gbc.gridy = 2;
         panel.add(playB, gbc);

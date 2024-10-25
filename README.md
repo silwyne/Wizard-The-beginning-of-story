@@ -1,5 +1,7 @@
 # Wizard-The-beginning-of-story
 
+[project state : in work!]
+
 This is a game written in java. Which is going to be a combat game!
 Mainly to play with other human on socket!
 

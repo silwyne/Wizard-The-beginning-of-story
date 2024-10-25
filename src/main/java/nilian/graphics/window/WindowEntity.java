@@ -1,4 +1,4 @@
-package nilian.window;
+package nilian.graphics.window;
 
 public abstract class WindowEntity {
 

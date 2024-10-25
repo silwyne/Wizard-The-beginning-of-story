@@ -1,6 +1,6 @@
 package nilian;
 
-import nilian.window.MainWindow;
+import nilian.graphics.window.MainWindow;
 
 public class Main {
     public static void main(String[] args) {

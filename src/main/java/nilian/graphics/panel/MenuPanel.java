@@ -1,4 +1,4 @@
-package nilian.window.panel;
+package nilian.graphics.panel;
 
 import javax.swing.*;
 import java.awt.*;

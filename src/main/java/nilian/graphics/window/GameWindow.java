@@ -1,4 +1,4 @@
-package nilian.window;
+package nilian.graphics.window;
 
 import nilian.main.GamePanel;
 import nilian.mode.GameMode;

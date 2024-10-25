@@ -3,10 +3,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.swing.JPanel;
 import nilian.Player.Player;
+import nilian.mode.GameMode;
 import nilian.tile.TileManager;
 
 /**
@@ -29,7 +32,9 @@ public class GamePanel extends JPanel implements Runnable
 	KeyHandler keyH = new KeyHandler() ;	
 	Thread gameThread ;
     public final Player player ;
-	
+    public final GameMode gameMode ;
+
+	private final List<Player> otherConnectedPlayers = new ArrayList<>();
 	
 	public final int maxWorldCol = maxScreenCol ;
 	public final int maxWorldRow = maxScreenRow ;
@@ -38,8 +43,9 @@ public class GamePanel extends JPanel implements Runnable
 	/**
 	 * This sets the main Settings of the JPanel
 	 */
-	public GamePanel(Properties props)
+	public GamePanel(GameMode gameMode, Properties props)
 	{
+		this.gameMode = gameMode ;
         this.player = new Player(this , keyH, props.getProperty("player.name")) ;
 
 		this.setPreferredSize(new Dimension(screenWidth , screenHeight)) ;

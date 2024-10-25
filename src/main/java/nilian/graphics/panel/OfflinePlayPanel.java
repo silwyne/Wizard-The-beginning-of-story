@@ -1,10 +1,9 @@
-package nilian.window.panel;
+package nilian.graphics.panel;
 
-import nilian.main.GamePanel;
 import nilian.mode.GameMode;
-import nilian.window.GameWindow;
-import nilian.window.MainWindow;
-import nilian.window.WindowEntity;
+import nilian.graphics.window.GameWindow;
+import nilian.graphics.window.MainWindow;
+import nilian.graphics.window.WindowEntity;
 
 import javax.swing.*;
 import java.awt.*;

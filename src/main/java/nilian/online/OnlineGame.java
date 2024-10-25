@@ -1,5 +1,7 @@
 package nilian.online;
 
+import java.util.Properties;
+
 /**
  * Handles all sending and other stuff!
  * Like when other players move or do something this handles the change in game.
@@ -8,9 +10,11 @@ package nilian.online;
  */
 public class OnlineGame {
 
-    OnlineMode onlineMode;
+    private final OnlineMode onlineMode;
+    private final Properties props;
 
-    public OnlineGame(OnlineMode onlineMode) {
+    public OnlineGame(OnlineMode onlineMode, Properties props) {
         this.onlineMode = onlineMode;
+        this.props = props;
     }
 }

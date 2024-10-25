@@ -1,6 +1,6 @@
-package nilian.window;
+package nilian.graphics.window;
 
-import nilian.window.panel.OfflinePlayPanel;
+import nilian.graphics.panel.OfflinePlayPanel;
 
 import javax.swing.*;
 import java.awt.*;

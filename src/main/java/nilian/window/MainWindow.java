@@ -4,8 +4,6 @@ import nilian.mode.GameMode;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class MainWindow {
@@ -42,15 +40,12 @@ public class MainWindow {
 
         // play button
         playB = new JButton("Play");
-        playB.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        playB.addActionListener((i) -> {
                 String playerName = playerNameF.getText();
                 GameMode gameSelectedMode = (GameMode) gameMode.getSelectedItem();
                 GameWindow.show(playerName, gameSelectedMode);
                 mainWindow.dispose();
-            }
-        });
+            });
         gbc.gridy = 2;
         panel.add(playB, gbc);
 
@@ -61,10 +56,10 @@ public class MainWindow {
     }
 
     static class BackPanel extends JPanel {
-        private Image backgroundImage;
+        private static Image backgroundImage;
 
         public BackPanel(String fileName) {
-            backgroundImage = new ImageIcon(getClass().getResource(fileName)).getImage();
+            backgroundImage = new ImageIcon(Objects.requireNonNull(getClass().getResource(fileName))).getImage();
         }
 
         @Override

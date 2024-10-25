@@ -1,9 +1,14 @@
 package nilian.window.panel;
 
+import nilian.mode.GameMode;
+import nilian.online.OnlineGame;
+import nilian.online.OnlineMode;
+import nilian.window.GameWindow;
 import nilian.window.MainWindow;
 import nilian.window.WindowEntity;
 import javax.swing.*;
 import java.awt.*;
+import java.util.Properties;
 
 public class OnlinePlayPanel extends MenuPanel{
 
@@ -16,6 +21,7 @@ public class OnlinePlayPanel extends MenuPanel{
     private static JButton goBackButton;
 
     private static MenuPanel resultPanel;
+    private static OnlineGame onlineGame;
 
     public OnlinePlayPanel(String fileName) {
         super(fileName);
@@ -92,16 +98,30 @@ public class OnlinePlayPanel extends MenuPanel{
     }
 
     private static void hostServer() {
-        // TODO: Implement host server functionality
-        JOptionPane.showMessageDialog(MainWindow.getMenuWindow(), "hosting server logic is not implemented !");
+        Properties props = getSelectedProps();
+        onlineGame = new OnlineGame(OnlineMode.host, props);
+        MainWindow.dispose();
+        GameWindow.show(GameMode.online, props);
     }
 
     private static void joinServer() {
-        // TODO: Implement join server functionality
-        JOptionPane.showMessageDialog(MainWindow.getMenuWindow(), "joining server logic is not implemented !");
+        Properties props = getSelectedProps();
+        onlineGame = new OnlineGame(OnlineMode.joiner, props);
+        MainWindow.dispose();
+        GameWindow.show(GameMode.online, props);
     }
 
     private static void goBack() {
         MainWindow.switchPanel(OfflinePlayPanel.getPanel());
+    }
+
+    private static Properties getSelectedProps(){
+        Properties props = new Properties();
+        props.setProperty("server.ip", serverIpField.getText());
+        props.setProperty("server.port", serverPortField.getText());
+        props.setProperty("server.password", passwordField.getText());
+        props.setProperty("player.name", playerNameField.getText());
+
+        return props;
     }
 }

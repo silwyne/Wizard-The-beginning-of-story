@@ -1,6 +1,7 @@
 package nilian.window.panel;
 
 import nilian.main.GamePanel;
+import nilian.mode.GameMode;
 import nilian.window.GameWindow;
 import nilian.window.MainWindow;
 import nilian.window.WindowEntity;
@@ -58,7 +59,7 @@ public class OfflinePlayPanel extends MenuPanel{
         props.setProperty("player.name", playerNameF.getText());
 
         MainWindow.dispose();
-        GameWindow.show(props);
+        GameWindow.show(GameMode.offline, props);
     }
 
 

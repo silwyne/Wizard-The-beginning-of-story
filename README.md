@@ -8,4 +8,4 @@ Mainly to play with other human on socket!
 
 ## Pictures
 - step 1
-![Alt text](images/step_1.png)
+![game picture](images/step_1.png)

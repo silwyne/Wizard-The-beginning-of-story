@@ -14,9 +14,9 @@ import nilian.main.KeyHandler;
  */
 public class Player extends Entity {
 
-	private final String playerName ;
-	private final Color playerNameColor ;
-	private final MovementHandler movementHandler ;
+	private final String playerName;
+	private final Color playerNameColor;
+	private final MovementHandler movementHandler;
 
 	private final PlayerImages playerImages = new PlayerImages();
 	private final Random random = new Random();
@@ -29,29 +29,29 @@ public class Player extends Entity {
 
 	public Player(GamePanel gamePanel, KeyHandler key, String playerName)
 	{
-		this.playerName = playerName ;
+		this.playerName = playerName;
 		this.gamePanel = gamePanel;
 		this.key = key ;
-		playerX = gamePanel.screenHeight / 2 ;
-		playerY = gamePanel.screenHeight/2 ;
+		playerX = gamePanel.screenHeight / 2;
+		playerY = gamePanel.screenHeight / 2;
 		// Set Default values
-		worldx = 256  ;
-		worldy = gamePanel.screenHeight / 2 ;
-		speed = 2 ;
-		direction = PlayerDirection.normal ;
+		worldx = 256;
+		worldy = gamePanel.screenHeight / 2;
+		speed = 2;
+		direction = PlayerDirection.normal;
 
         try {
 			//load player images
-            playerImages.getImages() ;
+            playerImages.getImages();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 		//cutting images into image arrays
-        playerImages.separate() ;
+        playerImages.separate();
 
 		playerNameColor = getRandomColor();
 		//movement handler
-		this.movementHandler = new MovementHandler(this) ;
+		this.movementHandler = new MovementHandler(this);
 	}
 
 	public void update()
@@ -62,29 +62,29 @@ public class Player extends Entity {
 		{
 			if(key.upPressed)
 			{
-				direction = PlayerDirection.jump ;
+				direction = PlayerDirection.jump;
 				movementHandler.startJump();
 			}
 			else if(key.rightPressed)
 			{
-				direction = PlayerDirection.run ;
+				direction = PlayerDirection.run;
 				movementHandler.movePlayer(playerX + speed, playerY);
 			}
 			else if(key.leftPressed)
 			{
-				direction = PlayerDirection.runback ;
+				direction = PlayerDirection.runback;
 				movementHandler.movePlayer(playerX - speed, playerY);
 			}
 		}
 		else if(movementHandler.isJumping) {// if player is on jump !
-			direction = PlayerDirection.jump ;
+			direction = PlayerDirection.jump;
 
 		}
 		else {
-		direction = PlayerDirection.idle ;
+		direction = PlayerDirection.idle;
 
 		}
-		sprite() ;
+		sprite();
 	}
 	
 

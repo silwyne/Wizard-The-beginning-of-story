@@ -1,4 +1,4 @@
-package nilian.online.host;
+package nilian.online.connector.host;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -11,16 +11,25 @@ public class GameServer {
     private ServerSocket serverSocket;
 
 
-    public GameServer(int serverPort) throws IOException {
+    public GameServer(int serverPort) {
         this.serverPort = serverPort;
-        this.serverSocket = new ServerSocket(serverPort);
+        try {
+            this.serverSocket = new ServerSocket(serverPort);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
-    public void startServer() throws IOException {
+    public void startServer() {
         while(true) {
             // wait for new connection
-            Socket clientSocket = serverSocket.accept();
+            Socket clientSocket = null;
+            try {
+                clientSocket = serverSocket.accept();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             // handling new connection
             ClientHandler clientHandler = new ClientHandler(clientSocket);
             Thread thread = new Thread(clientHandler);

@@ -98,6 +98,7 @@ public class OnlinePlayPanel extends MenuPanel{
     }
 
     private static void hostServer() {
+        // trying to make the server
         Properties props = getSelectedProps();
         onlineGame = new OnlineGame(OnlineMode.host, props);
         MainWindow.dispose();
@@ -105,6 +106,7 @@ public class OnlinePlayPanel extends MenuPanel{
     }
 
     private static void joinServer() {
+        // trying to join the server
         Properties props = getSelectedProps();
         onlineGame = new OnlineGame(OnlineMode.joiner, props);
         MainWindow.dispose();

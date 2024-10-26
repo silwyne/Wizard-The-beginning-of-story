@@ -1,4 +1,5 @@
-package nilian.online.host;
+package nilian.online.connector.host;
+
 
 import java.io.*;
 import java.net.Socket;

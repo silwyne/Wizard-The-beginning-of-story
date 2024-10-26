@@ -13,10 +13,14 @@ public class GameServer {
 
     public GameServer(int serverPort) {
         this.serverPort = serverPort;
+        setServer();
+    }
+
+    public void setServer(){
         try {
             this.serverSocket = new ServerSocket(serverPort);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace(System.out);
         }
     }
 

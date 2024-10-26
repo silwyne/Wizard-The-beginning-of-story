@@ -12,7 +12,7 @@ import java.util.Properties;
  *
  * @author seyed mohamad hasan tabatabaei
  */
-public class OnlineGame {
+public class InitialManager {
 
     private final OnlineMode onlineMode;
     private final Properties props;
@@ -20,7 +20,7 @@ public class OnlineGame {
     private Thread serverListener ;
     private GameClient gameClient;
 
-    public OnlineGame(OnlineMode onlineMode, Properties props) {
+    public InitialManager(OnlineMode onlineMode, Properties props) {
         // saving configurations
         this.onlineMode = onlineMode;
         this.props = props;
@@ -33,10 +33,6 @@ public class OnlineGame {
         if(onlineMode.equals(OnlineMode.host)) {
             // building up the server
             this.gameServer = new GameServer(Integer.parseInt(props.get("server.port").toString()));
-            // starting the server
-            serverListener = new Thread(this.gameServer::startServer);
-            serverListener.start();
-
         // handling Joiner Connection mode
         } else {
             // making the client to join the server
@@ -44,17 +40,30 @@ public class OnlineGame {
                     props.get("player.name").toString(),
                     props.get("server.ip").toString(),
                     Integer.parseInt(props.get("server.port").toString()));
-
-            // first try to connect
-            try {
-                this.gameClient.connect();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-            // starting client listener
-            // listen for incoming messages
-            this.gameClient.listenForMessage();
         }
+    }
+
+
+    public void startServer(){
+        // starting the server
+        serverListener = new Thread(this.gameServer::startServer);
+        serverListener.start();
+    }
+
+    public boolean connectToServer(){
+        // first try to connect
+        try {
+            this.gameClient.connect();
+            return true ;
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
+            return false;
+        }
+    }
+
+    public void startListeningToServer() {
+        // starting client listener
+        // listen for incoming messages
+        this.gameClient.listenForMessage();
     }
 }

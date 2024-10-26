@@ -56,7 +56,6 @@ public class OfflinePlayPanel extends MenuPanel{
         // preparing the properties
         Properties props = new Properties();
         props.setProperty("player.name", playerNameF.getText());
-
         MainWindow.dispose();
         GameWindow.show(GameMode.offline, props);
     }

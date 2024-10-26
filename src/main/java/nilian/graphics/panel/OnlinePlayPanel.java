@@ -1,7 +1,8 @@
 package nilian.graphics.panel;
 
+import nilian.graphics.window.LoadingView;
 import nilian.mode.GameMode;
-import nilian.online.OnlineGame;
+import nilian.online.InitialManager;
 import nilian.online.OnlineMode;
 import nilian.graphics.window.GameWindow;
 import nilian.graphics.window.MainWindow;
@@ -21,7 +22,7 @@ public class OnlinePlayPanel extends MenuPanel{
     private static JButton goBackButton;
 
     private static MenuPanel resultPanel;
-    private static OnlineGame onlineGame;
+    private static InitialManager initialManager;
 
     public OnlinePlayPanel(String fileName) {
         super(fileName);
@@ -100,7 +101,16 @@ public class OnlinePlayPanel extends MenuPanel{
     private static void hostServer() {
         // trying to make the server
         Properties props = getSelectedProps();
-        onlineGame = new OnlineGame(OnlineMode.host, props);
+
+        LoadingView loadingView = new LoadingView();
+        loadingView.show("Making server ...");
+        initialManager = new InitialManager(OnlineMode.host, props);
+
+        loadingView.changeMessage("starting the server ...");
+        initialManager.startServer();
+        loadingView.changeMessage("Server is up ;)");
+        loadingView.hide();
+
         MainWindow.dispose();
         GameWindow.show(GameMode.online, props);
     }
@@ -108,7 +118,22 @@ public class OnlinePlayPanel extends MenuPanel{
     private static void joinServer() {
         // trying to join the server
         Properties props = getSelectedProps();
-        onlineGame = new OnlineGame(OnlineMode.joiner, props);
+
+        LoadingView loadingView = new LoadingView();
+        loadingView.show("Making the Client ...");
+        initialManager = new InitialManager(OnlineMode.joiner, props);
+        loadingView.changeMessage("Joining to server "+props.get("server.ip")+":"+props.get("server.port")+" ...");
+        boolean connected = initialManager.connectToServer();
+        if(connected) {
+            loadingView.changeMessage("Connected to server ;)");
+            loadingView.changeMessage("Start Listening to server ...");
+            initialManager.startListeningToServer();
+        } else {
+            loadingView.changeMessage("failed to connect to server ;)");
+        }
+        loadingView.changeMessage("Done !");
+        loadingView.hide();
+
         MainWindow.dispose();
         GameWindow.show(GameMode.online, props);
     }

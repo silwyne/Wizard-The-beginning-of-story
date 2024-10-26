@@ -19,7 +19,9 @@ public class GameServer {
 
     public void startServer() throws IOException {
         while(true) {
+            // wait for new connection
             Socket clientSocket = serverSocket.accept();
+            // handling new connection
             ClientHandler clientHandler = new ClientHandler(clientSocket);
             Thread thread = new Thread(clientHandler);
             thread.start();

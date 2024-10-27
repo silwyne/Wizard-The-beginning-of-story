@@ -1,6 +1,6 @@
 package nilian.graphics.panel;
 
-import nilian.graphics.window.LoadingView;
+import nilian.graphics.window.LoadingWindow;
 import nilian.mode.GameMode;
 import nilian.online.InitialManager;
 import nilian.online.OnlineMode;
@@ -99,43 +99,89 @@ public class OnlinePlayPanel extends MenuPanel{
     }
 
     private static void hostServer() {
-        // trying to make the server
-        Properties props = getSelectedProps();
+        SwingUtilities.invokeLater(() -> {
+            Properties props = getSelectedProps();
+            JFrame parentFrame = MainWindow.getMenuWindow();
+            LoadingWindow loadingWindow = new LoadingWindow(parentFrame, "Making server ...");
+            loadingWindow.setVisible(true);
 
-        LoadingView loadingView = new LoadingView();
-        loadingView.show("Making server ...");
-        initialManager = new InitialManager(OnlineMode.host, props);
+            // Run the server setup in a background thread
+            new Thread(() -> {
+                try {
+                    // Short delay to show the "Server is up" message
+                    Thread.sleep(1000);
+                    initialManager = new InitialManager(OnlineMode.host, props);
+                    SwingUtilities.invokeLater(() -> loadingWindow.setMessage("Starting the server ..."));
+                    Thread.sleep(1000);
+                    initialManager.startServer();
+                    SwingUtilities.invokeLater(() -> loadingWindow.setMessage("Server is up ;)"));
+                    Thread.sleep(1000);
 
-        loadingView.changeMessage("starting the server ...");
-        initialManager.startServer();
-        loadingView.changeMessage("Server is up ;)");
-        loadingView.hide();
-
-        MainWindow.dispose();
-        GameWindow.show(GameMode.online, props);
+                    SwingUtilities.invokeLater(() -> {
+                        loadingWindow.dispose();
+                        MainWindow.dispose();
+                        GameWindow.show(GameMode.online, props);
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    SwingUtilities.invokeLater(() -> {
+                        JOptionPane.showMessageDialog(loadingWindow, "Error starting server: " + e.getMessage());
+                        loadingWindow.dispose();
+                    });
+                }
+            }).start();
+        });
     }
 
     private static void joinServer() {
-        // trying to join the server
-        Properties props = getSelectedProps();
+        SwingUtilities.invokeLater(() -> {
+            Properties props = getSelectedProps();
+            JFrame parentFrame = MainWindow.getMenuWindow();
+            LoadingWindow loadingWindow = new LoadingWindow(parentFrame, "Making the Client ...");
+            loadingWindow.setVisible(true);
 
-        LoadingView loadingView = new LoadingView();
-        loadingView.show("Making the Client ...");
-        initialManager = new InitialManager(OnlineMode.joiner, props);
-        loadingView.changeMessage("Joining to server "+props.get("server.ip")+":"+props.get("server.port")+" ...");
-        boolean connected = initialManager.connectToServer();
-        if(connected) {
-            loadingView.changeMessage("Connected to server ;)");
-            loadingView.changeMessage("Start Listening to server ...");
-            initialManager.startListeningToServer();
-        } else {
-            loadingView.changeMessage("failed to connect to server ;)");
-        }
-        loadingView.changeMessage("Done !");
-        loadingView.hide();
+            // Run the server setup in a background thread
+            new Thread(() -> {
+                try {
+                    // Short delay to show the "Server is up" message
+                    Thread.sleep(1000);
+                    initialManager = new InitialManager(OnlineMode.host, props);
+                    SwingUtilities.invokeLater(() -> {
+        loadingWindow.setMessage("Joining to server "+props.get("server.ip")+":"+props.get("server.port")+" ...");
+                            });
+                    Thread.sleep(1000);
 
-        MainWindow.dispose();
-        GameWindow.show(GameMode.online, props);
+                    boolean connected = initialManager.connectToServer();
+                    if(connected) {
+                        loadingWindow.setMessage("Connected to server ;)");
+                        Thread.sleep(1000);
+                        loadingWindow.setMessage("Start Listening to server ...");
+                        Thread.sleep(1000);
+                        initialManager.startListeningToServer();
+                        loadingWindow.setMessage("entering the game ...");
+                        Thread.sleep(1000);
+                        MainWindow.dispose();
+                        GameWindow.show(GameMode.online, props);
+                    } else {
+                        loadingWindow.setMessage("failed to connect to server ;)");
+                        Thread.sleep(1000);
+                    }
+                    loadingWindow.setMessage("Done !");
+                    Thread.sleep(1000);
+                    SwingUtilities.invokeLater(() -> {
+                        loadingWindow.dispose();
+                        MainWindow.dispose();
+                        GameWindow.show(GameMode.online, props);
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    SwingUtilities.invokeLater(() -> {
+                        JOptionPane.showMessageDialog(loadingWindow, "Error starting server: " + e.getMessage());
+                        loadingWindow.dispose();
+                    });
+                }
+            }).start();
+        });
     }
 
     private static void goBack() {
@@ -150,5 +196,13 @@ public class OnlinePlayPanel extends MenuPanel{
         props.setProperty("player.name", playerNameField.getText());
 
         return props;
+    }
+
+    private static void interrupt(){
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

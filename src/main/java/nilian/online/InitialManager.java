@@ -40,6 +40,8 @@ public class InitialManager {
                     props.get("player.name").toString(),
                     props.get("server.ip").toString(),
                     Integer.parseInt(props.get("server.port").toString()));
+
+            System.out.println("Made Client");
         }
     }
 

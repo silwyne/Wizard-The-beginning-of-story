@@ -145,7 +145,7 @@ public class OnlinePlayPanel extends MenuPanel{
                 try {
                     // Short delay to show the "Server is up" message
                     Thread.sleep(1000);
-                    initialManager = new InitialManager(OnlineMode.host, props);
+                    initialManager = new InitialManager(OnlineMode.joiner, props);
                     SwingUtilities.invokeLater(() -> {
         loadingWindow.setMessage("Joining to server "+props.get("server.ip")+":"+props.get("server.port")+" ...");
                             });
@@ -160,19 +160,17 @@ public class OnlinePlayPanel extends MenuPanel{
                         initialManager.startListeningToServer();
                         loadingWindow.setMessage("entering the game ...");
                         Thread.sleep(1000);
-                        MainWindow.dispose();
-                        GameWindow.show(GameMode.online, props);
+                        SwingUtilities.invokeLater(() -> {
+                            loadingWindow.dispose();
+                            MainWindow.dispose();
+                            GameWindow.show(GameMode.online, props);
+                        });
                     } else {
                         loadingWindow.setMessage("failed to connect to server ;)");
                         Thread.sleep(1000);
                     }
                     loadingWindow.setMessage("Done !");
                     Thread.sleep(1000);
-                    SwingUtilities.invokeLater(() -> {
-                        loadingWindow.dispose();
-                        MainWindow.dispose();
-                        GameWindow.show(GameMode.online, props);
-                    });
                 } catch (Exception e) {
                     e.printStackTrace();
                     SwingUtilities.invokeLater(() -> {

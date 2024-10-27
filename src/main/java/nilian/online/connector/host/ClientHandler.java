@@ -1,6 +1,7 @@
 package nilian.online.connector.host;
 
 
+import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -36,11 +37,15 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
         String messageFromClient;
+        System.out.println("ClientHandler: waiting for new messages");
         while(socket.isConnected())
         {
             try {
                 messageFromClient = bufferedReader.readLine();
-                broadcastMessage(messageFromClient);
+                // printing the received message
+                System.out.println(messageFromClient);
+                // processing the message
+                processReceivedMessage(messageFromClient);
             }catch(IOException e)
             {
                 closeEverything();
@@ -48,6 +53,16 @@ public class ClientHandler implements Runnable {
             }
         }
     }
+
+    private void processReceivedMessage(String message) {
+        String[] arr = message.split(",");
+
+        if(arr[0].equals("INTRO")) {
+            // TODO: New Client Connected
+        }
+        broadcastMessage(message);
+    }
+
 
     /**
      * This broadCasts a message to all connected Clients!

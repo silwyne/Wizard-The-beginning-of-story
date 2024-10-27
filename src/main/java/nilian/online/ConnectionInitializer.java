@@ -28,6 +28,10 @@ public class ConnectionInitializer {
         setUp();
     }
 
+    /**
+     * Based on Joiner or Host mode you choose this sets up Objects needed
+     * GameClient or GameServer
+     */
     private void setUp() {
         // handling Server Connection mode
         if(onlineMode.equals(OnlineMode.host)) {
@@ -46,12 +50,19 @@ public class ConnectionInitializer {
     }
 
 
+    /**
+     * starts game server
+     */
     public void startServer(){
         // starting the server
         serverListener = new Thread(this.gameServer::startServer);
         serverListener.start();
     }
 
+    /**
+     * Connects the client to server if exists or is reachable
+     * @return true if connected
+     */
     public boolean connectToServer(){
         // first try to connect
         try {
@@ -63,9 +74,21 @@ public class ConnectionInitializer {
         }
     }
 
+    /**
+     * client starts listening to server messages
+     * This way client receives other clients messages
+     */
     public void startListeningToServer() {
         // starting client listener
         // listen for incoming messages
         this.gameClient.listenForMessage();
+    }
+
+    /**
+     * INTRODUCES the player to server by informing the username and userHash
+     */
+    public void introduceToServer() {
+        // introduces the player to server
+        this.gameClient.introduceToServer();
     }
 }

@@ -12,6 +12,7 @@ public class GameClient {
     private BufferedReader bufferedReader ;
     private BufferedWriter bufferedWriter;
     private final String username ;
+    private final int userHash ;
 
     private Thread listener;
 
@@ -20,7 +21,8 @@ public class GameClient {
         this.serverIP = serverIP;
         this.serverPort = serverPort;
 
-
+        // generate unique hash for user
+        userHash = ((String.valueOf(System.currentTimeMillis() * 100) + username).hashCode());
     }
 
     /**
@@ -33,7 +35,6 @@ public class GameClient {
         // getting reader and writer to server
         this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-
         System.out.println("Connected to server at " + serverIP + ":" + serverPort);
     }
 
@@ -64,9 +65,9 @@ public class GameClient {
     * Simply sends message to server.
     * @param message message string!
     */
-    public void sendMessage(String message) {
+    private void sendMessage(String message) {
         try {
-            bufferedWriter.write(username + ": " + message);
+            bufferedWriter.write(message);
             bufferedWriter.newLine();
             bufferedWriter.flush();
         } catch(Exception e) {
@@ -96,5 +97,12 @@ public class GameClient {
             }
         });
         listener.start();
+    }
+
+    public void introduceToServer() {
+        String introductionMessage =
+                "INTRO,"+ username+","+userHash;
+
+        sendMessage(introductionMessage);
     }
 }

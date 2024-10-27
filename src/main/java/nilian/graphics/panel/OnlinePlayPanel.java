@@ -154,7 +154,12 @@ public class OnlinePlayPanel extends MenuPanel{
                     boolean connected = connectionInitializer.connectToServer();
                     if(connected) {
                         loadingWindow.setMessage("Connected to server ;)");
+                        Thread.sleep(500);
+
+                        loadingWindow.setMessage("introduce player to server");
+                        connectionInitializer.introduceToServer();
                         Thread.sleep(1000);
+
                         loadingWindow.setMessage("Start Listening to server ...");
                         Thread.sleep(1000);
                         connectionInitializer.startListeningToServer();

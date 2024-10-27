@@ -98,41 +98,50 @@ public class OnlinePlayPanel extends MenuPanel{
         return textField;
     }
 
+    /**
+     * Does all the stuff needed to Create a Game server and then join it!
+     */
     private static void hostServer() {
         SwingUtilities.invokeLater(() -> {
             Properties props = getSelectedProps();
             JFrame parentFrame = MainWindow.getMenuWindow();
-            LoadingWindow loadingWindow = new LoadingWindow(parentFrame, "Making server ...");
+            LoadingWindow loadingWindow = new LoadingWindow(parentFrame, "Making the Server ...");
             loadingWindow.setVisible(true);
 
-            // Run the server setup in a background thread
             new Thread(() -> {
                 try {
-                    // Short delay to show the "Server is up" message
                     Thread.sleep(1000);
-                    connectionInitializer = new ConnectionInitializer(OnlineMode.host, props);
-                    SwingUtilities.invokeLater(() -> loadingWindow.setMessage("Starting the server ..."));
-                    Thread.sleep(1000);
-                    connectionInitializer.startServer();
-                    SwingUtilities.invokeLater(() -> loadingWindow.setMessage("Server is up ;)"));
-                    Thread.sleep(1000);
-
-                    SwingUtilities.invokeLater(() -> {
-                        loadingWindow.dispose();
-                        MainWindow.dispose();
-                        GameWindow.show(GameMode.online, props);
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    SwingUtilities.invokeLater(() -> {
-                        JOptionPane.showMessageDialog(loadingWindow, "Error starting server: " + e.getMessage());
-                        loadingWindow.dispose();
-                    });
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
+                connectionInitializer = new ConnectionInitializer(OnlineMode.host, props);
+
+                loadingWindow.setMessage("setting up the server ...");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                connectionInitializer.setUpServer();
+
+                loadingWindow.setMessage("setting up the client ...");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                connectionInitializer.setUpClient();
+                loadingWindow.dispose();
+
+                // Finally setting up the Game
+                setUpGame();
             }).start();
         });
     }
 
+    /**
+     * Does all the stuff needed to join the game server
+     */
     private static void joinServer() {
         SwingUtilities.invokeLater(() -> {
             Properties props = getSelectedProps();
@@ -140,57 +149,42 @@ public class OnlinePlayPanel extends MenuPanel{
             LoadingWindow loadingWindow = new LoadingWindow(parentFrame, "Making the Client ...");
             loadingWindow.setVisible(true);
 
-            // Run the server setup in a background thread
             new Thread(() -> {
+
                 try {
-                    // Short delay to show the "Server is up" message
                     Thread.sleep(1000);
-                    connectionInitializer = new ConnectionInitializer(OnlineMode.joiner, props);
-                    SwingUtilities.invokeLater(() -> {
-        loadingWindow.setMessage("Joining to server "+props.get("server.ip")+":"+props.get("server.port")+" ...");
-                            });
-                    Thread.sleep(1000);
-
-                    boolean connected = connectionInitializer.connectToServer();
-                    if(connected) {
-                        loadingWindow.setMessage("Connected to server ;)");
-                        Thread.sleep(500);
-
-                        loadingWindow.setMessage("introduce player to server");
-                        connectionInitializer.introduceToServer();
-                        Thread.sleep(1000);
-
-                        loadingWindow.setMessage("Start Listening to server ...");
-                        Thread.sleep(1000);
-                        connectionInitializer.startListeningToServer();
-                        loadingWindow.setMessage("entering the game ...");
-                        Thread.sleep(1000);
-                        SwingUtilities.invokeLater(() -> {
-                            loadingWindow.dispose();
-                            MainWindow.dispose();
-                            GameWindow.show(GameMode.online, props);
-                        });
-                    } else {
-                        loadingWindow.setMessage("failed to connect to server ;)");
-                        Thread.sleep(1000);
-                    }
-                    loadingWindow.setMessage("Done !");
-                    Thread.sleep(1000);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    SwingUtilities.invokeLater(() -> {
-                        JOptionPane.showMessageDialog(loadingWindow, "Error starting server: " + e.getMessage());
-                        loadingWindow.dispose();
-                    });
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
+                connectionInitializer = new ConnectionInitializer(OnlineMode.joiner, props);
+
+                loadingWindow.setMessage("Setting up the client ...");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                connectionInitializer.setUpClient();
+                loadingWindow.dispose();
+
+                // Finally setting up the Game
+                setUpGame();
             }).start();
         });
     }
 
+
+    /**
+     * Button which goes back page in menu
+     */
     private static void goBack() {
         MainWindow.switchPanel(OfflinePlayPanel.getPanel());
     }
 
+    /**
+     * extracts all the information into a Properties.Object
+     * @return Server or Connection Properties
+     */
     private static Properties getSelectedProps(){
         Properties props = new Properties();
         props.setProperty("server.ip", serverIpField.getText());
@@ -201,11 +195,11 @@ public class OnlinePlayPanel extends MenuPanel{
         return props;
     }
 
-    private static void interrupt(){
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+    /**
+     * Goes into Game Window
+     */
+    private static void setUpGame() {
+        MainWindow.dispose();
+        GameWindow.show(GameMode.online, getSelectedProps());
     }
 }

@@ -25,70 +25,54 @@ public class ConnectionInitializer {
         this.onlineMode = onlineMode;
         this.props = props;
 
-        setUp();
+        initialSetUp();
     }
 
     /**
      * Based on Joiner or Host mode you choose this sets up Objects needed
      * GameClient or GameServer
      */
-    private void setUp() {
+    private void initialSetUp() {
         // handling Server Connection mode
         if(onlineMode.equals(OnlineMode.host)) {
             // building up the server
             this.gameServer = new GameServer(Integer.parseInt(props.get("server.port").toString()));
         // handling Joiner Connection mode
-        } else {
-            // making the client to join the server
-            this.gameClient = new GameClient(
-                    props.get("player.name").toString(),
-                    props.get("server.ip").toString(),
-                    Integer.parseInt(props.get("server.port").toString()));
-
-            System.out.println("Made Client");
         }
+        // making the client to join the server
+        this.gameClient = new GameClient(
+                props.get("player.name").toString(),
+                props.get("server.ip").toString(),
+                Integer.parseInt(props.get("server.port").toString()));
+
+        System.out.println("Made Client");
     }
 
 
-    /**
-     * starts game server
-     */
-    public void startServer(){
+    public void setUpServer() {
+        // step 1
         // starting the server
         serverListener = new Thread(this.gameServer::startServer);
         serverListener.start();
     }
 
-    /**
-     * Connects the client to server if exists or is reachable
-     * @return true if connected
-     */
-    public boolean connectToServer(){
-        // first try to connect
+    public void setUpClient() {
+        // first try to connect to server
+        boolean connected ;
         try {
             this.gameClient.connect();
-            return true ;
+            connected = true ;
         } catch (IOException e) {
             e.printStackTrace(System.out);
-            return false;
+            connected = false;
         }
-    }
 
-    /**
-     * client starts listening to server messages
-     * This way client receives other clients messages
-     */
-    public void startListeningToServer() {
-        // starting client listener
-        // listen for incoming messages
-        this.gameClient.listenForMessage();
-    }
-
-    /**
-     * INTRODUCES the player to server by informing the username and userHash
-     */
-    public void introduceToServer() {
-        // introduces the player to server
-        this.gameClient.introduceToServer();
+        if(connected) {
+            // starting client listener
+            // listen for incoming messages
+            this.gameClient.listenForMessage();
+            // introduces the player to server
+            this.gameClient.introduceToServer();
+        }
     }
 }

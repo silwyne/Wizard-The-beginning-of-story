@@ -1,7 +1,6 @@
 package nilian.online.connector.host;
 
 
-import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -14,6 +13,7 @@ public class ClientHandler implements Runnable {
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
     private String clientUsername ;
+    private String clientHashcode ;
 
     public ClientHandler(Socket socket)
     {
@@ -22,7 +22,10 @@ public class ClientHandler implements Runnable {
             this.socket = socket ;
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
             this.bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-            this.clientUsername = bufferedReader.readLine();
+            String introductionMessage = this.bufferedReader.readLine();
+            this.clientUsername = introductionMessage.split(",")[1];
+            this.clientHashcode = introductionMessage.split(",")[2];
+
             allOtherClients.add(this) ;
             broadcastMessage("SERVER: "+ clientUsername+" has entered the game!") ;
         } catch(IOException e) {
@@ -55,11 +58,9 @@ public class ClientHandler implements Runnable {
     }
 
     private void processReceivedMessage(String message) {
-        String[] arr = message.split(",");
-
-        if(arr[0].equals("INTRO")) {
-            // TODO: New Client Connected
-        }
+        // TODO: New Client Connected
+        // YOUR
+        //      LOGICS !!!
         broadcastMessage(message);
     }
 
@@ -74,11 +75,13 @@ public class ClientHandler implements Runnable {
         {
             try
             {
-                if(!client.clientUsername.equals(clientUsername))
-                {
-                    client.bufferedWriter.write(message);
-                    client.bufferedWriter.newLine();
-                    client.bufferedWriter.flush();
+                if(client != null){
+                    if(!client.clientHashcode.equals(clientHashcode))
+                    {
+                        client.bufferedWriter.write(message);
+                        client.bufferedWriter.newLine();
+                        client.bufferedWriter.flush();
+                    }
                 }
             }catch(IOException e)
             {

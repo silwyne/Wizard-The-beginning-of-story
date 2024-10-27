@@ -2,7 +2,7 @@ package nilian.graphics.panel;
 
 import nilian.graphics.window.LoadingWindow;
 import nilian.mode.GameMode;
-import nilian.online.InitialManager;
+import nilian.online.ConnectionInitializer;
 import nilian.online.OnlineMode;
 import nilian.graphics.window.GameWindow;
 import nilian.graphics.window.MainWindow;
@@ -22,7 +22,7 @@ public class OnlinePlayPanel extends MenuPanel{
     private static JButton goBackButton;
 
     private static MenuPanel resultPanel;
-    private static InitialManager initialManager;
+    private static ConnectionInitializer connectionInitializer;
 
     public OnlinePlayPanel(String fileName) {
         super(fileName);
@@ -110,10 +110,10 @@ public class OnlinePlayPanel extends MenuPanel{
                 try {
                     // Short delay to show the "Server is up" message
                     Thread.sleep(1000);
-                    initialManager = new InitialManager(OnlineMode.host, props);
+                    connectionInitializer = new ConnectionInitializer(OnlineMode.host, props);
                     SwingUtilities.invokeLater(() -> loadingWindow.setMessage("Starting the server ..."));
                     Thread.sleep(1000);
-                    initialManager.startServer();
+                    connectionInitializer.startServer();
                     SwingUtilities.invokeLater(() -> loadingWindow.setMessage("Server is up ;)"));
                     Thread.sleep(1000);
 
@@ -145,19 +145,19 @@ public class OnlinePlayPanel extends MenuPanel{
                 try {
                     // Short delay to show the "Server is up" message
                     Thread.sleep(1000);
-                    initialManager = new InitialManager(OnlineMode.joiner, props);
+                    connectionInitializer = new ConnectionInitializer(OnlineMode.joiner, props);
                     SwingUtilities.invokeLater(() -> {
         loadingWindow.setMessage("Joining to server "+props.get("server.ip")+":"+props.get("server.port")+" ...");
                             });
                     Thread.sleep(1000);
 
-                    boolean connected = initialManager.connectToServer();
+                    boolean connected = connectionInitializer.connectToServer();
                     if(connected) {
                         loadingWindow.setMessage("Connected to server ;)");
                         Thread.sleep(1000);
                         loadingWindow.setMessage("Start Listening to server ...");
                         Thread.sleep(1000);
-                        initialManager.startListeningToServer();
+                        connectionInitializer.startListeningToServer();
                         loadingWindow.setMessage("entering the game ...");
                         Thread.sleep(1000);
                         SwingUtilities.invokeLater(() -> {

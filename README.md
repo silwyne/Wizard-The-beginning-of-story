@@ -7,5 +7,11 @@ Mainly to play with other human on socket!
 
 
 ## Pictures
-- step 1
-![game picture](images/step_1.png)
+     Game
+![game picture](images/game_space.png)
+
+    main menu
+![main menu picture](images/main_menu.png)
+
+    online menu
+![main menu picture](images/online_menu.png)

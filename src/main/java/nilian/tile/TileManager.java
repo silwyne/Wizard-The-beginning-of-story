@@ -9,7 +9,7 @@ import java.util.Objects;
 
 import javax.imageio.ImageIO;
 
-import nilian.main.GamePanel;
+import nilian.graphics.panel.GamePanel;
 
 /**
  * Manages all the tiles and returns the Map matrix

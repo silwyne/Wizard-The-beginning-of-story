@@ -1,6 +1,6 @@
 package nilian.graphics.window;
 
-import nilian.main.GamePanel;
+import nilian.graphics.panel.GamePanel;
 import nilian.mode.GameMode;
 
 import javax.swing.*;

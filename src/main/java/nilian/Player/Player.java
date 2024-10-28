@@ -5,8 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
-import nilian.main.GamePanel;
-import nilian.main.KeyHandler;
+import nilian.graphics.panel.GamePanel;
+import nilian.input.KeyHandler;
 
 
 /**

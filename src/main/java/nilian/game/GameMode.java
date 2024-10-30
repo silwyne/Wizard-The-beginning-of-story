@@ -1,4 +1,4 @@
-package nilian.mains;
+package nilian.game;
 
 public enum GameMode {
     offline, online ;

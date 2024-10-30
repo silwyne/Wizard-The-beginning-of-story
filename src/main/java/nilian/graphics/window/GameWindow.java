@@ -1,8 +1,8 @@
 package nilian.graphics.window;
 
-import nilian.mains.OfflineGamePanel;
-import nilian.mains.GameMode;
-import nilian.mains.OnlineGamePanel;
+import nilian.game.panel.OfflineGamePanel;
+import nilian.game.GameMode;
+import nilian.game.panel.OnlineGamePanel;
 
 import javax.swing.*;
 import java.util.Properties;
@@ -24,7 +24,7 @@ public class GameWindow {
         } else {
             OnlineGamePanel onlinePanel = new OnlineGamePanel(props);
             gameWindow.add(onlinePanel);
-            // onlinePanel.startGameThread();
+            onlinePanel.startGameThread();
         }
 
         gameWindow.pack();

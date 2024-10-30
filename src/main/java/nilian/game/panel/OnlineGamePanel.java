@@ -1,4 +1,4 @@
-package nilian.mains;
+package nilian.game.panel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;

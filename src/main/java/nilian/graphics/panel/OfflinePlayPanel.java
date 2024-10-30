@@ -1,6 +1,6 @@
 package nilian.graphics.panel;
 
-import nilian.mains.GameMode;
+import nilian.game.GameMode;
 import nilian.graphics.window.GameWindow;
 import nilian.graphics.window.MainWindow;
 import nilian.graphics.window.WindowEntity;

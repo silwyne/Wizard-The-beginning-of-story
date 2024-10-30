@@ -1,7 +1,7 @@
 package nilian.graphics.panel;
 
 import nilian.graphics.window.LoadingWindow;
-import nilian.mains.GameMode;
+import nilian.game.GameMode;
 import nilian.online.ConnectionInitializer;
 import nilian.online.OnlineMode;
 import nilian.graphics.window.GameWindow;

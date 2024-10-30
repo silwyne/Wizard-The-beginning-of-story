@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
+import nilian.mains.GamePanel;
 import nilian.mains.OfflineGamePanel;
 import nilian.input.KeyHandler;
 
@@ -23,11 +24,11 @@ public class Player extends Entity {
 
 	public int playerX;
 	public int playerY;
-    OfflineGamePanel offlineGamePanel;
+	GamePanel offlineGamePanel;
 	KeyHandler key;
 
 
-	public Player(OfflineGamePanel offlineGamePanel, KeyHandler key, String playerName)
+	public Player(GamePanel offlineGamePanel, KeyHandler key, String playerName)
 	{
 		this.playerName = playerName;
 		this.offlineGamePanel = offlineGamePanel;

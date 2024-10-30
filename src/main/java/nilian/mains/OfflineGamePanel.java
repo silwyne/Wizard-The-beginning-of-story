@@ -14,15 +14,8 @@ import nilian.tile.TileManager;
  * The main Class of the Game
  * contains what ever you see
  */
-public class OfflineGamePanel extends JPanel implements Runnable
+public class OfflineGamePanel extends JPanel implements Runnable, GamePanel
 {
-	public final int originalTileSize = 16 ;
-	public final int scale = 3 ;
-	public final int tileSize = originalTileSize * scale ;//16 * 3 = 48 x48 tile
-	public final int maxScreenCol = 24 ;
-	public final int maxScreenRow = 14 ;
-	public final int screenWidth = tileSize * maxScreenCol ;//768 pixels
-	public final int screenHeight = tileSize * maxScreenRow ;//576 pixels
 	
 	private final int FPS = 60 ;
 	
@@ -30,9 +23,6 @@ public class OfflineGamePanel extends JPanel implements Runnable
 	KeyHandler keyH = new KeyHandler() ;
 	Thread gameThread ;
     public final Player player ;
-
-	public final int maxWorldCol = maxScreenCol ;
-	public final int maxWorldRow = maxScreenRow ;
 
 
 	/**
@@ -107,5 +97,10 @@ public class OfflineGamePanel extends JPanel implements Runnable
 		player.draw(g2) ;//--2
 		
 		g2.dispose() ;
+	}
+
+	@Override
+	public TileManager getTileManager() {
+		return tileM;
 	}
 }

@@ -53,7 +53,7 @@ public class MovementHandler {
     }
 
     private boolean checkMoveable(int x, int y) {
-        return player.offlineGamePanel.tileM.getTile(x, y).moveable ;
+        return player.offlineGamePanel.getTileManager().getTile(x, y).moveable ;
     }
 
     public void handleJump() {

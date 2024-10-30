@@ -9,13 +9,13 @@ import java.util.Objects;
 
 import javax.imageio.ImageIO;
 
-import nilian.mains.OfflineGamePanel;
+import nilian.mains.GamePanel;
 
 /**
  * Manages all the tiles and returns the Map matrix
  */
 public class TileManager {
-	OfflineGamePanel gp ;
+	GamePanel gp ;
 	Tile[] loadTiles;
 	int[][] mapTileNum ;
 
@@ -23,7 +23,7 @@ public class TileManager {
 	 * This handles all the Tiles and the map of the game
 	 * @param gp main GamePanel of the game
 	 */
-	public TileManager (OfflineGamePanel gp)
+	public TileManager (GamePanel gp)
 	{
 		this.gp = gp ;
 		

@@ -1,39 +1,36 @@
 package nilian.graphics.window;
 
-import nilian.graphics.panel.GamePanel;
-import nilian.mode.GameMode;
+import nilian.mains.OfflineGamePanel;
+import nilian.mains.GameMode;
+import nilian.mains.OnlineGamePanel;
 
 import javax.swing.*;
 import java.util.Properties;
 
 public class GameWindow {
 
-    private static JFrame gameWindow;
-    private static GamePanel gamePanel ;
-
 
     public static void show(GameMode gameMode, Properties props){
 
-        gameWindow = new JFrame();
+        JFrame gameWindow = new JFrame();
         gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameWindow.setResizable(false);
         gameWindow.setTitle(WindowEntity.WINDOW_TITLE);
 
-        gamePanel = new GamePanel(gameMode, props);
+        if(gameMode.equals(GameMode.offline)) {
+            OfflineGamePanel offlinePanel = new OfflineGamePanel(props);
+            gameWindow.add(offlinePanel);
+            offlinePanel.startGameThread();
+        } else {
+            OnlineGamePanel onlinePanel = new OnlineGamePanel(props);
+            gameWindow.add(onlinePanel);
+            // onlinePanel.startGameThread();
+        }
 
-        gameWindow.add(gamePanel);
         gameWindow.pack();
         gameWindow.setLocationRelativeTo(null);
         gameWindow.setVisible(true);
 
-        gamePanel.startGameThread();
     }
 
-    public static void dispose() {
-        gameWindow.dispose();
-    }
-
-    public static GamePanel getGamePanel() {
-        return gamePanel;
-    }
 }

@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
-import nilian.graphics.panel.GamePanel;
+import nilian.mains.OfflineGamePanel;
 import nilian.input.KeyHandler;
 
 
@@ -23,20 +23,20 @@ public class Player extends Entity {
 
 	public int playerX;
 	public int playerY;
-    GamePanel gamePanel;
+    OfflineGamePanel offlineGamePanel;
 	KeyHandler key;
 
 
-	public Player(GamePanel gamePanel, KeyHandler key, String playerName)
+	public Player(OfflineGamePanel offlineGamePanel, KeyHandler key, String playerName)
 	{
 		this.playerName = playerName;
-		this.gamePanel = gamePanel;
+		this.offlineGamePanel = offlineGamePanel;
 		this.key = key ;
-		playerX = gamePanel.screenHeight / 2;
-		playerY = gamePanel.screenHeight / 2;
+		playerX = offlineGamePanel.screenHeight / 2;
+		playerY = offlineGamePanel.screenHeight / 2;
 		// Set Default values
 		worldx = 256;
-		worldy = gamePanel.screenHeight / 2;
+		worldy = offlineGamePanel.screenHeight / 2;
 		speed = 2;
 		direction = PlayerDirection.normal;
 
@@ -166,7 +166,7 @@ public class Player extends Entity {
 			image = playerImages.runBackParts[spriteRun].image ;
 			break ;
 		}
-		g2.drawImage(image, playerX, playerY, gamePanel.tileSize, gamePanel.tileSize , null) ;
+		g2.drawImage(image, playerX, playerY, offlineGamePanel.tileSize, offlineGamePanel.tileSize , null) ;
 
 		// Set up the font and color for the text
 		g2.setFont(new Font("Arial", Font.BOLD, 12)); // Adjust font and size as needed
@@ -178,7 +178,7 @@ public class Player extends Entity {
 		// Calculate the position for the text
 		FontMetrics fm = g2.getFontMetrics();
 		int textWidth = fm.stringWidth(text);
-		int textX = playerX + (gamePanel.tileSize / 2) - (textWidth / 2); // Center the text above the player
+		int textX = playerX + (offlineGamePanel.tileSize / 2) - (textWidth / 2); // Center the text above the player
 		int textY = playerY - 2; // 2 pixels above the player, adjust as needed
 
 		// Draw the text

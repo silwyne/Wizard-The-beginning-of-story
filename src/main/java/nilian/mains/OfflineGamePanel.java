@@ -1,23 +1,20 @@
-package nilian.graphics.panel;
+package nilian.mains;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import javax.swing.JPanel;
 import nilian.Player.Player;
 import nilian.input.KeyHandler;
-import nilian.mode.GameMode;
 import nilian.tile.TileManager;
 
 /**
  * The main Class of the Game
  * contains what ever you see
  */
-public class GamePanel extends JPanel implements Runnable 
+public class OfflineGamePanel extends JPanel implements Runnable
 {
 	public final int originalTileSize = 16 ;
 	public final int scale = 3 ;
@@ -33,10 +30,7 @@ public class GamePanel extends JPanel implements Runnable
 	KeyHandler keyH = new KeyHandler() ;
 	Thread gameThread ;
     public final Player player ;
-    public final GameMode gameMode ;
 
-	private final List<Player> otherConnectedPlayers = new ArrayList<>();
-	
 	public final int maxWorldCol = maxScreenCol ;
 	public final int maxWorldRow = maxScreenRow ;
 
@@ -44,9 +38,8 @@ public class GamePanel extends JPanel implements Runnable
 	/**
 	 * This sets the main Settings of the JPanel
 	 */
-	public GamePanel(GameMode gameMode, Properties props)
+	public OfflineGamePanel(Properties props)
 	{
-		this.gameMode = gameMode ;
         this.player = new Player(this , keyH, props.getProperty("player.name")) ;
 
 		this.setPreferredSize(new Dimension(screenWidth , screenHeight)) ;
@@ -112,15 +105,6 @@ public class GamePanel extends JPanel implements Runnable
 		
 		//then player
 		player.draw(g2) ;//--2
-
-		// if game is online so draw other players
-		if(gameMode.equals(GameMode.online)) {
-			for(Player player: otherConnectedPlayers) {
-				if(player != null) {
-					player.draw(g2);
-				}
-			}
-		}
 		
 		g2.dispose() ;
 	}

@@ -41,10 +41,10 @@ public class MovementHandler {
     }
 
     private boolean canMove(int x, int y) {
-        int playerWidth = player.gamePanel.tileSize;
-        int playerHeight = player.gamePanel.tileSize;
-        int pertXValue = player.gamePanel.tileSize / 3;
-        int pertYValue = player.gamePanel.tileSize / 8;
+        int playerWidth = player.offlineGamePanel.tileSize;
+        int playerHeight = player.offlineGamePanel.tileSize;
+        int pertXValue = player.offlineGamePanel.tileSize / 3;
+        int pertYValue = player.offlineGamePanel.tileSize / 8;
         // Check all four corners of the player
         return checkMoveable(x, y) &&
                 checkMoveable(x + playerWidth - pertXValue, y) &&
@@ -53,7 +53,7 @@ public class MovementHandler {
     }
 
     private boolean checkMoveable(int x, int y) {
-        return player.gamePanel.tileM.getTile(x, y).moveable ;
+        return player.offlineGamePanel.tileM.getTile(x, y).moveable ;
     }
 
     public void handleJump() {

@@ -2,6 +2,7 @@ package nilian.game.panel;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.Properties;
 
 import nilian.online.connector.joiner.GameClient;
@@ -68,7 +69,7 @@ public class StoryModePanel extends GamePanel
 	{
 		super.paintComponent(g) ;
 		Graphics2D g2 = (Graphics2D) g ;
-		
+
 		//first tiles
 		super.getTileM().draw(g2);//--1
 		

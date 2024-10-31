@@ -9,13 +9,13 @@ import java.util.Objects;
 
 import javax.imageio.ImageIO;
 
-import nilian.game.panel.GameEntities;
+import nilian.game.panel.GamePanel;
 
 /**
  * Manages all the tiles and returns the Map matrix
  */
 public class TileManager {
-	GameEntities gp ;
+	GamePanel gp ;
 	Tile[] loadTiles;
 	int[][] mapTileNum ;
 
@@ -23,22 +23,22 @@ public class TileManager {
 	 * This handles all the Tiles and the map of the game
 	 * @param gp main GamePanel of the game
 	 */
-	public TileManager (GameEntities gp)
+	public TileManager (GamePanel gp)
 	{
 		this.gp = gp ;
 		
 		mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow] ;
 
 		//Loading the  tiles!
-		loadTiles = new Tile[3] ;//number  of tiles !
-		loadTiles[0] = getTileImage("/tiles/grass.png");
-		loadTiles[0].setMoveable(false);
+		loadTiles = new Tile[4] ;//number  of tiles !
+		loadTiles[1] = getTileImage("/tiles/grass.png");
+		loadTiles[1].setMoveable(false);
 
-		loadTiles[1] = getTileImage("/tiles/wall.png") ;
-		loadTiles[1].setMoveable(true);
-
-		loadTiles[2] = getTileImage("/tiles/water.png");
+		loadTiles[2] = getTileImage("/tiles/wall.png") ;
 		loadTiles[2].setMoveable(true);
+
+		loadTiles[3] = getTileImage("/tiles/water.png");
+		loadTiles[3].setMoveable(true);
 	}
 
 	/**
@@ -108,7 +108,9 @@ public class TileManager {
 			int screenY = worldRow * gp.tileSize;
 
 			// Draw all tiles that are within the screen bounds
-			if (screenX < gp.screenWidth && screenY < gp.screenHeight) {
+			if ( tileNum != 0 &&
+			screenX < gp.screenWidth &&
+			screenY < gp.screenHeight) {
 				g2.drawImage(loadTiles[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 			}
 

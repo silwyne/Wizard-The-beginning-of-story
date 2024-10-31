@@ -12,20 +12,30 @@ import java.util.Properties;
 /**
  * Main Game Class which handles rendering
  */
-public class GamePanel extends JPanel implements GameEntities, Runnable {
+public class GamePanel extends JPanel implements Runnable {
+
+    public int originalTileSize = 16 ;
+    public int scale = 3 ;
+    public int tileSize = originalTileSize * scale ;//16 * 3 = 48 x48 tile
+    public int maxScreenCol = 24 ;
+    public int maxScreenRow = 14 ;
+    public int screenWidth = tileSize * maxScreenCol ;//768 pixels
+    public int screenHeight = tileSize * maxScreenRow ;//576 pixels
+    public int maxWorldCol = maxScreenCol ;
+    public int maxWorldRow = maxScreenRow ;
+    public int FPS = 60 ;
 
     private TileManager tileM = new TileManager(this) ;
     private KeyHandler keyH = new KeyHandler() ;
     private Thread gameThread ;
     private Player player ;
-    private GameClient gameClient;
+    private final GameClient gameClient;
 
 
     public GamePanel(Properties props, GameClient gameClient) {
 
         this.player = new Player(this , this.keyH, props.getProperty("player.name"));
         this.gameClient = gameClient;
-
 
         this.setPreferredSize(new Dimension(screenWidth , screenHeight)) ;
         this.setBackground(Color.black) ;
@@ -73,5 +83,9 @@ public class GamePanel extends JPanel implements GameEntities, Runnable {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public GameClient getGameClient() {
+        return gameClient;
     }
 }

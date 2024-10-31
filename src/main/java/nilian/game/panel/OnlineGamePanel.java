@@ -8,6 +8,7 @@ import java.util.Properties;
 import javax.swing.JPanel;
 import nilian.Player.Player;
 import nilian.input.KeyHandler;
+import nilian.online.connector.joiner.GameClient;
 import nilian.tile.TileManager;
 
 /**
@@ -28,7 +29,7 @@ public class OnlineGamePanel extends JPanel implements Runnable, GamePanel
     /**
      * This sets the main Settings of the JPanel
      */
-    public OnlineGamePanel(Properties props)
+    public OnlineGamePanel(Properties props, GameClient gameClient)
     {
         this.player = new Player(this , keyH, props.getProperty("player.name")) ;
 

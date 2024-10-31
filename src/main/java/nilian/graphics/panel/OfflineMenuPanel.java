@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Properties;
 
-public class OfflinePlayPanel extends MenuPanel{
+public class OfflineMenuPanel extends MenuPanel{
 
     private static JTextField playerNameF;
     private static JButton playOnline;
@@ -17,7 +17,7 @@ public class OfflinePlayPanel extends MenuPanel{
 
     private static MenuPanel resultPanel;
 
-    public OfflinePlayPanel(String fileName) {
+    public OfflineMenuPanel(String fileName) {
         super(fileName);
     }
 
@@ -57,12 +57,12 @@ public class OfflinePlayPanel extends MenuPanel{
         Properties props = new Properties();
         props.setProperty("player.name", playerNameF.getText());
         MainWindow.dispose();
-        GameWindow.show(GameMode.offline, props);
+        GameWindow.show(GameMode.offline, props, null);
     }
 
 
     private static void playOnlineAction() {
-        MainWindow.switchPanel(OnlinePlayPanel.getPanel());
+        MainWindow.switchPanel(OnlineMenuPanel.getPanel());
     }
 
 

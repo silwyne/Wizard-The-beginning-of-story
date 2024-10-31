@@ -72,4 +72,8 @@ public class ConnectionInitializer {
         }
         return connected;
     }
+
+    public GameClient getGameClient(){
+        return gameClient;
+    }
 }

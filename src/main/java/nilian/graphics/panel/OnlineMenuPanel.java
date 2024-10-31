@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Properties;
 
-public class OnlinePlayPanel extends MenuPanel{
+public class OnlineMenuPanel extends MenuPanel{
 
     private static JTextField playerNameField;
     private static JTextField serverIpField;
@@ -24,7 +24,7 @@ public class OnlinePlayPanel extends MenuPanel{
     private static MenuPanel resultPanel;
     private static ConnectionInitializer connectionInitializer;
 
-    public OnlinePlayPanel(String fileName) {
+    public OnlineMenuPanel(String fileName) {
         super(fileName);
     }
 
@@ -209,7 +209,7 @@ public class OnlinePlayPanel extends MenuPanel{
      * Button which goes back page in menu
      */
     private static void goBack() {
-        MainWindow.switchPanel(OfflinePlayPanel.getPanel());
+        MainWindow.switchPanel(OfflineMenuPanel.getPanel());
     }
 
     /**
@@ -231,6 +231,6 @@ public class OnlinePlayPanel extends MenuPanel{
      */
     private static void setUpGame() {
         MainWindow.dispose();
-        GameWindow.show(GameMode.online, getSelectedProps());
+        GameWindow.show(GameMode.online, getSelectedProps(), connectionInitializer.getGameClient());
     }
 }

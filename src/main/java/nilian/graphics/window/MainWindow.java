@@ -1,6 +1,6 @@
 package nilian.graphics.window;
 
-import nilian.graphics.panel.OfflinePlayPanel;
+import nilian.graphics.panel.OfflineMenuPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +16,7 @@ public class MainWindow {
         menuWindow.setResizable(false);
         menuWindow.setTitle(WindowEntity.WINDOW_TITLE);
 
-        menuWindow.add(OfflinePlayPanel.getPanel());
+        menuWindow.add(OfflineMenuPanel.getPanel());
         menuWindow.pack();
         menuWindow.setLocationRelativeTo(null);
         menuWindow.setVisible(true);

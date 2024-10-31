@@ -2,6 +2,7 @@ package nilian.game.panel;
 
 import nilian.tile.TileManager;
 
+
 public interface GamePanel {
     int originalTileSize = 16 ;
     int scale = 3 ;

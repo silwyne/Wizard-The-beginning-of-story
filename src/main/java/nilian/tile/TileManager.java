@@ -9,13 +9,13 @@ import java.util.Objects;
 
 import javax.imageio.ImageIO;
 
-import nilian.game.panel.GamePanel;
+import nilian.game.panel.GameEntities;
 
 /**
  * Manages all the tiles and returns the Map matrix
  */
 public class TileManager {
-	GamePanel gp ;
+	GameEntities gp ;
 	Tile[] loadTiles;
 	int[][] mapTileNum ;
 
@@ -23,7 +23,7 @@ public class TileManager {
 	 * This handles all the Tiles and the map of the game
 	 * @param gp main GamePanel of the game
 	 */
-	public TileManager (GamePanel gp)
+	public TileManager (GameEntities gp)
 	{
 		this.gp = gp ;
 		
@@ -39,9 +39,6 @@ public class TileManager {
 
 		loadTiles[2] = getTileImage("/tiles/water.png");
 		loadTiles[2].setMoveable(true);
-
-		//loading the map
-		mapTileNum = loadMap("/maps/world.txt", gp.maxWorldCol, gp.maxWorldRow) ;
 	}
 
 	/**
@@ -82,6 +79,7 @@ public class TileManager {
 		}
 		return resultMatrix;
 	}
+
 	/**
 	 * Loads the Tile you want!
 	 * @param tilePath path to Tile image!
@@ -135,5 +133,9 @@ public class TileManager {
 			// Return null if the coordinates are out of bounds
 			return null;
 		}
+	}
+
+	public void setMap(int[][] map) {
+		this.mapTileNum = map;
 	}
 }

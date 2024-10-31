@@ -15,29 +15,23 @@ import nilian.tile.TileManager;
  * The main Class of the Game
  * contains what ever you see
  */
-public class OnlineGamePanel extends JPanel implements Runnable, GamePanel
+public class OnlineGamePanel extends GamePanel
 {
-
-    private final int FPS = 60 ;
-
-    public TileManager tileM = new TileManager(this) ;
-    KeyHandler keyH = new KeyHandler() ;
-    Thread gameThread ;
-    public final Player player ;
-
-
     /**
      * This sets the main Settings of the JPanel
      */
     public OnlineGamePanel(Properties props, GameClient gameClient)
     {
-        this.player = new Player(this , keyH, props.getProperty("player.name")) ;
+        super.setPlayer(new Player(this , super.getKeyH(), props.getProperty("player.name")));
 
         this.setPreferredSize(new Dimension(screenWidth , screenHeight)) ;
         this.setBackground(Color.black) ;
         this.setDoubleBuffered(true);
-        this.addKeyListener(keyH);
+        this.addKeyListener(super.getKeyH());
         this.setFocusable(true);
+
+        // load map
+        super.getTileM().setMap(super.getTileM().loadMap("/maps/world.txt", maxWorldCol, maxWorldRow));
     }
 
     /**
@@ -45,8 +39,8 @@ public class OnlineGamePanel extends JPanel implements Runnable, GamePanel
      */
     public void startGameThread()
     {
-        gameThread = new Thread(this) ;
-        gameThread.start();
+        super.setGameThread(new Thread(this));
+        super.getGameThread().start();
     }
 
     /**
@@ -60,7 +54,7 @@ public class OnlineGamePanel extends JPanel implements Runnable, GamePanel
         double delta = 0 ;
         long lastTime = System.nanoTime();
         long currentTime ;
-        while(gameThread != null)
+        while(super.getGameThread() != null)
         {
             currentTime = System.nanoTime() ;
             delta += (currentTime - lastTime) / drawInterval ;
@@ -77,7 +71,7 @@ public class OnlineGamePanel extends JPanel implements Runnable, GamePanel
      * Updates All details of the game
      */
     public void update() {
-        player.update();
+        super.getPlayer().update();
     }
 
     /**
@@ -90,18 +84,13 @@ public class OnlineGamePanel extends JPanel implements Runnable, GamePanel
         Graphics2D g2 = (Graphics2D) g ;
 
         //first tiles
-        tileM.draw(g2);//--1
+        super.getTileM().draw(g2);//--1
 
         //this way player comes above the background then you can see the player and background together
 
         //then player
-        player.draw(g2) ;//--2
+        super.getPlayer().draw(g2) ;//--2
 
         g2.dispose() ;
-    }
-
-    @Override
-    public TileManager getTileManager() {
-        return tileM;
     }
 }

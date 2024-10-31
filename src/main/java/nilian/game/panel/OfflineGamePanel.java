@@ -1,13 +1,9 @@
 package nilian.game.panel;
-import java.awt.Color;
-import java.awt.Dimension;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.Properties;
 
-import javax.swing.JPanel;
-import nilian.Player.Player;
-import nilian.input.KeyHandler;
 import nilian.online.connector.joiner.GameClient;
 import nilian.tile.TileManager;
 
@@ -22,16 +18,7 @@ public class OfflineGamePanel extends GamePanel
 	 */
 	public OfflineGamePanel(Properties props, GameClient gameClient)
 	{
-		super.setPlayer(new Player(this , super.getKeyH(), props.getProperty("player.name")));
-
-		this.setPreferredSize(new Dimension(screenWidth , screenHeight)) ;
-		this.setBackground(Color.black) ;
-		this.setDoubleBuffered(true);
-		this.addKeyListener(super.getKeyH());
-		this.setFocusable(true);
-
-		// load map
-		super.getTileM().setMap(super.getTileM().loadMap("/maps/world.txt", maxWorldCol, maxWorldRow));
+		super(props, gameClient);
 	}
 
 	/**
@@ -92,10 +79,6 @@ public class OfflineGamePanel extends GamePanel
 		super.getPlayer().draw(g2) ;//--2
 		
 		g2.dispose() ;
-	}
-
-	public TileManager getTileManager() {
-		return super.getTileM();
 	}
 
 }

@@ -35,10 +35,10 @@ public class TileManager {
 		loadTiles[0].setMoveable(true);
 
 		loadTiles[1] = getTileImage("/tiles/grass.png");
-		loadTiles[1].setMoveable(false);
+		loadTiles[1].setMoveable(true);
 
 		loadTiles[2] = getTileImage("/tiles/wall.png") ;
-		loadTiles[2].setMoveable(true);
+		loadTiles[2].setMoveable(false);
 
 		loadTiles[3] = getTileImage("/tiles/water.png");
 		loadTiles[3].setMoveable(true);

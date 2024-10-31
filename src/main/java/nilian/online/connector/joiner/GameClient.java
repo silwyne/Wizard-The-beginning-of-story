@@ -22,7 +22,7 @@ public class GameClient {
         this.serverPort = serverPort;
 
         // generate unique hash for user
-        userHash = ((String.valueOf(System.currentTimeMillis() * 100) + username).hashCode());
+        userHash = ((System.currentTimeMillis() * 100 + username).hashCode());
     }
 
     /**
@@ -65,7 +65,7 @@ public class GameClient {
     * Simply sends message to server.
     * @param message message string!
     */
-    private void sendMessage(String message) {
+    public void sendMessage(String message) {
         try {
             bufferedWriter.write(message);
             bufferedWriter.newLine();
@@ -80,9 +80,8 @@ public class GameClient {
      * Actually from server which broadcasts other client messages  to me!
      */
     public void listenForMessage() {
-        listener = new Thread(new Runnable() {
-            @Override
-            public void run() {
+        if(listener == null) {
+            listener = new Thread(() -> {
                 String incomingMessage ;
                 while(socket.isConnected())
                 {
@@ -94,9 +93,15 @@ public class GameClient {
                         closeEverything() ;
                     }
                 }
+            });
+            listener.start();
+        } else {
+            try {
+                throw new Exception("it is already listening for new messages");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-        });
-        listener.start();
+        }
     }
 
     public void introduceToServer() {

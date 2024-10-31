@@ -75,7 +75,7 @@ public class ClientHandler implements Runnable {
         {
             try
             {
-                if(client != null){
+                if(client != null && message != null) {
                     if(!client.clientHashcode.equals(clientHashcode))
                     {
                         client.bufferedWriter.write(message);

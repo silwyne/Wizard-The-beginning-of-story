@@ -12,7 +12,7 @@ import java.util.Properties;
  *
  * @author seyed mohamad hasan tabatabaei
  */
-public class ConnectionInitializer {
+public class ConnectionHandler {
 
     private final OnlineMode onlineMode;
     private final Properties props;
@@ -20,7 +20,7 @@ public class ConnectionInitializer {
     private Thread serverListener ;
     private GameClient gameClient;
 
-    public ConnectionInitializer(OnlineMode onlineMode, Properties props) {
+    public ConnectionHandler(OnlineMode onlineMode, Properties props) {
         // saving configurations
         this.onlineMode = onlineMode;
         this.props = props;

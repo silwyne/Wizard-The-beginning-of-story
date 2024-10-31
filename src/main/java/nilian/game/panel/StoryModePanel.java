@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.util.Properties;
 
 import nilian.online.connector.joiner.GameClient;
+import nilian.tile.BackGroundPic;
 
 /**
  * The main Class of the Game
@@ -18,6 +19,13 @@ public class StoryModePanel extends GamePanel implements Runnable
 	public StoryModePanel(Properties props, GameClient gameClient)
 	{
 		super(props, gameClient);
+		loadGraphics();
+	}
+
+	private void loadGraphics() {
+		// load map
+		super.getTileM().setMap(super.getTileM().loadMap("/maps/world.txt", maxWorldCol, maxWorldRow));
+		super.setBackGroundPic(new BackGroundPic(this, "/backgrounds/7.png")) ;
 	}
 
 	/**

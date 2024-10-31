@@ -2,7 +2,7 @@ package nilian.graphics.panel;
 
 import nilian.graphics.window.LoadingWindow;
 import nilian.game.GameMode;
-import nilian.online.ConnectionInitializer;
+import nilian.online.ConnectionHandler;
 import nilian.online.OnlineMode;
 import nilian.graphics.window.GameWindow;
 import nilian.graphics.window.MainWindow;
@@ -22,7 +22,7 @@ public class OnlineMenuPanel extends MenuPanel{
     private static JButton goBackButton;
 
     private static MenuPanel resultPanel;
-    private static ConnectionInitializer connectionInitializer;
+    private static ConnectionHandler connectionHandler;
 
     public OnlineMenuPanel(String fileName) {
         super(fileName);
@@ -114,7 +114,7 @@ public class OnlineMenuPanel extends MenuPanel{
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                connectionInitializer = new ConnectionInitializer(OnlineMode.host, props);
+                connectionHandler = new ConnectionHandler(OnlineMode.host, props);
 
                 loadingWindow.setMessage("setting up the server ...");
                 try {
@@ -122,7 +122,7 @@ public class OnlineMenuPanel extends MenuPanel{
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                connectionInitializer.setUpServer();
+                connectionHandler.setUpServer();
 
                 loadingWindow.setMessage("setting up the client ...");
                 try {
@@ -130,7 +130,7 @@ public class OnlineMenuPanel extends MenuPanel{
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                boolean connected = connectionInitializer.setUpClient();
+                boolean connected = connectionHandler.setUpClient();
                 if(connected) {
                     loadingWindow.setMessage("connected successfully ...");
                     try {
@@ -172,7 +172,7 @@ public class OnlineMenuPanel extends MenuPanel{
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                connectionInitializer = new ConnectionInitializer(OnlineMode.joiner, props);
+                connectionHandler = new ConnectionHandler(OnlineMode.joiner, props);
 
                 loadingWindow.setMessage("Setting up the client ...");
                 try {
@@ -180,7 +180,7 @@ public class OnlineMenuPanel extends MenuPanel{
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                boolean connected = connectionInitializer.setUpClient();
+                boolean connected = connectionHandler.setUpClient();
                 if(connected){
                     loadingWindow.setMessage("connected successfully ...");
                     try {
@@ -231,6 +231,6 @@ public class OnlineMenuPanel extends MenuPanel{
      */
     private static void setUpGame() {
         MainWindow.dispose();
-        GameWindow.show(GameMode.online, getSelectedProps(), connectionInitializer.getGameClient());
+        GameWindow.show(GameMode.online, getSelectedProps(), connectionHandler.getGameClient());
     }
 }

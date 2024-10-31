@@ -38,15 +38,11 @@ public class GamePanel extends JPanel {
 
         this.player = new Player(this , this.keyH, props.getProperty("player.name"));
         this.gameClient = gameClient;
-        this.backGroundPic = new BackGroundPic(this, "/backgrounds/7.png");
         this.setPreferredSize(new Dimension(screenWidth , screenHeight)) ;
         this.setBackground(Color.black) ;
         this.setDoubleBuffered(true);
         this.addKeyListener(this.keyH);
         this.setFocusable(true);
-
-        // load map
-        this.tileM.setMap(tileM.loadMap("/maps/world.txt", maxWorldCol, maxWorldRow));
     }
 
     public TileManager getTileM() {

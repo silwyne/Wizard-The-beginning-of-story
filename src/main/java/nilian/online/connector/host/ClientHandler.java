@@ -1,11 +1,15 @@
 package nilian.online.connector.host;
 
 
+import com.google.protobuf.Message;
+import nilian.online.connector.message.MessageListener;
+import nilian.online.connector.message.MessageProcessor;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class ClientHandler implements Runnable {
+public class ClientHandler {
 
     //List of Shared Connections between all Clients!
     public static ArrayList<ClientHandler> allOtherClients = new ArrayList<>();
@@ -13,88 +17,39 @@ public class ClientHandler implements Runnable {
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
     private String clientUsername ;
-    private String clientHashcode ;
+    public String clientHashcode ;
+    private MessageListener messageListener;
 
     public ClientHandler(Socket socket)
     {
-        try
-        {
-            this.socket = socket ;
-            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
-            this.bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-            String introductionMessage = this.bufferedReader.readLine();
-            this.clientUsername = introductionMessage.split(",")[1];
-            this.clientHashcode = introductionMessage.split(",")[2];
-
-            allOtherClients.add(this) ;
-            broadcastMessage("SERVER: "+ clientUsername+" has entered the game!") ;
-        } catch(IOException e) {
-            closeEverything();
-        }
+        this.socket = socket ;
+        allOtherClients.add(this) ;
+        clientHashcode = (System.currentTimeMillis() * 33)+"";
     }
 
+    public void startMessageListener() {
+        messageListener = new MessageListener(socket, new MessageProcessor() {
+            @Override
+            public void process(Message message) {
+                for(ClientHandler client : allOtherClients)
+                {
+                    if(client != null && message != null) {
+                        if(!client.clientHashcode.equals(clientHashcode))
+                        {
 
-    /**
-     * This runnable listens for clients messages and broadcasts them to other clients!
-     */
-    @Override
-    public void run() {
-        String messageFromClient;
-        System.out.println("ClientHandler: waiting for new messages");
-        while(socket.isConnected())
-        {
-            try {
-                messageFromClient = bufferedReader.readLine();
-                // printing the received message
-                System.out.println(messageFromClient);
-                // processing the message
-                processReceivedMessage(messageFromClient);
-            }catch(IOException e)
-            {
-                closeEverything();
-                break ;
-            }
-        }
-    }
-
-    private void processReceivedMessage(String message) {
-        // TODO: New Client Connected
-        // YOUR
-        //      LOGICS !!!
-        broadcastMessage(message);
-    }
-
-
-    /**
-     * This broadCasts a message to all connected Clients!
-     * @param message some nilian.client.client message to other Clients
-     */
-    public void broadcastMessage(String message)
-    {
-        for(ClientHandler client : allOtherClients)
-        {
-            try
-            {
-                if(client != null && message != null) {
-                    if(!client.clientHashcode.equals(clientHashcode))
-                    {
-                        client.bufferedWriter.write(message);
-                        client.bufferedWriter.newLine();
-                        client.bufferedWriter.flush();
+                        }
                     }
                 }
-            }catch(IOException e)
-            {
-                closeEverything() ;
             }
-        }
+        });
+        messageListener.start();
     }
 
 
     public void removeClient()
     {
         allOtherClients.remove(this);
-        broadcastMessage("SERVER: "+clientUsername+" has left the game");
+//        broadcastMessage("SERVER: "+clientUsername+" has left the game");
     }
 
 

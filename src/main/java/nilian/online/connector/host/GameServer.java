@@ -1,5 +1,7 @@
 package nilian.online.connector.host;
 
+import nilian.online.connector.joiner.GameClient;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -36,8 +38,7 @@ public class GameServer {
             }
             // handling new connection
             ClientHandler clientHandler = new ClientHandler(clientSocket);
-            Thread thread = new Thread(clientHandler);
-            thread.start();
+            clientHandler.startMessageListener();
         }
     }
 

@@ -13,7 +13,7 @@ import java.util.Properties;
 /**
  * Main Game Class which handles rendering
  */
-public class GamePanel extends JPanel implements Runnable {
+public class GamePanel extends JPanel {
 
     public int originalTileSize = 16 ;
     public int scale = 3 ;
@@ -38,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         this.player = new Player(this , this.keyH, props.getProperty("player.name"));
         this.gameClient = gameClient;
-        this.backGroundPic = new BackGroundPic(this, "/images/7.png");
+        this.backGroundPic = new BackGroundPic(this, "/backgrounds/7.png");
         this.setPreferredSize(new Dimension(screenWidth , screenHeight)) ;
         this.setBackground(Color.black) ;
         this.setDoubleBuffered(true);
@@ -47,12 +47,6 @@ public class GamePanel extends JPanel implements Runnable {
 
         // load map
         this.tileM.setMap(tileM.loadMap("/maps/world.txt", maxWorldCol, maxWorldRow));
-    }
-
-
-    @Override
-    public void run() {
-        // TODO: Override this method when inherited
     }
 
     public TileManager getTileM() {

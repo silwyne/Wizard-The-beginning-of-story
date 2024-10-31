@@ -2,7 +2,6 @@ package nilian.game.panel;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.util.Properties;
 
 import nilian.online.connector.joiner.GameClient;
@@ -11,7 +10,7 @@ import nilian.online.connector.joiner.GameClient;
  * The main Class of the Game
  * contains what ever you see
  */
-public class StoryModePanel extends GamePanel
+public class StoryModePanel extends GamePanel implements Runnable
 {
 	/**
 	 * This sets the main Settings of the JPanel

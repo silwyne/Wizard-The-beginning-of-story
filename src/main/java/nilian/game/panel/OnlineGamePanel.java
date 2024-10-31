@@ -11,7 +11,7 @@ import nilian.online.connector.joiner.GameClient;
  * The main Class of the Game
  * contains what ever you see
  */
-public class OnlineGamePanel extends GamePanel
+public class OnlineGamePanel extends GamePanel implements Runnable
 {
     /**
      * This sets the main Settings of the JPanel

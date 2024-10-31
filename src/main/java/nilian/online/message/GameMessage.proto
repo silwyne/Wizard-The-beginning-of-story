@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+option java_package = "nilian.online.message";
+option java_multiple_files = true;
+
+// Player-related messages and enums
+enum PlayerMessageType {
+    PLAYER_MESSAGE_TYPE_UNSPECIFIED = 0;
+    PLAYER_MESSAGE_TYPE_SPAWN = 1;
+    PLAYER_MESSAGE_TYPE_DISAPPEAR = 2;
+    PLAYER_MESSAGE_TYPE_MOVE = 3;
+}
+
+message PlayerMessage {
+    PlayerMessageType type = 1;
+    int64 timestamp = 2;
+    int64 player_hash = 3;
+    int32 x = 4;
+    int32 y = 5;
+    int32 suit_code = 6;
+    string name = 7;
+    int32 teamCode = 8;
+}
+
+// Game configuration messages and enums
+enum GameModeType {
+    GAME_MODE_TYPE_UNSPECIFIED = 0;
+    GAME_MODE_TYPE_FREE_FOR_ALL = 1;
+    GAME_MODE_TYPE_TEAM_DEATH_MATCH = 2;
+}
+
+message GameConfigMessage {
+    string map = 1;
+    string theme = 2;
+    GameModeType mode = 3;
+    int64 timestamp = 4;
+}
+
+// Server messages
+enum ServerMessageType {
+    SERVER_MESSAGE_TYPE_UNSPECIFIED = 0;
+    SERVER_MESSAGE_TYPE_WELCOME = 1;
+    SERVER_MESSAGE_TYPE_PLAYER = 2;
+    SERVER_MESSAGE_TYPE_GAME = 3;
+}
+
+message ServerMessage {
+    ServerMessageType type = 1;
+    GameConfigMessage game_config = 2;
+    PlayerMessage player = 3;
+}
+
+// Client messages
+enum ClientMessageType {
+    CLIENT_MESSAGE_TYPE_UNSPECIFIED = 0;
+    CLIENT_MESSAGE_TYPE_INTRODUCE = 1;
+    CLIENT_MESSAGE_TYPE_UPDATE_PLACE = 2;
+    CLIENT_MESSAGE_TYPE_UPDATE_ACT = 3;
+}
+
+message ClientMessage {
+    ClientMessageType type = 1;
+    PlayerMessage player_info = 2;
+    int64 timestamp = 3;
+}

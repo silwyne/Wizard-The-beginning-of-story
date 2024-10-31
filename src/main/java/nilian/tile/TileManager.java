@@ -31,6 +31,9 @@ public class TileManager {
 
 		//Loading the  tiles!
 		loadTiles = new Tile[4] ;//number  of tiles !
+		loadTiles[0] = getTileImage("/tiles/transparent.png");
+		loadTiles[0].setMoveable(true);
+
 		loadTiles[1] = getTileImage("/tiles/grass.png");
 		loadTiles[1].setMoveable(false);
 
@@ -52,10 +55,6 @@ public class TileManager {
 		int[][] resultMatrix = new int[maxCol][maxRow];
 		try (InputStream is = getClass().getResourceAsStream(filePath);
 			 BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
-
-			if (is == null) {
-				throw new IOException("Cannot find file: " + filePath);
-			}
 
 			String line;
 			int row = 0;
@@ -108,9 +107,7 @@ public class TileManager {
 			int screenY = worldRow * gp.tileSize;
 
 			// Draw all tiles that are within the screen bounds
-			if ( tileNum != 0 &&
-			screenX < gp.screenWidth &&
-			screenY < gp.screenHeight) {
+			if (screenX < gp.screenWidth && screenY < gp.screenHeight) {
 				g2.drawImage(loadTiles[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 			}
 

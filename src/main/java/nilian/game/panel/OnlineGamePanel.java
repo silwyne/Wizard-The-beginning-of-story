@@ -70,6 +70,9 @@ public class OnlineGamePanel extends GamePanel
         super.paintComponent(g) ;
         Graphics2D g2 = (Graphics2D) g ;
 
+        // background picture
+        super.getBackGroundPic().draw(g2);
+
         //first tiles
         super.getTileM().draw(g2);//--1
 

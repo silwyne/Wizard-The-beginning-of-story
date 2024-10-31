@@ -3,6 +3,7 @@ package nilian.game.panel;
 import nilian.Player.Player;
 import nilian.input.KeyHandler;
 import nilian.online.connector.joiner.GameClient;
+import nilian.tile.BackGroundPic;
 import nilian.tile.TileManager;
 
 import javax.swing.*;
@@ -25,6 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int maxWorldRow = maxScreenRow ;
     public int FPS = 60 ;
 
+    private BackGroundPic backGroundPic;
     private TileManager tileM = new TileManager(this) ;
     private KeyHandler keyH = new KeyHandler() ;
     private Thread gameThread ;
@@ -36,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         this.player = new Player(this , this.keyH, props.getProperty("player.name"));
         this.gameClient = gameClient;
-
+        this.backGroundPic = new BackGroundPic(this, "/images/7.png");
         this.setPreferredSize(new Dimension(screenWidth , screenHeight)) ;
         this.setBackground(Color.black) ;
         this.setDoubleBuffered(true);
@@ -87,5 +89,13 @@ public class GamePanel extends JPanel implements Runnable {
 
     public GameClient getGameClient() {
         return gameClient;
+    }
+
+    public BackGroundPic getBackGroundPic() {
+        return backGroundPic;
+    }
+
+    public void setBackGroundPic(BackGroundPic backGroundPic) {
+        this.backGroundPic = backGroundPic;
     }
 }

@@ -1,6 +1,6 @@
 package nilian.graphics.window;
 
-import nilian.game.panel.OfflineGamePanel;
+import nilian.game.panel.StoryModePanel;
 import nilian.game.GameMode;
 import nilian.game.panel.OnlineGamePanel;
 import nilian.online.connector.joiner.GameClient;
@@ -19,7 +19,7 @@ public class GameWindow {
         gameWindow.setTitle(WindowEntity.WINDOW_TITLE);
 
         if(gameMode.equals(GameMode.offline)) {
-            OfflineGamePanel offlinePanel = new OfflineGamePanel(props, gameClient);
+            StoryModePanel offlinePanel = new StoryModePanel(props, gameClient);
             gameWindow.add(offlinePanel);
             offlinePanel.startGameThread();
         } else {

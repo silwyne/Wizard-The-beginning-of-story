@@ -5,18 +5,17 @@ import java.awt.Graphics2D;
 import java.util.Properties;
 
 import nilian.online.connector.joiner.GameClient;
-import nilian.tile.TileManager;
 
 /**
  * The main Class of the Game
  * contains what ever you see
  */
-public class OfflineGamePanel extends GamePanel
+public class StoryModePanel extends GamePanel
 {
 	/**
 	 * This sets the main Settings of the JPanel
 	 */
-	public OfflineGamePanel(Properties props, GameClient gameClient)
+	public StoryModePanel(Properties props, GameClient gameClient)
 	{
 		super(props, gameClient);
 	}

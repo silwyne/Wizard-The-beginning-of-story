@@ -5,9 +5,13 @@
 This is a game written in java. Which is going to be a combat game!
 Mainly to play with other human on socket!
 
+##### things in work
+- server-client communication logics
+- message data format on socket
+- implementation of communication
 
 ## Pictures
-     Game
+    Game
 ![game picture](images/game_space.png)
 
     main menu

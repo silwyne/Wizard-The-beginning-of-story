@@ -19,11 +19,21 @@ public class ClientHandlerReceivedMessageProcessor implements MessageProcessor {
     }
 
     /**
-     * This act is named BroadCast!
+     * processes the message from one client and
+     * decides to broadcast it or something else!
      * @param message message received
      */
     @Override
     public void process(Message message) {
+        System.out.println(message);
+        broadCast(message);
+    }
+
+    /**
+     * Broadcasts message to all other clients!
+     * @param message message from one client
+     */
+    private void broadCast(Message message) {
         for(ClientHandler client : allOtherClients)
         {
             if(client != null && message != null) {

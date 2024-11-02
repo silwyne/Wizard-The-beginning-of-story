@@ -1,9 +1,11 @@
 package nilian.online.connector.joiner;
 
-import com.google.protobuf.CodedOutputStream;
 import nilian.online.connector.message.MessageListener;
 import nilian.online.connector.message.MessageWriter;
 import nilian.online.message.ClientMessage;
+import nilian.online.message.ClientMessageType;
+import nilian.online.message.PlayerMessage;
+import nilian.online.message.PlayerMessageType;
 
 import java.io.*;
 import java.net.Socket;
@@ -14,13 +16,15 @@ public class GameClient {
     private final String serverIP;
     private final int serverPort;
 
-    private BufferedReader bufferedReader ;
-    private BufferedWriter bufferedWriter;
     private final String username ;
     private final int userHash ;
 
     private MessageListener messageListener;
     private MessageWriter messageWriter;
+
+    private PlayerMessage playerMessage;
+    private ClientMessage introductionMessage;
+
 
     public GameClient(String username, String serverIP, int serverPort) {
         this.username = username;
@@ -63,6 +67,27 @@ public class GameClient {
     }
 
     public void introduceToServer() {
-        // TODO: Implement introduction logics
+        if(introductionMessage == null){
+            introductionMessage = ClientMessage.newBuilder()
+                    .setTimestamp(System.currentTimeMillis())
+                    .setType(ClientMessageType.CLIENT_MESSAGE_TYPE_INTRODUCE)
+                    .setPlayerInfo(getPlayerMessage())
+                    .build();
+        }
+        messageWriter.send(introductionMessage);
+    }
+
+    public PlayerMessage getPlayerMessage() {
+        if(playerMessage == null) {
+            playerMessage = PlayerMessage.newBuilder()
+                    .setPlayerHash(userHash)
+                    .setName(username)
+                    .setTimestamp(System.currentTimeMillis())
+                    .setType(PlayerMessageType.PLAYER_MESSAGE_TYPE_SPAWN)
+                    .setTeamCode(0)
+                    .setSuitCode(0)
+                    .build();
+        }
+        return playerMessage;
     }
 }

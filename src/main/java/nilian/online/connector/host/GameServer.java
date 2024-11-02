@@ -14,6 +14,7 @@ public class GameServer {
     public GameServer(int serverPort) {
         this.serverPort = serverPort;
         setServer();
+        System.out.println("SERVER: server is up!");
     }
 
     public void setServer(){

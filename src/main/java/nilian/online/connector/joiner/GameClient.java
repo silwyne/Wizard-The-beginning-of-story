@@ -38,18 +38,6 @@ public class GameClient {
     public void connect() throws IOException {
         if(socket == null) {
             socket = new Socket(serverIP, serverPort);
-
-            messageListener = new MessageListener(this.socket, new ClientMessageProcessor());
-            messageWriter = new MessageWriter(this.socket);
-            System.out.println("Connected to server at " + serverIP + ":" + serverPort);
-        } else {
-            System.out.println("Already connected: Socket Object is not null");
-        }
-    }
-
-    public void connect(Socket connectedSocket) {
-        if(socket == null) {
-            socket = connectedSocket;
             messageListener = new MessageListener(this.socket, new ClientMessageProcessor());
             messageWriter = new MessageWriter(this.socket);
             System.out.println("Connected to server at " + serverIP + ":" + serverPort);

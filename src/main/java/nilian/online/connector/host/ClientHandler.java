@@ -1,11 +1,9 @@
 package nilian.online.connector.host;
 
 
-import com.google.protobuf.Message;
 import nilian.online.connector.message.MessageListener;
-import nilian.online.connector.message.MessageProcessor;
+import nilian.online.connector.message.MessageWriter;
 
-import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -13,66 +11,20 @@ public class ClientHandler {
 
     //List of Shared Connections between all Clients!
     public static ArrayList<ClientHandler> allOtherClients = new ArrayList<>();
-    private Socket socket;
-    private BufferedReader bufferedReader;
-    private BufferedWriter bufferedWriter;
-    private String clientUsername ;
-    public String clientHashcode ;
-    private MessageListener messageListener;
+    public int clientHashcode ;
+    private final MessageListener messageListener;
 
-    public ClientHandler(Socket socket)
-    {
-        this.socket = socket ;
+    public ClientHandler(Socket socket) {
+
+        this.clientHashcode = (System.currentTimeMillis() * 33 + "client").hashCode();
         allOtherClients.add(this) ;
-        clientHashcode = (System.currentTimeMillis() * 33)+"";
+        MessageWriter messageWriter = new MessageWriter(socket);
+        messageListener =
+                new MessageListener(socket, new ClientHandlerReceivedMessageProcessor(allOtherClients, messageWriter, clientHashcode));
     }
 
     public void startMessageListener() {
-        messageListener = new MessageListener(socket, new MessageProcessor() {
-            @Override
-            public void process(Message message) {
-                for(ClientHandler client : allOtherClients)
-                {
-                    if(client != null && message != null) {
-                        if(!client.clientHashcode.equals(clientHashcode))
-                        {
-
-                        }
-                    }
-                }
-            }
-        });
         messageListener.start();
-    }
-
-
-    public void removeClient()
-    {
-        allOtherClients.remove(this);
-//        broadcastMessage("SERVER: "+clientUsername+" has left the game");
-    }
-
-
-    public void closeEverything()
-    {
-        removeClient();
-        try
-        {
-            if(bufferedReader != null)
-            {
-                bufferedReader.close();
-            }
-            if(bufferedWriter != null)
-            {
-                bufferedWriter.close();
-            }
-            if(socket != null)
-            {
-                socket.close();
-            }
-        } catch(IOException e) {
-            e.printStackTrace(System.out);
-        }
     }
 
 }

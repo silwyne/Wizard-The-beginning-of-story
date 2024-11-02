@@ -3,6 +3,8 @@ package nilian.online.connector.host;
 
 import nilian.online.connector.message.MessageListener;
 import nilian.online.connector.message.MessageWriter;
+import nilian.online.message.ClientMessage;
+import nilian.online.message.ServerMessage;
 
 import java.net.Socket;
 import java.util.ArrayList;
@@ -18,9 +20,11 @@ public class ClientHandler {
 
         this.clientHashcode = (System.currentTimeMillis() * 33 + "client").hashCode();
         allOtherClients.add(this) ;
-        MessageWriter messageWriter = new MessageWriter(socket);
+        MessageWriter<ClientMessage> messageWriter = new MessageWriter<>(socket);
         messageListener =
-                new MessageListener(socket, new ClientHandlerReceivedMessageProcessor(allOtherClients, messageWriter, clientHashcode));
+                new MessageListener<ServerMessage>(socket,
+                new ClientHandlerReceivedMessageProcessor(allOtherClients, messageWriter, clientHashcode),
+                ServerMessage.parser());
     }
 
     public void startMessageListener() {

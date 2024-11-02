@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public class MessageWriter {
+public class MessageWriter<T extends Message> {
 
     private final Socket socket;
 
@@ -15,7 +15,7 @@ public class MessageWriter {
         this.socket = socket;
     }
 
-    public void send(Message message) {
+    public void send(T message) {
         int messageSize = message.getSerializedSize();
         int totalSize = CodedOutputStream.computeUInt32SizeNoTag(messageSize) + messageSize;
         byte[] data = new byte[totalSize];

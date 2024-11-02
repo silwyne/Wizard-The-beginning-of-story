@@ -2,10 +2,7 @@ package nilian.online.connector.joiner;
 
 import nilian.online.connector.message.MessageListener;
 import nilian.online.connector.message.MessageWriter;
-import nilian.online.message.ClientMessage;
-import nilian.online.message.ClientMessageType;
-import nilian.online.message.PlayerMessage;
-import nilian.online.message.PlayerMessageType;
+import nilian.online.message.*;
 
 import java.io.*;
 import java.net.Socket;
@@ -19,8 +16,8 @@ public class GameClient {
     private final String username ;
     private final int userHash ;
 
-    private MessageListener messageListener;
-    private MessageWriter messageWriter;
+    private MessageListener<ServerMessage> messageListener;
+    private MessageWriter<ClientMessage> messageWriter;
 
     private PlayerMessage playerMessage;
     private ClientMessage introductionMessage;
@@ -42,8 +39,14 @@ public class GameClient {
     public void connect() throws IOException {
         if(socket == null) {
             socket = new Socket(serverIP, serverPort);
-            messageListener = new MessageListener(this.socket, new ClientMessageProcessor());
-            messageWriter = new MessageWriter(this.socket);
+            // initializing MessageListener Object which listens to server messages
+            messageListener = new MessageListener<ServerMessage>(
+                    this.socket,
+                    new ClientMessageProcessor(),
+                    ServerMessage.parser());
+
+            // initializing MessageWriter Object which writes client messages to server
+            messageWriter = new MessageWriter<ClientMessage>(this.socket);
             System.out.println("Connected to server at " + serverIP + ":" + serverPort);
         } else {
             System.out.println("Already connected: Socket Object is not null");

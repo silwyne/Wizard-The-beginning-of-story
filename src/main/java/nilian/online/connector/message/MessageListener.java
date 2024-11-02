@@ -2,7 +2,8 @@ package nilian.online.connector.message;
 
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.InvalidProtocolBufferException;
-import nilian.online.message.ServerMessage;
+import com.google.protobuf.Message;
+import com.google.protobuf.Parser;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,16 +12,19 @@ import java.net.Socket;
 /**
  * Listens for incoming Messages
  */
-public class MessageListener {
+public class MessageListener<T extends Message> {
 
     private final MessageProcessor messageProcessor;
     private final Socket socket;
     private Thread listener;
     private volatile boolean running = false;
 
-    public MessageListener(Socket socket, MessageProcessor messageProcessor) {
+    private final Parser<T> parser;
+
+    public MessageListener(Socket socket, MessageProcessor messageProcessor, Parser<T> parser) {
         this.socket = socket;
         this.messageProcessor = messageProcessor;
+        this.parser = parser;
     }
 
     public void start() throws IllegalStateException {
@@ -57,7 +61,7 @@ public class MessageListener {
                     byte[] messageBytes = in.readRawBytes(messageSize);
 
                     // Parse the message
-                    ServerMessage message = ServerMessage.parseFrom(messageBytes);
+                    T message = parser.parseFrom(messageBytes);
 
                     // Process the message
                     messageProcessor.process(message);

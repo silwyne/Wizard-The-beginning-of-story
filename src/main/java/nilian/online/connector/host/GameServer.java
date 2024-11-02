@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * This class accepts new connection
+ * Then set new Threads for them to keep Connection alive
+ */
 public class GameServer {
 
     private final int serverPort;
-
     private ServerSocket serverSocket;
-
 
     public GameServer(int serverPort) {
         this.serverPort = serverPort;
@@ -17,6 +19,9 @@ public class GameServer {
         System.out.println("SERVER: server is up!");
     }
 
+    /**
+     * Gets the ports for its own and makes the server!
+     */
     public void setServer(){
         try {
             this.serverSocket = new ServerSocket(serverPort);
@@ -26,10 +31,19 @@ public class GameServer {
     }
 
 
+    /**
+     * Waits for new connections
+     */
     public void startServer() {
+        int connected_clients = 0;
+        int MAX_CONNECTED_CLIENTS = 10;
         while(true) {
+            if(connected_clients == MAX_CONNECTED_CLIENTS) {
+                System.out.println("No More Clients Can Connect !");
+                break;
+            }
             // wait for new connection
-            Socket clientSocket = null;
+            Socket clientSocket;
             try {
                 clientSocket = serverSocket.accept();
             } catch (IOException e) {
@@ -38,6 +52,7 @@ public class GameServer {
             // handling new connection
             ClientHandler clientHandler = new ClientHandler(clientSocket);
             clientHandler.startMessageListener();
+            connected_clients ++ ;
         }
     }
 

@@ -7,6 +7,9 @@ import nilian.online.message.*;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * Connects to server and sends and receives messages from and to server!
+ */
 public class GameClient {
 
     private Socket socket;

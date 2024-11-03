@@ -14,19 +14,23 @@ public class ClientHandler {
     //List of Shared Connections between all Clients!
     public static ArrayList<ClientHandler> allOtherClients = new ArrayList<>();
     public int clientHashcode ;
-    private final MessageListener messageListener;
+    private final MessageListener<ClientMessage> messageListener;
 
     public ClientHandler(Socket socket) {
 
         this.clientHashcode = (System.currentTimeMillis() * 33 + "client").hashCode();
         allOtherClients.add(this) ;
-        MessageWriter<ClientMessage> messageWriter = new MessageWriter<>(socket);
+        MessageWriter<ServerMessage> messageWriter = new MessageWriter<>(socket);
         messageListener =
-                new MessageListener<ServerMessage>(socket,
+                new MessageListener<ClientMessage>(socket,
                 new ClientHandlerReceivedMessageProcessor(allOtherClients, messageWriter, clientHashcode),
-                ServerMessage.parser());
+                ClientMessage.parser());
     }
 
+    /**
+     * This functions starts clientHandler listening to his client!
+     * We consider this part server listening to client!
+     */
     public void startMessageListener() {
         messageListener.start();
     }

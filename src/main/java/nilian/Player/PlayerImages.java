@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public class PlayerImages {
 
-    Entity entity = new Entity();
+    PlayerEntity playerEntity = new PlayerEntity();
     Image[] idleParts;
     Image[] jumpParts;
     Image[] runParts;
@@ -22,10 +22,10 @@ public class PlayerImages {
      * @throws IOException maybe the file doesn't exist!
      */
     public void getImages() throws IOException {
-        entity.idle = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Player/Cyborg_idle.png"))) ;
-        entity.jump = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Player/Cyborg_jump.png"))) ;
-        entity.run = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Player/Cyborg_run.png"))) ;
-        entity.runback = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Player/Cyborg_run-backward.png"))) ;
+        playerEntity.idle = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Player/Cyborg_idle.png"))) ;
+        playerEntity.jump = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Player/Cyborg_jump.png"))) ;
+        playerEntity.run = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Player/Cyborg_run.png"))) ;
+        playerEntity.runBack = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Player/Cyborg_run-backward.png"))) ;
     }
 
     /**
@@ -33,8 +33,8 @@ public class PlayerImages {
      */
     public void separate()
     {
-        int width = entity.idle.getWidth();
-        int height = entity.idle.getHeight();
+        int width = playerEntity.idle.getWidth();
+        int height = playerEntity.idle.getHeight();
         int partWidth = 48;
         int num = width / partWidth;
         int remainingWidth = width % partWidth;
@@ -46,14 +46,14 @@ public class PlayerImages {
             if (i == num - 1 && remainingWidth > 0) {
                 partWidth = remainingWidth;
             }
-            BufferedImage part = entity.idle.getSubimage(x, y, partWidth, partHeight);
+            BufferedImage part = playerEntity.idle.getSubimage(x, y, partWidth, partHeight);
 
             idleParts[i] = new Image();
             idleParts[i].image = part;
         }
 
-        width = entity.jump.getWidth();
-        height = entity.jump.getHeight();
+        width = playerEntity.jump.getWidth();
+        height = playerEntity.jump.getHeight();
         partWidth = 48;
         num = width / partWidth;
         remainingWidth = width % partWidth;
@@ -65,14 +65,14 @@ public class PlayerImages {
             if (i == num - 1 && remainingWidth > 0) {
                 partWidth = remainingWidth;
             }
-            BufferedImage part = entity.jump.getSubimage(x, y, partWidth, partHeight);
+            BufferedImage part = playerEntity.jump.getSubimage(x, y, partWidth, partHeight);
 
             jumpParts[i] = new Image();
             jumpParts[i].image = part;
         }
 
-        width = entity.run.getWidth();
-        height = entity.run.getHeight();
+        width = playerEntity.run.getWidth();
+        height = playerEntity.run.getHeight();
         partWidth = 48;
         num = width / partWidth;
         remainingWidth = width % partWidth;
@@ -84,14 +84,14 @@ public class PlayerImages {
             if (i == num - 1 && remainingWidth > 0) {
                 partWidth = remainingWidth;
             }
-            BufferedImage part = entity.run.getSubimage(x, y, partWidth, partHeight);
+            BufferedImage part = playerEntity.run.getSubimage(x, y, partWidth, partHeight);
 
             runParts[i] = new Image();
             runParts[i].image = part;
         }
 
-        width = entity.runback.getWidth();
-        height = entity.runback.getHeight();
+        width = playerEntity.runBack.getWidth();
+        height = playerEntity.runBack.getHeight();
         partWidth = 48;
         num = width / partWidth;
         remainingWidth = width % partWidth;
@@ -103,7 +103,7 @@ public class PlayerImages {
             if (i == num - 1 && remainingWidth > 0) {
                 partWidth = remainingWidth;
             }
-            BufferedImage part = entity.runback.getSubimage(x, y, partWidth, partHeight);
+            BufferedImage part = playerEntity.runBack.getSubimage(x, y, partWidth, partHeight);
 
             runBackParts[i] = new Image();
             runBackParts[i].image = part;

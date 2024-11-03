@@ -2,6 +2,9 @@ package nilian.tile;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * Single graphic unit for drawing game space
+ */
 public class Tile 
 {
 	public BufferedImage image ;

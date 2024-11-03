@@ -1,5 +1,8 @@
 package nilian.Player;
 
+/**
+ * Handles the physics of movement for a player
+ */
 public class MovementHandler {
 
 
@@ -11,6 +14,10 @@ public class MovementHandler {
     private double verticalVelocity = 0; // Current vertical velocity
     private int initialY; // Store the initial Y position when jump starts
 
+    /**
+     * Makes an instance of MovementHandler Class
+     * @param player the player you want make him move!
+     */
     public MovementHandler(Player player) {
         this.player = player;
     }
@@ -40,6 +47,12 @@ public class MovementHandler {
         return moved ;
     }
 
+    /**
+     * Checks if player can move to the given position
+     * @param x x point of position
+     * @param y y point of position
+     * @return true if it can move to there
+     */
     private boolean canMove(int x, int y) {
         int playerWidth = player.offlineGamePanel.tileSize;
         int playerHeight = player.offlineGamePanel.tileSize;
@@ -52,10 +65,19 @@ public class MovementHandler {
                 checkMoveable(x + playerWidth - pertXValue, y + playerHeight - pertYValue);
     }
 
+    /**
+     * Checks if the player can walk on given position
+     * @param x x of position
+     * @param y y of position
+     * @return true if can
+     */
     private boolean checkMoveable(int x, int y) {
         return player.offlineGamePanel.getTileM().getTile(x, y).moveable ;
     }
 
+    /**
+     * Handles the physics of jumping
+     */
     public void handleJump() {
         if (isJumping) {
             // Apply gravity
@@ -93,6 +115,9 @@ public class MovementHandler {
         }
     }
 
+    /**
+     * starts the process of jumping
+     */
     public void startJump() {
         if (!isJumping) {
             isJumping = true;
@@ -101,6 +126,12 @@ public class MovementHandler {
         }
     }
 
+    /**
+     * tries to find the floor
+     * @param oldY bullshit
+     * @param newY bullshit
+     * @return bullshit
+     */
     private int findFloor(int oldY, int newY) {
         // Binary search to find the exact floor position
         while (oldY < newY) {
@@ -113,7 +144,5 @@ public class MovementHandler {
         }
         return oldY - 1;
     }
-
-
-
+    
 }

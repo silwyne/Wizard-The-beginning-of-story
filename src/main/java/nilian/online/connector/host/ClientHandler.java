@@ -9,6 +9,10 @@ import nilian.online.message.ServerMessage;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * This class serves the GameServer and only handles one client!
+ * Listens to its messages and writes message to it or others!
+ */
 public class ClientHandler {
 
     //List of Shared Connections between all Clients!

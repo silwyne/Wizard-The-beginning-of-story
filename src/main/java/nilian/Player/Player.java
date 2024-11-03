@@ -12,7 +12,7 @@ import nilian.input.KeyHandler;
 /**
  * Player object which includes all stuff a Player object must Contain
  */
-public class Player extends Entity {
+public class Player extends PlayerEntity {
 
 	private final String playerName;
 	private final Color playerNameColor;
@@ -35,8 +35,8 @@ public class Player extends Entity {
 		playerX = offlineGamePanel.screenHeight / 2;
 		playerY = offlineGamePanel.screenHeight / 2;
 		// Set Default values
-		worldx = 256;
-		worldy = offlineGamePanel.screenHeight / 2;
+		worldX = 256;
+		worldY = offlineGamePanel.screenHeight / 2;
 		speed = 2;
 		direction = PlayerDirection.normal;
 

@@ -5,13 +5,19 @@ import nilian.game.panel.GamePanel;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * Provides background picture for game panel
+ */
 public class BackGroundPic {
 
     public final BufferedImage backgroundImage;
-    private final GamePanel gamePanel;
 
+    /**
+     * Makes an instance of BackGroundPic Class
+     * @param gamePanel the game panel you need the background for
+     * @param imagePath path to background image
+     */
     public BackGroundPic(GamePanel gamePanel, String imagePath) {
-        this.gamePanel = gamePanel;
 
         try {
             // Load the original image

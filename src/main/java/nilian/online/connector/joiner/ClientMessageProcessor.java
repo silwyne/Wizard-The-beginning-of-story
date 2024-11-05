@@ -1,11 +1,12 @@
 package nilian.online.connector.joiner;
 
-import com.google.protobuf.Message;
 import nilian.online.connector.message.MessageProcessor;
+import nilian.online.message.ServerMessage;
 
-public class ClientMessageProcessor implements MessageProcessor {
+public class ClientMessageProcessor implements MessageProcessor<ServerMessage> {
+
     @Override
-    public void process(Message message) {
+    public void process(ServerMessage message) {
         System.out.println(message);
     }
 }

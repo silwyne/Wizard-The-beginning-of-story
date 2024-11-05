@@ -3,6 +3,7 @@ package nilian.online.connector.host;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * This class accepts new connection
@@ -10,6 +11,7 @@ import java.net.Socket;
  */
 public class GameServer {
 
+    private static final ArrayList<ClientHandler> allClients = new ArrayList<>();
     private final int serverPort;
     private ServerSocket serverSocket;
 
@@ -50,8 +52,10 @@ public class GameServer {
                 throw new RuntimeException(e);
             }
             // handling new connection
-            ClientHandler clientHandler = new ClientHandler(clientSocket);
+            ClientHandler clientHandler = new ClientHandler(clientSocket, allClients);
             clientHandler.startMessageListener();
+            // adding to connected clients
+            allClients.add(clientHandler);
             connected_clients ++ ;
         }
     }

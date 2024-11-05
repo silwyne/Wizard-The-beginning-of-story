@@ -5,7 +5,7 @@ import com.google.protobuf.Message;
 /**
  * Processes Messages after they get read
  */
-public interface MessageProcessor {
+public interface MessageProcessor<T extends Message> {
 
-    void process(Message message);
+    void process(T message);
 }

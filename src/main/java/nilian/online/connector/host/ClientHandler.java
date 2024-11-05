@@ -16,18 +16,15 @@ import java.util.ArrayList;
 public class ClientHandler {
 
     //List of Shared Connections between all Clients!
-    public static ArrayList<ClientHandler> allOtherClients = new ArrayList<>();
     public int clientHashcode ;
     private final MessageListener<ClientMessage> messageListener;
 
-    public ClientHandler(Socket socket) {
-
+    public ClientHandler(Socket socket, ArrayList<ClientHandler> allOtherClients) {
         this.clientHashcode = (System.currentTimeMillis() * 33 + "client").hashCode();
-        allOtherClients.add(this) ;
         MessageWriter<ServerMessage> messageWriter = new MessageWriter<>(socket);
         messageListener =
                 new MessageListener<ClientMessage>(socket,
-                new ClientHandlerReceivedMessageProcessor(allOtherClients, messageWriter, clientHashcode),
+                new ServerMessageProcessor(allOtherClients, messageWriter, clientHashcode),
                 ClientMessage.parser());
     }
 

@@ -7,13 +7,13 @@ import nilian.online.message.*;
 
 import java.util.ArrayList;
 
-public class ClientHandlerReceivedMessageProcessor implements MessageProcessor {
+public class ServerMessageProcessor implements MessageProcessor<ClientMessage> {
 
     private final ArrayList<ClientHandler> allOtherClients;
     private final MessageWriter<ServerMessage> messageWriter;
     private final int clientHashCode;
 
-    public ClientHandlerReceivedMessageProcessor(ArrayList<ClientHandler> allClients, MessageWriter<ServerMessage> messageWriter, int clientHashCode) {
+    public ServerMessageProcessor(ArrayList<ClientHandler> allClients, MessageWriter<ServerMessage> messageWriter, int clientHashCode) {
         this.messageWriter = messageWriter;
         this.allOtherClients = allClients;
         this.clientHashCode = clientHashCode;
@@ -25,7 +25,8 @@ public class ClientHandlerReceivedMessageProcessor implements MessageProcessor {
      * @param message message received
      */
     @Override
-    public void process(Message message) {
+    public void process(ClientMessage message) {
+        // first printing the message
         System.out.println(message);
         broadCast(message);
     }

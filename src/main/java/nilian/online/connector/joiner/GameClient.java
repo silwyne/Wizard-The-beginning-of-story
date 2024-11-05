@@ -3,6 +3,7 @@ package nilian.online.connector.joiner;
 import nilian.online.connector.message.MessageListener;
 import nilian.online.connector.message.MessageWriter;
 import nilian.online.message.*;
+import nilian.online.render.OnlineRenderer;
 
 import java.io.*;
 import java.net.Socket;
@@ -15,6 +16,8 @@ public class GameClient {
     private Socket socket;
     private final String serverIP;
     private final int serverPort;
+
+    private OnlineRenderer onlineRenderer;
 
     private final String username ;
     private final int userHash ;
@@ -45,7 +48,7 @@ public class GameClient {
             // initializing MessageListener Object which listens to server messages
             messageListener = new MessageListener<ServerMessage>(
                     this.socket,
-                    new ClientMessageProcessor(),
+                    new ClientMessageProcessor(onlineRenderer),
                     ServerMessage.parser());
 
             // initializing MessageWriter Object which writes client messages to server

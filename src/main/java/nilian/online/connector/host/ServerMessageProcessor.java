@@ -1,6 +1,7 @@
 package nilian.online.connector.host;
 
 import com.google.protobuf.Message;
+import nilian.online.MessageParser;
 import nilian.online.connector.message.MessageProcessor;
 import nilian.online.connector.message.MessageWriter;
 import nilian.online.message.*;
@@ -28,33 +29,23 @@ public class ServerMessageProcessor implements MessageProcessor<ClientMessage> {
     public void process(ClientMessage message) {
         // first printing the message
         System.out.println(message);
-        broadCast(message);
+        // sending message to other clients
+        ServerMessage serverMessage = MessageParser.parse(message);
+        broadCast(serverMessage);
     }
 
     /**
      * Broadcasts message to all other clients!
      * @param message message from one client
      */
-    private void broadCast(Message message) {
-        GameConfigMessage gameConfigMessage = GameConfigMessage.newBuilder()
-                .setMap("city")
-                .setMode(GameModeType.GAME_MODE_TYPE_FREE_FOR_ALL)
-                .setTheme("Rainy")
-                .setTimestamp(System.currentTimeMillis()).build();
-
-        ServerMessage serverMessage = ServerMessage.newBuilder()
-                .setGameConfig(gameConfigMessage)
-                .setPlayer(((ClientMessage) message).getPlayerInfo())
-                .setType(ServerMessageType.SERVER_MESSAGE_TYPE_WELCOME).build();
-
+    private void broadCast(ServerMessage message) {
         for(ClientHandler client : allOtherClients)
         {
             if(client != null) {
                 if(client.clientHashcode != this.clientHashCode) {
-                    messageWriter.send(serverMessage);
+                    messageWriter.send(message);
                 }
             }
         }
     }
-
 }

@@ -1,12 +1,15 @@
 package nilian.Player;
 
+import nilian.game.panel.GamePanel;
+
 /**
  * Handles the physics of movement for a player
  */
 public class MovementHandler {
 
 
-    private final Player player ;
+    private final PlayerSchema player ;
+    private final GamePanel gamePanel ;
     private static final double GRAVITY = 0.6;
     private static final double JUMP_FORCE = -10; // Negative because y-axis is inverted in most game coordinate systems
     private static final double MAX_FALL_SPEED = 10;
@@ -18,8 +21,9 @@ public class MovementHandler {
      * Makes an instance of MovementHandler Class
      * @param player the player you want make him move!
      */
-    public MovementHandler(Player player) {
+    public MovementHandler(PlayerSchema player, GamePanel gamePanel) {
         this.player = player;
+        this.gamePanel = gamePanel;
     }
 
 
@@ -33,14 +37,14 @@ public class MovementHandler {
         boolean moved = false;
 
         // Check horizontal movement
-        if (canMove(dx, player.playerY)) {
-            player.playerX = dx;
+        if (canMove(dx, player.getPlayerY())) {
+            player.setPlayerX(dx);
             moved = true ;
         }
 
         // Check vertical movement
-        if (canMove(player.playerX, dy)) {
-            player.playerY = dy;
+        if (canMove(player.getPlayerX(), dy)) {
+            player.setPlayerY(dy);
             moved = true ;
         }
 
@@ -54,10 +58,10 @@ public class MovementHandler {
      * @return true if it can move to there
      */
     private boolean canMove(int x, int y) {
-        int playerWidth = player.offlineGamePanel.tileSize;
-        int playerHeight = player.offlineGamePanel.tileSize;
-        int pertXValue = player.offlineGamePanel.tileSize / 3;
-        int pertYValue = player.offlineGamePanel.tileSize / 8;
+        int playerWidth = gamePanel.tileSize;
+        int playerHeight = gamePanel.tileSize;
+        int pertXValue = gamePanel.tileSize / 3;
+        int pertYValue = gamePanel.tileSize / 8;
         // Check all four corners of the player
         return checkMoveable(x, y) &&
                 checkMoveable(x + playerWidth - pertXValue, y) &&
@@ -72,7 +76,7 @@ public class MovementHandler {
      * @return true if can
      */
     private boolean checkMoveable(int x, int y) {
-        return player.offlineGamePanel.getTileM().getTile(x, y).moveable ;
+        return gamePanel.getTileM().getTile(x, y).moveable ;
     }
 
     /**
@@ -87,10 +91,10 @@ public class MovementHandler {
             verticalVelocity = Math.min(verticalVelocity, MAX_FALL_SPEED);
 
             // Calculate new position
-            int newY = (int) (player.playerY + verticalVelocity);
+            int newY = (int) (player.getPlayerY() + verticalVelocity);
 
             // Attempt to move player
-            boolean moved = movePlayer(player.playerX, newY);
+            boolean moved = movePlayer(player.getPlayerX(), newY);
 
             if (!moved) {
                 // Collision detected
@@ -99,7 +103,7 @@ public class MovementHandler {
                     isJumping = false;
                     verticalVelocity = 0;
                     // Find the floor
-                    player.playerY = findFloor(player.playerY, newY);
+                    player.setPlayerY(findFloor(player.getPlayerY(), newY));
                 } else {
                     // We hit a ceiling
                     verticalVelocity = 0;
@@ -107,8 +111,8 @@ public class MovementHandler {
             }
 
             // Check if we've returned to or below the initial ground level
-            if (player.playerY >= initialY) {
-                player.playerY = initialY;
+            if (player.getPlayerY() >= initialY) {
+                player.setPlayerY(initialY);
                 isJumping = false;
                 verticalVelocity = 0;
             }
@@ -122,7 +126,7 @@ public class MovementHandler {
         if (!isJumping) {
             isJumping = true;
             verticalVelocity = JUMP_FORCE;
-            initialY = player.playerY;
+            initialY = player.getPlayerY();
         }
     }
 
@@ -136,7 +140,7 @@ public class MovementHandler {
         // Binary search to find the exact floor position
         while (oldY < newY) {
             int midY = (oldY + newY) / 2;
-            if (movePlayer(player.playerX, midY)) {
+            if (movePlayer(player.getPlayerX(), midY)) {
                 oldY = midY + 1;
             } else {
                 newY = midY;

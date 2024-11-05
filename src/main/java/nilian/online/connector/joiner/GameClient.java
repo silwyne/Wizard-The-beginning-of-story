@@ -20,7 +20,7 @@ public class GameClient {
     private OnlineRenderer onlineRenderer;
 
     private final String username ;
-    private final int userHash ;
+    private int userHash ;
 
     private MessageListener<ServerMessage> messageListener;
     private MessageWriter<ClientMessage> messageWriter;
@@ -98,5 +98,9 @@ public class GameClient {
                     .build();
         }
         return playerMessage;
+    }
+
+    public int getClientHashCode() {
+        return userHash;
     }
 }

@@ -14,29 +14,32 @@ import nilian.input.KeyHandler;
  */
 public class Player extends PlayerEntity {
 
-	private final String playerName;
+	private final PlayerSchema playerSchema;
 	private final Color playerNameColor;
 	private final MovementHandler movementHandler;
 
 	private final PlayerImages playerImages = new PlayerImages();
 	private final Random random = new Random();
 
-	public int playerX;
-	public int playerY;
-	GamePanel offlineGamePanel;
+	GamePanel gamePanel;
 	KeyHandler key;
 
 
-	public Player(GamePanel offlineGamePanel, KeyHandler key, String playerName)
+	public Player(GamePanel gamePanel, KeyHandler key, String playerName)
 	{
-		this.playerName = playerName;
-		this.offlineGamePanel = offlineGamePanel;
+		// extracting playerHash for PlayerSchema
+		int playerHash ;
+		if(gamePanel.getGameClient() != null) {
+			playerHash = gamePanel.getGameClient().getClientHashCode();
+		} else {
+			playerHash = ((System.currentTimeMillis() * 100) + "default").hashCode();
+		}
+		this.playerSchema = new PlayerSchema(playerName, playerHash, gamePanel.screenHeight / 2, gamePanel.screenHeight / 2);
+		this.gamePanel = gamePanel;
 		this.key = key ;
-		playerX = offlineGamePanel.screenHeight / 2;
-		playerY = offlineGamePanel.screenHeight / 2;
 		// Set Default values
 		worldX = 256;
-		worldY = offlineGamePanel.screenHeight / 2;
+		worldY = gamePanel.screenHeight / 2;
 		speed = 2;
 		direction = PlayerDirection.normal;
 
@@ -51,7 +54,7 @@ public class Player extends PlayerEntity {
 
 		playerNameColor = getRandomColor();
 		//movement handler
-		this.movementHandler = new MovementHandler(this);
+		this.movementHandler = new MovementHandler(this.playerSchema, this.gamePanel);
 	}
 
 	public void update()
@@ -68,12 +71,12 @@ public class Player extends PlayerEntity {
 			else if(key.rightPressed)
 			{
 				direction = PlayerDirection.run;
-				movementHandler.movePlayer(playerX + speed, playerY);
+				movementHandler.movePlayer(playerSchema.getPlayerX() + speed, playerSchema.getPlayerY());
 			}
 			else if(key.leftPressed)
 			{
 				direction = PlayerDirection.runback;
-				movementHandler.movePlayer(playerX - speed, playerY);
+				movementHandler.movePlayer(playerSchema.getPlayerX() - speed, playerSchema.getPlayerY());
 			}
 		}
 		else if(movementHandler.isJumping) {// if player is on jump !
@@ -166,20 +169,20 @@ public class Player extends PlayerEntity {
 			image = playerImages.runBackParts[spriteRun].image ;
 			break ;
 		}
-		g2.drawImage(image, playerX, playerY, offlineGamePanel.tileSize, offlineGamePanel.tileSize , null) ;
+		g2.drawImage(image, playerSchema.getPlayerX(), playerSchema.getPlayerY(), gamePanel.tileSize, gamePanel.tileSize , null) ;
 
 		// Set up the font and color for the text
 		g2.setFont(new Font("Arial", Font.BOLD, 12)); // Adjust font and size as needed
 		g2.setColor(playerNameColor);
 
 		// The text you want to display
-		String text = playerName; // Replace with actual player name or desired text
+		String text = playerSchema.getPlayerName(); // Replace with actual player name or desired text
 
 		// Calculate the position for the text
 		FontMetrics fm = g2.getFontMetrics();
 		int textWidth = fm.stringWidth(text);
-		int textX = playerX + (offlineGamePanel.tileSize / 2) - (textWidth / 2); // Center the text above the player
-		int textY = playerY - 2; // 2 pixels above the player, adjust as needed
+		int textX = playerSchema.getPlayerX() + (gamePanel.tileSize / 2) - (textWidth / 2); // Center the text above the player
+		int textY = playerSchema.getPlayerY() - 2; // 2 pixels above the player, adjust as needed
 
 		// Draw the text
 		g2.drawString(text, textX, textY);

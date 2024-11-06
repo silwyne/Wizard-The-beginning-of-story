@@ -27,8 +27,7 @@ public class ServerMessageProcessor implements MessageProcessor<ClientMessage> {
      */
     @Override
     public void process(ClientMessage message) {
-        // first printing the message
-        System.out.println(message);
+        System.out.println("Message from Client: \n"+ message);
         // sending message to other clients
         ServerMessage serverMessage = MessageParser.parse(message);
         broadCast(serverMessage);

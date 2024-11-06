@@ -130,27 +130,7 @@ public class OnlineMenuPanel extends MenuPanel{
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                boolean connected = connectionHandler.setUpClient();
-                if(connected) {
-                    loadingWindow.setMessage("connected successfully ...");
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    loadingWindow.dispose();
-                    // Finally setting up the Game
-                    setUpGame();
-                } else {
-                    loadingWindow.setMessage("Failed to connect the server ...");
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    loadingWindow.dispose();
-                }
-
+                connectingToServer(loadingWindow);
             }).start();
         });
     }
@@ -180,28 +160,32 @@ public class OnlineMenuPanel extends MenuPanel{
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                boolean connected = connectionHandler.setUpClient();
-                if(connected){
-                    loadingWindow.setMessage("connected successfully ...");
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    loadingWindow.dispose();
-                    // Finally setting up the Game
-                    setUpGame();
-                } else {
-                    loadingWindow.setMessage("Failed to connect the server ...");
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    loadingWindow.dispose();
-                }
+                connectingToServer(loadingWindow);
             }).start();
         });
+    }
+
+    private static void connectingToServer(LoadingWindow loadingWindow) {
+        boolean connected = connectionHandler.setUpClient();
+        if(connected){
+            loadingWindow.setMessage("connected successfully ...");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            loadingWindow.dispose();
+            // Finally setting up the Game
+            setUpGame();
+        } else {
+            loadingWindow.setMessage("Failed to connect the server ...");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            loadingWindow.dispose();
+        }
     }
 
 

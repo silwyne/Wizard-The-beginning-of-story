@@ -65,6 +65,7 @@ public class ConnectionHandler {
         if(connected){
             // starting client listener
             // listen for incoming messages
+            System.out.println("Listening to server messages");
             this.gameClient.listenForMessage();
             // introduces the player to server
             this.gameClient.introduceToServer();

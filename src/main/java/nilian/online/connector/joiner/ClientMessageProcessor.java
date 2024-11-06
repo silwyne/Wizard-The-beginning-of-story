@@ -18,11 +18,8 @@ public class ClientMessageProcessor implements MessageProcessor<ServerMessage> {
 
     @Override
     public void process(ServerMessage message) {
-
-        // if player comes to game as new
-        if(message.getType().equals(ServerMessageType.SERVER_MESSAGE_TYPE_WELCOME)
-                || message.getPlayer().getType().equals(PlayerMessageType.PLAYER_MESSAGE_TYPE_SPAWN)) {
-            PlayerSchema playerSchema = new PlayerSchema(
+        System.out.println(message);
+        PlayerSchema playerSchema = new PlayerSchema(
                     message.getPlayer().getName(),
                     (int) message.getPlayer().getPlayerHash(),
                     message.getPlayer().getX(),
@@ -30,23 +27,7 @@ public class ClientMessageProcessor implements MessageProcessor<ServerMessage> {
                     Player.getRandomColor(),
                     48
             );
-            // so add him as players  in game
-            onlineRenderer.addPlayer(playerSchema);
-        }
-
-        // if player moves
-        else if(message.getType().equals(ServerMessageType.SERVER_MESSAGE_TYPE_PLAYER)
-                && message.getPlayer().getType().equals(PlayerMessageType.PLAYER_MESSAGE_TYPE_MOVE)) {
-            PlayerSchema playerSchema = new PlayerSchema(
-                    message.getPlayer().getName(),
-                    (int) message.getPlayer().getPlayerHash(),
-                    message.getPlayer().getX(),
-                    message.getPlayer().getY(),
-                    Player.getRandomColor(),
-                    48
-            );
-            // so update his location
-            onlineRenderer.updatePlayer(playerSchema);
-        }
+        // so update his location
+        onlineRenderer.updatePlayer(playerSchema);
     }
 }

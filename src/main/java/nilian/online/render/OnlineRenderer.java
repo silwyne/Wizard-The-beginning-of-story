@@ -42,8 +42,10 @@ public class OnlineRenderer {
             if (schema.getClientHashCode() == playerSchema.getClientHashCode()) {
                 schema.setPlayerX(playerSchema.getPlayerX());
                 schema.setPlayerY(playerSchema.getPlayerY());
+                return;
             }
         }
+        otherPlayersInGame.add(playerSchema);
     }
 
     // draws other players on screen

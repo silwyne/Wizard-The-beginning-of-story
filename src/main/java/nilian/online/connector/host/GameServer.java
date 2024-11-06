@@ -51,6 +51,7 @@ public class GameServer {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+            System.out.println("SERVER: Some Client Connected to Server");
             // handling new connection
             ClientHandler clientHandler = new ClientHandler(clientSocket, allClients);
             clientHandler.startMessageListener();

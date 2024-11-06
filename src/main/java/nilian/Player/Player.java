@@ -15,11 +15,10 @@ import nilian.input.KeyHandler;
 public class Player extends PlayerEntity {
 
 	private final PlayerSchema playerSchema;
-	private final Color playerNameColor;
 	private final MovementHandler movementHandler;
 
 	private final PlayerImages playerImages = new PlayerImages();
-	private final Random random = new Random();
+	private static final Random random = new Random();
 
 	GamePanel gamePanel;
 	KeyHandler key;
@@ -27,6 +26,7 @@ public class Player extends PlayerEntity {
 
 	public Player(GamePanel gamePanel, KeyHandler key, String playerName)
 	{
+		playerSize = gamePanel.tileSize;
 		// extracting playerHash for PlayerSchema
 		int playerHash ;
 		if(gamePanel.getGameClient() != null) {
@@ -34,7 +34,13 @@ public class Player extends PlayerEntity {
 		} else {
 			playerHash = ((System.currentTimeMillis() * 100) + "default").hashCode();
 		}
-		this.playerSchema = new PlayerSchema(playerName, playerHash, gamePanel.screenHeight / 2, gamePanel.screenHeight / 2);
+		this.playerSchema = new PlayerSchema(
+				playerName,
+				playerHash,
+				gamePanel.screenHeight / 2,
+				gamePanel.screenHeight / 2,
+				getRandomColor(),
+				playerSize);
 		this.gamePanel = gamePanel;
 		this.key = key ;
 		// Set Default values
@@ -52,7 +58,6 @@ public class Player extends PlayerEntity {
 		//cutting images into image arrays
         playerImages.separate();
 
-		playerNameColor = getRandomColor();
 		//movement handler
 		this.movementHandler = new MovementHandler(this.playerSchema, this.gamePanel);
 	}
@@ -152,28 +157,28 @@ public class Player extends PlayerEntity {
 		{
 		
 		case jump :
-			image = playerImages.jumpParts[spriteJump].image ;
+			image = playerImages.getJumpParts()[spriteJump].image ;
 			break ;
 			
 			
 		case idle :
-			image = playerImages.idleParts[spriteIdle].image ;
+			image = playerImages.getIdleParts()[spriteIdle].image ;
 			break ;
 			
 			
 		case run :
-			image = playerImages.runParts[spriteRun].image ;
+			image = playerImages.getRunParts()[spriteRun].image ;
 			break ;
 			
 		case runback :
-			image = playerImages.runBackParts[spriteRun].image ;
+			image = playerImages.getRunBackParts()[spriteRun].image ;
 			break ;
 		}
-		g2.drawImage(image, playerSchema.getPlayerX(), playerSchema.getPlayerY(), gamePanel.tileSize, gamePanel.tileSize , null) ;
+		g2.drawImage(image, playerSchema.getPlayerX(), playerSchema.getPlayerY(), playerSize, playerSize , null) ;
 
 		// Set up the font and color for the text
 		g2.setFont(new Font("Arial", Font.BOLD, 12)); // Adjust font and size as needed
-		g2.setColor(playerNameColor);
+		g2.setColor(playerSchema.getPlayerColor());
 
 		// The text you want to display
 		String text = playerSchema.getPlayerName(); // Replace with actual player name or desired text
@@ -188,7 +193,7 @@ public class Player extends PlayerEntity {
 		g2.drawString(text, textX, textY);
 	}
 
-	private Color getRandomColor() {
+	public static Color getRandomColor() {
 		return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
 	}
 }

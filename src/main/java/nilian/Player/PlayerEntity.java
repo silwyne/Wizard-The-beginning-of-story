@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class PlayerEntity {
 
+	public int playerSize;
 	public int worldX, worldY;
 	public int speed ;
 	public final int JUMP_HEIGHT = 80; // Maximum jump height in pixels

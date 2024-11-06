@@ -4,6 +4,7 @@ import nilian.Player.PlayerImages;
 import nilian.Player.PlayerSchema;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +15,10 @@ import java.util.List;
  */
 public class OnlineRenderer {
 
-    PlayerImages playerImages;
-    private final PlayerSchema mySchema;
+    private final PlayerImages playerImages;
     private List<PlayerSchema> otherPlayersInGame = new ArrayList<>() ;
 
-    public OnlineRenderer(PlayerSchema mySchema) {
-        this.mySchema = mySchema;
+    public OnlineRenderer() {
         // loading suit 1 images
         try {
             playerImages = new PlayerImages();
@@ -30,26 +29,44 @@ public class OnlineRenderer {
         playerImages.separate();
     }
 
+    public void addPlayer(PlayerSchema playerSchema) {
+        otherPlayersInGame.add(playerSchema);
+    }
+
+    public void removePlayer(PlayerSchema playerSchema) {
+        otherPlayersInGame.removeIf(schema -> schema.getClientHashCode() == playerSchema.getClientHashCode());
+    }
+
+    public void updatePlayer(PlayerSchema playerSchema) {
+        for (PlayerSchema schema : otherPlayersInGame) {
+            if (schema.getClientHashCode() == playerSchema.getClientHashCode()) {
+                schema.setPlayerX(playerSchema.getPlayerX());
+                schema.setPlayerY(playerSchema.getPlayerY());
+            }
+        }
+    }
+
     // draws other players on screen
     public void draw(Graphics2D g2) {
+        BufferedImage image = playerImages.getIdleParts()[0].image ;
         for(PlayerSchema schema: otherPlayersInGame) {
-//            g2.drawImage(playerImages, playerSchema.getPlayerX(), playerSchema.getPlayerY(), gamePanel.tileSize, gamePanel.tileSize , null) ;
-//
-//            // Set up the font and color for the text
-//            g2.setFont(new Font("Arial", Font.BOLD, 12)); // Adjust font and size as needed
-//            g2.setColor(playerNameColor);
-//
-//            // The text you want to display
-//            String text = playerSchema.getPlayerName(); // Replace with actual player name or desired text
-//
-//            // Calculate the position for the text
-//            FontMetrics fm = g2.getFontMetrics();
-//            int textWidth = fm.stringWidth(text);
-//            int textX = playerSchema.getPlayerX() + (gamePanel.tileSize / 2) - (textWidth / 2); // Center the text above the player
-//            int textY = playerSchema.getPlayerY() - 2; // 2 pixels above the player, adjust as needed
-//
-//            // Draw the text
-//            g2.drawString(text, textX, textY);
+            g2.drawImage(image, schema.getPlayerX(), schema.getPlayerY(), schema.getPlayerSize(), schema.getPlayerSize() , null) ;
+
+            // Set up the font and color for the text
+            g2.setFont(new Font("Arial", Font.BOLD, 12)); // Adjust font and size as needed
+            g2.setColor(schema.getPlayerColor());
+
+            // The text you want to display
+            String text = schema.getPlayerName(); // Replace with actual player name or desired text
+
+            // Calculate the position for the text
+            FontMetrics fm = g2.getFontMetrics();
+            int textWidth = fm.stringWidth(text);
+            int textX = schema.getPlayerX() + (schema.getPlayerSize() / 2) - (textWidth / 2); // Center the text above the player
+            int textY = schema.getPlayerY() - 2; // 2 pixels above the player, adjust as needed
+
+            // Draw the text
+            g2.drawString(text, textX, textY);
         }
     }
 }

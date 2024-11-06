@@ -10,11 +10,11 @@ import java.util.Objects;
  */
 public class PlayerImages {
 
-    PlayerEntity playerEntity = new PlayerEntity();
-    Image[] idleParts;
-    Image[] jumpParts;
-    Image[] runParts;
-    Image[] runBackParts;
+    private final PlayerEntity playerEntity = new PlayerEntity();
+    private Image[] idleParts;
+    private Image[] jumpParts;
+    private Image[] runParts;
+    private Image[] runBackParts;
 
 
     /**
@@ -110,4 +110,23 @@ public class PlayerImages {
         }
     }
 
+    public PlayerEntity getPlayerEntity() {
+        return playerEntity;
+    }
+
+    public Image[] getIdleParts() {
+        return idleParts;
+    }
+
+    public Image[] getJumpParts() {
+        return jumpParts;
+    }
+
+    public Image[] getRunParts() {
+        return runParts;
+    }
+
+    public Image[] getRunBackParts() {
+        return runBackParts;
+    }
 }

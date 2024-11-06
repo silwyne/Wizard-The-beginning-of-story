@@ -6,6 +6,7 @@ import java.util.Properties;
 
 
 import nilian.online.connector.joiner.GameClient;
+import nilian.online.render.OnlineRenderer;
 import nilian.tile.BackGroundPic;
 
 /**
@@ -14,6 +15,7 @@ import nilian.tile.BackGroundPic;
  */
 public class OnlineGamePanel extends GamePanel implements Runnable
 {
+    private final OnlineRenderer onlineRenderer;
     /**
      * This sets the main Settings of the JPanel
      */
@@ -21,6 +23,7 @@ public class OnlineGamePanel extends GamePanel implements Runnable
     {
         super(props, gameClient);
         loadGraphics();
+        this.onlineRenderer = gameClient.getOnlineRenderer();
     }
 
     private void loadGraphics() {
@@ -88,6 +91,9 @@ public class OnlineGamePanel extends GamePanel implements Runnable
 
         //then player
         super.getPlayer().draw(g2) ;//--2
+
+        // and other online stuff
+        onlineRenderer.draw(g2);
 
         g2.dispose() ;
     }

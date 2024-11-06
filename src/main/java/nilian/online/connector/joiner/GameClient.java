@@ -36,6 +36,8 @@ public class GameClient {
 
         // generate unique hash for user
         userHash = ((System.currentTimeMillis() * 100 + username).hashCode());
+        // initializing the onlineRenderer
+        onlineRenderer = new OnlineRenderer();
     }
 
     /**
@@ -102,5 +104,9 @@ public class GameClient {
 
     public int getClientHashCode() {
         return userHash;
+    }
+
+    public OnlineRenderer getOnlineRenderer() {
+        return onlineRenderer;
     }
 }

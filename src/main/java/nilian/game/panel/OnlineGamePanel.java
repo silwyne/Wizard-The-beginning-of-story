@@ -6,6 +6,9 @@ import java.util.Properties;
 
 
 import nilian.online.connector.joiner.GameClient;
+import nilian.online.message.ClientMessage;
+import nilian.online.message.ClientMessageType;
+import nilian.online.message.PlayerMessage;
 import nilian.online.render.OnlineRenderer;
 import nilian.tile.BackGroundPic;
 
@@ -69,7 +72,26 @@ public class OnlineGamePanel extends GamePanel implements Runnable
      * Updates All details of the game
      */
     public void update() {
-        super.getPlayer().update();
+        boolean moved = super.getPlayer().update();
+        if(moved) {
+            PlayerMessage playerMessage = PlayerMessage.newBuilder()
+                    .setPlayerHash(getGameClient().getClientHashCode())
+                    .setSuitCode(1)
+                    .setName(getPlayer().playerSchema.getPlayerName())
+                    .setTimestamp(System.currentTimeMillis())
+                    .setX(super.getPlayer().playerSchema.getPlayerX())
+                    .setY(super.getPlayer().playerSchema.getPlayerY())
+                    .build();
+
+            ClientMessage clientMessage = ClientMessage
+                    .newBuilder()
+                            .setTimestamp(System.currentTimeMillis())
+                                    .setType(ClientMessageType.CLIENT_MESSAGE_TYPE_UPDATE_PLACE)
+                                            .setPlayerInfo(playerMessage)
+                                                    .build();
+            // send a message to server to say the new position
+            getGameClient().sendMessage(clientMessage);
+        }
     }
 
     /**

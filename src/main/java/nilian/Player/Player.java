@@ -14,7 +14,7 @@ import nilian.input.KeyHandler;
  */
 public class Player extends PlayerEntity {
 
-	private final PlayerSchema playerSchema;
+	public final PlayerSchema playerSchema;
 	private final MovementHandler movementHandler;
 
 	private final PlayerImages playerImages = new PlayerImages();
@@ -62,8 +62,15 @@ public class Player extends PlayerEntity {
 		this.movementHandler = new MovementHandler(this.playerSchema, this.gamePanel);
 	}
 
-	public void update()
+	/**
+	 * updates player location
+	 * @return true if player is not in the same position as it was
+	 */
+	public boolean update()
 	{
+		int ix = playerSchema.getPlayerX();
+		int iy = playerSchema.getPlayerY();
+
 		movementHandler.handleJump();
 		//Normal Moving process
 		if(key.upPressed || key.rightPressed || key.leftPressed)
@@ -92,7 +99,15 @@ public class Player extends PlayerEntity {
 		direction = PlayerDirection.idle;
 
 		}
+
 		sprite();
+		// check for move
+		if(ix != playerSchema.getPlayerX()
+		|| iy != playerSchema.getPlayerY()){
+			return true ;
+		} else {
+			return false ;
+		}
 	}
 	
 

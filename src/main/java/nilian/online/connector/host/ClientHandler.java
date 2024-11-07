@@ -18,13 +18,15 @@ public class ClientHandler {
     //List of Shared Connections between all Clients!
     public int clientHashcode ;
     private final MessageListener<ClientMessage> messageListener;
+    private final MessageWriter<ServerMessage> messageWriter;
 
     public ClientHandler(Socket socket, ArrayList<ClientHandler> allOtherClients) {
+        this.messageWriter = new MessageWriter<>(socket);
+
         this.clientHashcode = (System.currentTimeMillis() * 33 + "client").hashCode();
-        MessageWriter<ServerMessage> messageWriter = new MessageWriter<>(socket);
         messageListener =
                 new MessageListener<ClientMessage>(socket,
-                new ServerMessageProcessor(allOtherClients, messageWriter, clientHashcode),
+                new ServerMessageProcessor(allOtherClients, clientHashcode),
                 ClientMessage.parser());
     }
 
@@ -36,4 +38,7 @@ public class ClientHandler {
         messageListener.start();
     }
 
+    public MessageWriter<ServerMessage> getMessageWriter() {
+        return messageWriter;
+    }
 }

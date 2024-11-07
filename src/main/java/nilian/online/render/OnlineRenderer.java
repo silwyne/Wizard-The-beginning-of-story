@@ -38,6 +38,7 @@ public class OnlineRenderer {
     }
 
     public void updatePlayer(PlayerSchema playerSchema) {
+        System.out.println("PLAYER UPDATE: x:"+playerSchema.getPlayerX()+" y:"+playerSchema.getPlayerY());
         for (PlayerSchema schema : otherPlayersInGame) {
             if (schema.getClientHashCode() == playerSchema.getClientHashCode()) {
                 schema.setPlayerX(playerSchema.getPlayerX());

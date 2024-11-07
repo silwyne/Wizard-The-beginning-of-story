@@ -18,16 +18,16 @@ public class ClientMessageProcessor implements MessageProcessor<ServerMessage> {
 
     @Override
     public void process(ServerMessage message) {
-        System.out.println(message);
-        PlayerSchema playerSchema = new PlayerSchema(
-                    message.getPlayer().getName(),
-                    (int) message.getPlayer().getPlayerHash(),
-                    message.getPlayer().getX(),
-                    message.getPlayer().getY(),
-                    Player.getRandomColor(),
-                    48
-            );
-        // so update his location
-        onlineRenderer.updatePlayer(playerSchema);
+        System.out.println("Message from : "+message.getPlayer().getName());
+//        PlayerSchema playerSchema = new PlayerSchema(
+//                    message.getPlayer().getName(),
+//                    (int) message.getPlayer().getPlayerHash(),
+//                    message.getPlayer().getX(),
+//                    message.getPlayer().getY(),
+//                    Player.getRandomColor(),
+//                    48
+//            );
+//        // so update his location
+//        onlineRenderer.updatePlayer(playerSchema);
     }
 }

@@ -1,6 +1,5 @@
 package nilian.online.render;
 
-import nilian.Player.PlayerDirection;
 import nilian.Player.PlayerSchema;
 import nilian.Player.suit.PlayerSuit;
 

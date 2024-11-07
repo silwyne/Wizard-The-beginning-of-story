@@ -8,7 +8,6 @@ import java.util.Properties;
 import nilian.online.connector.joiner.GameClient;
 import nilian.online.message.ClientMessage;
 import nilian.online.message.ClientMessageType;
-import nilian.online.message.PlayerMessage;
 import nilian.online.render.OnlineRenderer;
 import nilian.tile.BackGroundPic;
 

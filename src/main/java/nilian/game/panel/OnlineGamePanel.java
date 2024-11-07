@@ -70,6 +70,7 @@ public class OnlineGamePanel extends GamePanel implements Runnable
         }
     }
 
+    private boolean returnedToIdle = true;
     /**
      * Updates All details of the game
      */
@@ -77,6 +78,18 @@ public class OnlineGamePanel extends GamePanel implements Runnable
         boolean moved = super.getPlayer().update();
         // send message to server if player moved!
         if(moved) {
+            returnedToIdle = false;
+            ClientMessage clientMessage = ClientMessage.newBuilder()
+                    .setTimestamp(System.currentTimeMillis())
+                    .setType(ClientMessageType.CLIENT_MESSAGE_TYPE_UPDATE_PLACE)
+                    .setPlayerInfo(getPlayer().getPlayerMessage())
+                    .build();
+            // send a message to server to say the new position
+            getGameClient().sendMessage(clientMessage);
+        }
+        // if the player returned to idle let the server now!
+        else if(!returnedToIdle) {
+            returnedToIdle = true;
             ClientMessage clientMessage = ClientMessage.newBuilder()
                     .setTimestamp(System.currentTimeMillis())
                     .setType(ClientMessageType.CLIENT_MESSAGE_TYPE_UPDATE_PLACE)

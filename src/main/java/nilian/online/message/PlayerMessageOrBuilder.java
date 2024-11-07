@@ -63,7 +63,19 @@ public interface PlayerMessageOrBuilder extends
       getNameBytes();
 
   /**
-   * <code>int32 teamCode = 8;</code>
+   * <code>string nameColor = 8;</code>
+   * @return The nameColor.
+   */
+  java.lang.String getNameColor();
+  /**
+   * <code>string nameColor = 8;</code>
+   * @return The bytes for nameColor.
+   */
+  com.google.protobuf.ByteString
+      getNameColorBytes();
+
+  /**
+   * <code>int32 teamCode = 9;</code>
    * @return The teamCode.
    */
   int getTeamCode();

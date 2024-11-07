@@ -82,6 +82,7 @@ public class OnlineGamePanel extends GamePanel implements Runnable
                     .setTimestamp(System.currentTimeMillis())
                     .setX(super.getPlayer().playerSchema.getPlayerX())
                     .setY(super.getPlayer().playerSchema.getPlayerY())
+                    .setNameColor(getPlayer().playerSchema.getPlayerColor().toString())
                     .build();
 
             ClientMessage clientMessage = ClientMessage.newBuilder()

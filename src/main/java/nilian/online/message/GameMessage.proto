@@ -19,7 +19,8 @@ message PlayerMessage {
     int32 y = 5;
     int32 suit_code = 6;
     string name = 7;
-    int32 teamCode = 8;
+    string nameColor = 8;
+    int32 teamCode = 9;
 }
 
 // Game configuration messages and enums

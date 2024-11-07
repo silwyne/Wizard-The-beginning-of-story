@@ -29,6 +29,7 @@ private static final long serialVersionUID = 0L;
   private PlayerMessage() {
     type_ = 0;
     name_ = "";
+    nameColor_ = "";
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
@@ -156,10 +157,49 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int TEAMCODE_FIELD_NUMBER = 8;
+  public static final int NAMECOLOR_FIELD_NUMBER = 8;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object nameColor_ = "";
+  /**
+   * <code>string nameColor = 8;</code>
+   * @return The nameColor.
+   */
+  @java.lang.Override
+  public java.lang.String getNameColor() {
+    java.lang.Object ref = nameColor_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      nameColor_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string nameColor = 8;</code>
+   * @return The bytes for nameColor.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getNameColorBytes() {
+    java.lang.Object ref = nameColor_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      nameColor_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int TEAMCODE_FIELD_NUMBER = 9;
   private int teamCode_ = 0;
   /**
-   * <code>int32 teamCode = 8;</code>
+   * <code>int32 teamCode = 9;</code>
    * @return The teamCode.
    */
   @java.lang.Override
@@ -202,8 +242,11 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessage.isStringEmpty(name_)) {
       com.google.protobuf.GeneratedMessage.writeString(output, 7, name_);
     }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(nameColor_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 8, nameColor_);
+    }
     if (teamCode_ != 0) {
-      output.writeInt32(8, teamCode_);
+      output.writeInt32(9, teamCode_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -241,9 +284,12 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessage.isStringEmpty(name_)) {
       size += com.google.protobuf.GeneratedMessage.computeStringSize(7, name_);
     }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(nameColor_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(8, nameColor_);
+    }
     if (teamCode_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(8, teamCode_);
+        .computeInt32Size(9, teamCode_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -273,6 +319,8 @@ private static final long serialVersionUID = 0L;
         != other.getSuitCode()) return false;
     if (!getName()
         .equals(other.getName())) return false;
+    if (!getNameColor()
+        .equals(other.getNameColor())) return false;
     if (getTeamCode()
         != other.getTeamCode()) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
@@ -302,6 +350,8 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getSuitCode();
     hash = (37 * hash) + NAME_FIELD_NUMBER;
     hash = (53 * hash) + getName().hashCode();
+    hash = (37 * hash) + NAMECOLOR_FIELD_NUMBER;
+    hash = (53 * hash) + getNameColor().hashCode();
     hash = (37 * hash) + TEAMCODE_FIELD_NUMBER;
     hash = (53 * hash) + getTeamCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
@@ -442,6 +492,7 @@ private static final long serialVersionUID = 0L;
       y_ = 0;
       suitCode_ = 0;
       name_ = "";
+      nameColor_ = "";
       teamCode_ = 0;
       return this;
     }
@@ -498,6 +549,9 @@ private static final long serialVersionUID = 0L;
         result.name_ = name_;
       }
       if (((from_bitField0_ & 0x00000080) != 0)) {
+        result.nameColor_ = nameColor_;
+      }
+      if (((from_bitField0_ & 0x00000100) != 0)) {
         result.teamCode_ = teamCode_;
       }
     }
@@ -535,6 +589,11 @@ private static final long serialVersionUID = 0L;
       if (!other.getName().isEmpty()) {
         name_ = other.name_;
         bitField0_ |= 0x00000040;
+        onChanged();
+      }
+      if (!other.getNameColor().isEmpty()) {
+        nameColor_ = other.nameColor_;
+        bitField0_ |= 0x00000080;
         onChanged();
       }
       if (other.getTeamCode() != 0) {
@@ -601,11 +660,16 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000040;
               break;
             } // case 58
-            case 64: {
-              teamCode_ = input.readInt32();
+            case 66: {
+              nameColor_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000080;
               break;
-            } // case 64
+            } // case 66
+            case 72: {
+              teamCode_ = input.readInt32();
+              bitField0_ |= 0x00000100;
+              break;
+            } // case 72
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -908,9 +972,81 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private java.lang.Object nameColor_ = "";
+    /**
+     * <code>string nameColor = 8;</code>
+     * @return The nameColor.
+     */
+    public java.lang.String getNameColor() {
+      java.lang.Object ref = nameColor_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        nameColor_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string nameColor = 8;</code>
+     * @return The bytes for nameColor.
+     */
+    public com.google.protobuf.ByteString
+        getNameColorBytes() {
+      java.lang.Object ref = nameColor_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        nameColor_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string nameColor = 8;</code>
+     * @param value The nameColor to set.
+     * @return This builder for chaining.
+     */
+    public Builder setNameColor(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      nameColor_ = value;
+      bitField0_ |= 0x00000080;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string nameColor = 8;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearNameColor() {
+      nameColor_ = getDefaultInstance().getNameColor();
+      bitField0_ = (bitField0_ & ~0x00000080);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string nameColor = 8;</code>
+     * @param value The bytes for nameColor to set.
+     * @return This builder for chaining.
+     */
+    public Builder setNameColorBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      nameColor_ = value;
+      bitField0_ |= 0x00000080;
+      onChanged();
+      return this;
+    }
+
     private int teamCode_ ;
     /**
-     * <code>int32 teamCode = 8;</code>
+     * <code>int32 teamCode = 9;</code>
      * @return The teamCode.
      */
     @java.lang.Override
@@ -918,23 +1054,23 @@ private static final long serialVersionUID = 0L;
       return teamCode_;
     }
     /**
-     * <code>int32 teamCode = 8;</code>
+     * <code>int32 teamCode = 9;</code>
      * @param value The teamCode to set.
      * @return This builder for chaining.
      */
     public Builder setTeamCode(int value) {
 
       teamCode_ = value;
-      bitField0_ |= 0x00000080;
+      bitField0_ |= 0x00000100;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 teamCode = 8;</code>
+     * <code>int32 teamCode = 9;</code>
      * @return This builder for chaining.
      */
     public Builder clearTeamCode() {
-      bitField0_ = (bitField0_ & ~0x00000080);
+      bitField0_ = (bitField0_ & ~0x00000100);
       teamCode_ = 0;
       onChanged();
       return this;

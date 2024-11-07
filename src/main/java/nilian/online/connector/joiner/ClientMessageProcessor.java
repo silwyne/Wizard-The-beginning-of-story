@@ -6,6 +6,8 @@ import nilian.online.connector.message.MessageProcessor;
 import nilian.online.message.ServerMessage;
 import nilian.online.render.OnlineRenderer;
 
+import java.awt.*;
+
 public class ClientMessageProcessor implements MessageProcessor<ServerMessage> {
 
     private final OnlineRenderer onlineRenderer;
@@ -22,7 +24,7 @@ public class ClientMessageProcessor implements MessageProcessor<ServerMessage> {
                     (int) message.getPlayer().getPlayerHash(),
                     message.getPlayer().getX(),
                     message.getPlayer().getY(),
-                    Player.getRandomColor(),
+                    Color.getColor(message.getPlayer().getNameColor()),
                     48
             );
         // so update his location

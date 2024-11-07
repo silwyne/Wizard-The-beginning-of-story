@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import nilian.Player.suit.PlayerSuit;
-import nilian.game.panel.GamePanel;
+import nilian.gamePanel.GamePanel;
 import nilian.input.KeyHandler;
 import nilian.online.message.PlayerMessage;
 import nilian.online.message.PlayerMessageType;

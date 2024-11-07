@@ -1,6 +1,6 @@
 package nilian.tile;
 
-import nilian.game.panel.GamePanel;
+import nilian.gamePanel.GamePanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

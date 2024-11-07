@@ -1,6 +1,5 @@
 package nilian.graphics.panel;
 
-import nilian.game.GameMode;
 import nilian.graphics.window.GameWindow;
 import nilian.graphics.window.MainWindow;
 import nilian.graphics.window.WindowEntity;
@@ -54,10 +53,8 @@ public class OfflineMenuPanel extends MenuPanel{
      */
     private static void playOfflineAction(){
         // preparing the properties
-        Properties props = new Properties();
-        props.setProperty("player.name", playerNameF.getText());
-        MainWindow.dispose();
-        GameWindow.show(GameMode.offline, props, null);
+        JOptionPane.showMessageDialog(null,
+    "Hi "+playerNameF.getText()+"! we don't support offline mode for now. Hope you enjoy playing with your friends!");
     }
 
 

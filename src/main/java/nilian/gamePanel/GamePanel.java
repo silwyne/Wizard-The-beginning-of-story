@@ -1,4 +1,4 @@
-package nilian.game.panel;
+package nilian.gamePanel;
 
 import nilian.Player.Player;
 import nilian.input.KeyHandler;

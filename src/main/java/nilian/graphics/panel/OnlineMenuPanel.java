@@ -1,7 +1,6 @@
 package nilian.graphics.panel;
 
 import nilian.graphics.window.LoadingWindow;
-import nilian.game.GameMode;
 import nilian.online.ConnectionHandler;
 import nilian.online.OnlineMode;
 import nilian.graphics.window.GameWindow;
@@ -215,6 +214,6 @@ public class OnlineMenuPanel extends MenuPanel{
      */
     private static void setUpGame() {
         MainWindow.dispose();
-        GameWindow.show(GameMode.online, getSelectedProps(), connectionHandler.getGameClient());
+        GameWindow.show(getSelectedProps(), connectionHandler.getGameClient());
     }
 }

@@ -1,6 +1,6 @@
 package nilian.Player;
 
-import nilian.game.panel.GamePanel;
+import nilian.gamePanel.GamePanel;
 
 /**
  * Handles the physics of movement for a player

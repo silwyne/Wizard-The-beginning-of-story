@@ -1,4 +1,4 @@
-package nilian.game.panel;
+package nilian.gamePanel;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;

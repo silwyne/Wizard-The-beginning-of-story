@@ -1,4 +1,6 @@
-package nilian.Player;
+package nilian.Player.suit;
+
+import nilian.Player.PlayerEntity;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

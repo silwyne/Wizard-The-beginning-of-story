@@ -1,6 +1,6 @@
 package nilian.online.render;
 
-import nilian.Player.PlayerImages;
+import nilian.Player.suit.PlayerImages;
 import nilian.Player.PlayerSchema;
 
 import java.awt.*;

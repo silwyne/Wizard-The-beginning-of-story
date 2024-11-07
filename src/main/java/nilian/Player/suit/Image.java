@@ -1,4 +1,4 @@
-package nilian.Player;
+package nilian.Player.suit;
 
 import java.awt.image.BufferedImage;
 

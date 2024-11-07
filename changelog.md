@@ -7,6 +7,17 @@
 - - #### fixes
 - - #### additions
 
+
+- - -
+
+- ### [0.0.2.2] - 7/11/2024
+- - #### fixes
+- - - movement report to server is improved
+- - - Color name is properly rendering online
+- - #### changes
+- - - removed Offline Mode Completely
+
+
 - - -
 - ### [0.0.2.1] - 7/11/2024
 - - #### additions

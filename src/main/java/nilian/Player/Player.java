@@ -152,6 +152,7 @@ public class Player extends PlayerEntity {
 
 	public PlayerMessage getPlayerMessage() {
 		return PlayerMessage.newBuilder()
+				.setNameColor(String.valueOf(playerSchema.getPlayerColor().getRGB()))
 				.setPlayerHash(playerSchema.getClientHashCode())
 				.setSuitCode(1)
 				.setDirection(playerSchema.getDirection().toString())
@@ -159,7 +160,6 @@ public class Player extends PlayerEntity {
 				.setTimestamp(System.currentTimeMillis())
 				.setX(playerSchema.getPlayerX())
 				.setY(playerSchema.getPlayerY())
-				.setNameColor(playerSchema.getPlayerColor().toString())
 				.build();
 	}
 }

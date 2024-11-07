@@ -1,5 +1,6 @@
 package nilian.online.connector.joiner;
 
+import nilian.Player.Player;
 import nilian.Player.PlayerDirection;
 import nilian.Player.PlayerSchema;
 import nilian.online.connector.message.MessageProcessor;
@@ -27,12 +28,12 @@ public class ClientMessageProcessor implements MessageProcessor<ServerMessage> {
             System.out.println(e.getMessage());
         }
         PlayerSchema playerSchema = new PlayerSchema(
-                    message.getPlayer().getName(),
-                    (int) message.getPlayer().getPlayerHash(),
-                    message.getPlayer().getX(),
-                    message.getPlayer().getY(),
-                    Color.getColor(message.getPlayer().getNameColor()),
-                    48,
+                message.getPlayer().getName(),
+                (int) message.getPlayer().getPlayerHash(),
+                message.getPlayer().getX(),
+                message.getPlayer().getY(),
+                Player.getRandomColor(),
+                48,
                 direction
             );
         // so update his location

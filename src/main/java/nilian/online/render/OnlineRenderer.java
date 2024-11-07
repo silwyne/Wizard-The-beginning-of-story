@@ -40,6 +40,7 @@ public class OnlineRenderer {
                 schema.setPlayerX(playerSchema.getPlayerX());
                 schema.setPlayerY(playerSchema.getPlayerY());
                 schema.setDirection(playerSchema.getDirection());
+                schema.setPlayerColor(playerSchema.getPlayerColor());
                 updated = true;
                 break;
             }

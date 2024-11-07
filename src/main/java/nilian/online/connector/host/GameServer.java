@@ -1,5 +1,10 @@
 package nilian.online.connector.host;
 
+import nilian.online.message.ClientMessage;
+import nilian.online.message.ClientMessageType;
+import nilian.online.message.ServerMessage;
+import nilian.online.message.ServerMessageType;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -55,9 +60,26 @@ public class GameServer {
             // handling new connection
             ClientHandler clientHandler = new ClientHandler(clientSocket, allClients);
             clientHandler.startMessageListener();
+            // informing new client
+            informNewClient(clientHandler);
             // adding to connected clients
             allClients.add(clientHandler);
             connected_clients ++ ;
+        }
+    }
+
+    /**
+     * sends latest updates of players in game to new client
+     * @param newClient the client who connected to server recently
+     */
+    private void informNewClient(ClientHandler newClient) {
+        for(ClientHandler clientHandler: allClients) {
+            ServerMessage clientMessage = ServerMessage.newBuilder()
+                    .setType(ServerMessageType.SERVER_MESSAGE_TYPE_WELCOME)
+                    .setPlayer(clientHandler.getLastPlayerMessage())
+                    .build();
+            newClient.getMessageWriter()
+                    .send(clientMessage);
         }
     }
 

@@ -10,10 +10,12 @@ public class ServerMessageProcessor implements MessageProcessor<ClientMessage> {
 
     private final ArrayList<ClientHandler> allOtherClients;
     private final int clientHashCode;
+    private final ClientHandler clientHandler;
 
-    public ServerMessageProcessor(ArrayList<ClientHandler> allClients, int clientHashCode) {
+    public ServerMessageProcessor(ArrayList<ClientHandler> allClients, ClientHandler clientHandler) {
         this.allOtherClients = allClients;
-        this.clientHashCode = clientHashCode;
+        this.clientHashCode = clientHandler.clientHashcode;
+        this.clientHandler = clientHandler;
     }
 
     /**
@@ -25,6 +27,9 @@ public class ServerMessageProcessor implements MessageProcessor<ClientMessage> {
     public void process(ClientMessage message) {
         // sending message to other clients
         ServerMessage serverMessage = MessageParser.parse(message);
+        // update client with this message
+        clientHandler.setLastPlayerMessage(message.getPlayerInfo());
+        // broadcast to everywhere
         broadCast(serverMessage);
     }
 

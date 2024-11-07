@@ -73,22 +73,12 @@ public class OnlineGamePanel extends GamePanel implements Runnable
      */
     public void update() {
         boolean moved = super.getPlayer().update();
+        // send message to server if player moved!
         if(moved) {
-            System.out.println("SENDING MESSAGE: x:"+super.getPlayer().playerSchema.getPlayerX()+" y:"+super.getPlayer().playerSchema.getPlayerY());
-            PlayerMessage playerMessage = PlayerMessage.newBuilder()
-                    .setPlayerHash(getGameClient().getClientHashCode())
-                    .setSuitCode(1)
-                    .setName(getPlayer().playerSchema.getPlayerName())
-                    .setTimestamp(System.currentTimeMillis())
-                    .setX(super.getPlayer().playerSchema.getPlayerX())
-                    .setY(super.getPlayer().playerSchema.getPlayerY())
-                    .setNameColor(getPlayer().playerSchema.getPlayerColor().toString())
-                    .build();
-
             ClientMessage clientMessage = ClientMessage.newBuilder()
                     .setTimestamp(System.currentTimeMillis())
                     .setType(ClientMessageType.CLIENT_MESSAGE_TYPE_UPDATE_PLACE)
-                    .setPlayerInfo(playerMessage)
+                    .setPlayerInfo(getPlayer().getPlayerMessage())
                     .build();
             // send a message to server to say the new position
             getGameClient().sendMessage(clientMessage);

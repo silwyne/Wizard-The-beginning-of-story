@@ -7,6 +7,7 @@ import java.util.Random;
 
 import nilian.game.panel.GamePanel;
 import nilian.input.KeyHandler;
+import nilian.online.message.PlayerMessage;
 
 
 /**
@@ -210,5 +211,17 @@ public class Player extends PlayerEntity {
 
 	public static Color getRandomColor() {
 		return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+	}
+
+	public PlayerMessage getPlayerMessage() {
+		return PlayerMessage.newBuilder()
+				.setPlayerHash(playerSchema.getClientHashCode())
+				.setSuitCode(1)
+				.setName(playerSchema.getPlayerName())
+				.setTimestamp(System.currentTimeMillis())
+				.setX(playerSchema.getPlayerX())
+				.setY(playerSchema.getPlayerY())
+				.setNameColor(playerSchema.getPlayerColor().toString())
+				.build();
 	}
 }

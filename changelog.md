@@ -8,6 +8,14 @@
 - - #### additions
 
 - - -
+- ### [0.0.2.1] - 7/11/2024
+- - #### additions
+- - - messages package of protocol buffers
+- - - OnlineRenderer Class for rendering online stuff
+- - - server-client communication
+- - #### changes
+- - - using PlayerSuit Class instead of PlayerImages Class
+
 
 - ### [0.0.2.0] - 27/10/2024
 - - #### additions

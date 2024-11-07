@@ -30,6 +30,7 @@ private static final long serialVersionUID = 0L;
     type_ = 0;
     name_ = "";
     nameColor_ = "";
+    direction_ = "";
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
@@ -196,10 +197,49 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int TEAMCODE_FIELD_NUMBER = 9;
+  public static final int DIRECTION_FIELD_NUMBER = 9;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object direction_ = "";
+  /**
+   * <code>string direction = 9;</code>
+   * @return The direction.
+   */
+  @java.lang.Override
+  public java.lang.String getDirection() {
+    java.lang.Object ref = direction_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      direction_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string direction = 9;</code>
+   * @return The bytes for direction.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getDirectionBytes() {
+    java.lang.Object ref = direction_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      direction_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int TEAMCODE_FIELD_NUMBER = 10;
   private int teamCode_ = 0;
   /**
-   * <code>int32 teamCode = 9;</code>
+   * <code>int32 teamCode = 10;</code>
    * @return The teamCode.
    */
   @java.lang.Override
@@ -245,8 +285,11 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessage.isStringEmpty(nameColor_)) {
       com.google.protobuf.GeneratedMessage.writeString(output, 8, nameColor_);
     }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(direction_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 9, direction_);
+    }
     if (teamCode_ != 0) {
-      output.writeInt32(9, teamCode_);
+      output.writeInt32(10, teamCode_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -287,9 +330,12 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessage.isStringEmpty(nameColor_)) {
       size += com.google.protobuf.GeneratedMessage.computeStringSize(8, nameColor_);
     }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(direction_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(9, direction_);
+    }
     if (teamCode_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(9, teamCode_);
+        .computeInt32Size(10, teamCode_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -321,6 +367,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getName())) return false;
     if (!getNameColor()
         .equals(other.getNameColor())) return false;
+    if (!getDirection()
+        .equals(other.getDirection())) return false;
     if (getTeamCode()
         != other.getTeamCode()) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
@@ -352,6 +400,8 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getName().hashCode();
     hash = (37 * hash) + NAMECOLOR_FIELD_NUMBER;
     hash = (53 * hash) + getNameColor().hashCode();
+    hash = (37 * hash) + DIRECTION_FIELD_NUMBER;
+    hash = (53 * hash) + getDirection().hashCode();
     hash = (37 * hash) + TEAMCODE_FIELD_NUMBER;
     hash = (53 * hash) + getTeamCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
@@ -493,6 +543,7 @@ private static final long serialVersionUID = 0L;
       suitCode_ = 0;
       name_ = "";
       nameColor_ = "";
+      direction_ = "";
       teamCode_ = 0;
       return this;
     }
@@ -552,6 +603,9 @@ private static final long serialVersionUID = 0L;
         result.nameColor_ = nameColor_;
       }
       if (((from_bitField0_ & 0x00000100) != 0)) {
+        result.direction_ = direction_;
+      }
+      if (((from_bitField0_ & 0x00000200) != 0)) {
         result.teamCode_ = teamCode_;
       }
     }
@@ -594,6 +648,11 @@ private static final long serialVersionUID = 0L;
       if (!other.getNameColor().isEmpty()) {
         nameColor_ = other.nameColor_;
         bitField0_ |= 0x00000080;
+        onChanged();
+      }
+      if (!other.getDirection().isEmpty()) {
+        direction_ = other.direction_;
+        bitField0_ |= 0x00000100;
         onChanged();
       }
       if (other.getTeamCode() != 0) {
@@ -665,11 +724,16 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000080;
               break;
             } // case 66
-            case 72: {
-              teamCode_ = input.readInt32();
+            case 74: {
+              direction_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000100;
               break;
-            } // case 72
+            } // case 74
+            case 80: {
+              teamCode_ = input.readInt32();
+              bitField0_ |= 0x00000200;
+              break;
+            } // case 80
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -1044,9 +1108,81 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private java.lang.Object direction_ = "";
+    /**
+     * <code>string direction = 9;</code>
+     * @return The direction.
+     */
+    public java.lang.String getDirection() {
+      java.lang.Object ref = direction_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        direction_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string direction = 9;</code>
+     * @return The bytes for direction.
+     */
+    public com.google.protobuf.ByteString
+        getDirectionBytes() {
+      java.lang.Object ref = direction_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        direction_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string direction = 9;</code>
+     * @param value The direction to set.
+     * @return This builder for chaining.
+     */
+    public Builder setDirection(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      direction_ = value;
+      bitField0_ |= 0x00000100;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string direction = 9;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearDirection() {
+      direction_ = getDefaultInstance().getDirection();
+      bitField0_ = (bitField0_ & ~0x00000100);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string direction = 9;</code>
+     * @param value The bytes for direction to set.
+     * @return This builder for chaining.
+     */
+    public Builder setDirectionBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      direction_ = value;
+      bitField0_ |= 0x00000100;
+      onChanged();
+      return this;
+    }
+
     private int teamCode_ ;
     /**
-     * <code>int32 teamCode = 9;</code>
+     * <code>int32 teamCode = 10;</code>
      * @return The teamCode.
      */
     @java.lang.Override
@@ -1054,23 +1190,23 @@ private static final long serialVersionUID = 0L;
       return teamCode_;
     }
     /**
-     * <code>int32 teamCode = 9;</code>
+     * <code>int32 teamCode = 10;</code>
      * @param value The teamCode to set.
      * @return This builder for chaining.
      */
     public Builder setTeamCode(int value) {
 
       teamCode_ = value;
-      bitField0_ |= 0x00000100;
+      bitField0_ |= 0x00000200;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 teamCode = 9;</code>
+     * <code>int32 teamCode = 10;</code>
      * @return This builder for chaining.
      */
     public Builder clearTeamCode() {
-      bitField0_ = (bitField0_ & ~0x00000100);
+      bitField0_ = (bitField0_ & ~0x00000200);
       teamCode_ = 0;
       onChanged();
       return this;

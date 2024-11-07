@@ -75,7 +75,19 @@ public interface PlayerMessageOrBuilder extends
       getNameColorBytes();
 
   /**
-   * <code>int32 teamCode = 9;</code>
+   * <code>string direction = 9;</code>
+   * @return The direction.
+   */
+  java.lang.String getDirection();
+  /**
+   * <code>string direction = 9;</code>
+   * @return The bytes for direction.
+   */
+  com.google.protobuf.ByteString
+      getDirectionBytes();
+
+  /**
+   * <code>int32 teamCode = 10;</code>
    * @return The teamCode.
    */
   int getTeamCode();

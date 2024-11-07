@@ -26,6 +26,9 @@ public class OnlineGamePanel extends GamePanel implements Runnable
         super(props, gameClient);
         loadGraphics();
         this.onlineRenderer = gameClient.getOnlineRenderer();
+
+        // now introduce to server!
+        introduceToServer();
     }
 
     private void loadGraphics() {
@@ -108,5 +111,15 @@ public class OnlineGamePanel extends GamePanel implements Runnable
         onlineRenderer.draw(g2);
 
         g2.dispose() ;
+    }
+
+    private void introduceToServer() {
+        ClientMessage clientMessage = ClientMessage.newBuilder()
+                .setTimestamp(System.currentTimeMillis())
+                .setType(ClientMessageType.CLIENT_MESSAGE_TYPE_INTRODUCE)
+                .setPlayerInfo(getPlayer().getPlayerMessage())
+                .build();
+        // send a message to server to say the new position
+        getGameClient().sendMessage(clientMessage);
     }
 }

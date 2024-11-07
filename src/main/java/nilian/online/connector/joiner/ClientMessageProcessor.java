@@ -20,6 +20,7 @@ public class ClientMessageProcessor implements MessageProcessor<ServerMessage> {
     @Override
     public void process(ServerMessage message) {
         System.out.println("Message from : "+message.getPlayer().getName());
+        System.out.println("Message : "+message);
         PlayerDirection direction ;
         try  {
             direction = PlayerDirection.valueOf(message.getPlayer().getDirection());
@@ -32,11 +33,19 @@ public class ClientMessageProcessor implements MessageProcessor<ServerMessage> {
                 (int) message.getPlayer().getPlayerHash(),
                 message.getPlayer().getX(),
                 message.getPlayer().getY(),
-                Player.getRandomColor(),
+                stringToColor(message.getPlayer().getNameColor()),
                 48,
                 direction
             );
         // so update his location
         onlineRenderer.updatePlayer(playerSchema);
+    }
+
+    public static Color stringToColor(String colorString) {
+        String[] rgb = colorString.split(",");
+        int r = Integer.parseInt(rgb[0]);
+        int g = Integer.parseInt(rgb[1]);
+        int b = Integer.parseInt(rgb[2]);
+        return new Color(r, g, b);
     }
 }

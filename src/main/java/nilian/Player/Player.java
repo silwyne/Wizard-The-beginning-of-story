@@ -8,6 +8,7 @@ import nilian.Player.suit.PlayerSuit;
 import nilian.game.panel.GamePanel;
 import nilian.input.KeyHandler;
 import nilian.online.message.PlayerMessage;
+import nilian.online.message.PlayerMessageType;
 
 
 /**
@@ -15,7 +16,7 @@ import nilian.online.message.PlayerMessage;
  */
 public class Player extends PlayerEntity {
 
-	public final PlayerSchema playerSchema;
+	public final PlayerSchema playerSchema ;
 	private final MovementHandler movementHandler;
 
 	private final PlayerSuit playerSuit;
@@ -24,6 +25,7 @@ public class Player extends PlayerEntity {
 	GamePanel gamePanel;
 	KeyHandler key;
 
+	private String nameColor ;
 
 	public Player(GamePanel gamePanel, KeyHandler key, String playerName)
 	{
@@ -35,12 +37,17 @@ public class Player extends PlayerEntity {
 		} else {
 			playerHash = ((System.currentTimeMillis() * 100) + "default").hashCode();
 		}
+
+		// getting some random color
+		Color color = getRandomColor();
+		nameColor = color.getRed() + "," + color.getGreen() + "," + color.getBlue();
+
 		this.playerSchema = new PlayerSchema(
 				playerName,
 				playerHash,
 				gamePanel.screenHeight / 2,
 				gamePanel.screenHeight / 2,
-				getRandomColor(),
+				color,
 				playerSize,
 				PlayerDirection.idle);
 
@@ -50,7 +57,7 @@ public class Player extends PlayerEntity {
 		worldX = 256;
 		worldY = gamePanel.screenHeight / 2;
 		speed = 2;
-		playerSchema.setDirection(PlayerDirection.normal);
+		playerSchema.setDirection(PlayerDirection.idle);
 
 		// loading the player suit
 		playerSuit = new PlayerSuit("/Player/suit_1");
@@ -147,12 +154,17 @@ public class Player extends PlayerEntity {
 	}
 
 	public static Color getRandomColor() {
-		return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+		Random random = new Random();
+		int r = random.nextInt(256); // Random value between 0 and 255
+		int g = random.nextInt(256);
+		int b = random.nextInt(256);
+		return new Color(r, g, b);
 	}
 
 	public PlayerMessage getPlayerMessage() {
 		return PlayerMessage.newBuilder()
-				.setNameColor(String.valueOf(playerSchema.getPlayerColor().getRGB()))
+				.setNameColor(nameColor)
+				.setType(PlayerMessageType.PLAYER_MESSAGE_TYPE_MOVE)
 				.setPlayerHash(playerSchema.getClientHashCode())
 				.setSuitCode(1)
 				.setDirection(playerSchema.getDirection().toString())

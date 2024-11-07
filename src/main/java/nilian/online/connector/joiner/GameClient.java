@@ -1,5 +1,6 @@
 package nilian.online.connector.joiner;
 
+import nilian.Player.PlayerDirection;
 import nilian.online.connector.message.MessageListener;
 import nilian.online.connector.message.MessageWriter;
 import nilian.online.message.*;
@@ -75,31 +76,6 @@ public class GameClient {
      */
     public void listenForMessage() {
         messageListener.start();
-    }
-
-    public void introduceToServer() {
-        if(introductionMessage == null){
-            introductionMessage = ClientMessage.newBuilder()
-                    .setTimestamp(System.currentTimeMillis())
-                    .setType(ClientMessageType.CLIENT_MESSAGE_TYPE_INTRODUCE)
-                    .setPlayerInfo(getPlayerMessage())
-                    .build();
-        }
-        messageWriter.send(introductionMessage);
-    }
-
-    public PlayerMessage getPlayerMessage() {
-        if(playerMessage == null) {
-            playerMessage = PlayerMessage.newBuilder()
-                    .setPlayerHash(userHash)
-                    .setName(username)
-                    .setTimestamp(System.currentTimeMillis())
-                    .setType(PlayerMessageType.PLAYER_MESSAGE_TYPE_SPAWN)
-                    .setTeamCode(0)
-                    .setSuitCode(0)
-                    .build();
-        }
-        return playerMessage;
     }
 
     public int getClientHashCode() {

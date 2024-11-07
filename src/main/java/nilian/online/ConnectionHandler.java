@@ -67,8 +67,6 @@ public class ConnectionHandler {
             // listen for incoming messages
             System.out.println("Listening to server messages");
             this.gameClient.listenForMessage();
-            // introduces the player to server
-            this.gameClient.introduceToServer();
             // connected to server successfully
         }
         return connected;

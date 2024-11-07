@@ -41,14 +41,16 @@ public class Player extends PlayerEntity {
 				gamePanel.screenHeight / 2,
 				gamePanel.screenHeight / 2,
 				getRandomColor(),
-				playerSize);
+				playerSize,
+				PlayerDirection.idle);
+
 		this.gamePanel = gamePanel;
 		this.key = key ;
 		// Set Default values
 		worldX = 256;
 		worldY = gamePanel.screenHeight / 2;
 		speed = 2;
-		direction = PlayerDirection.normal;
+		playerSchema.setDirection(PlayerDirection.normal);
 
 		// loading the player suit
 		playerSuit = new PlayerSuit("/Player/suit_1");
@@ -79,26 +81,26 @@ public class Player extends PlayerEntity {
 		{
 			if(key.upPressed)
 			{
-				direction = PlayerDirection.jump;
+				playerSchema.setDirection(PlayerDirection.jump);
 				movementHandler.startJump();
 			}
 			else if(key.rightPressed)
 			{
-				direction = PlayerDirection.run;
+				playerSchema.setDirection(PlayerDirection.run);
 				movementHandler.movePlayer(playerSchema.getPlayerX() + speed, playerSchema.getPlayerY());
 			}
 			else if(key.leftPressed)
 			{
-				direction = PlayerDirection.runback;
+				playerSchema.setDirection(PlayerDirection.runback);
 				movementHandler.movePlayer(playerSchema.getPlayerX() - speed, playerSchema.getPlayerY());
 			}
 		}
 		else if(movementHandler.isJumping) {// if player is on jump !
-			direction = PlayerDirection.jump;
+			playerSchema.setDirection(PlayerDirection.jump);
 
 		}
 		else {
-		direction = PlayerDirection.idle;
+		playerSchema.setDirection(PlayerDirection.idle);
 
 		}
 
@@ -118,7 +120,7 @@ public class Player extends PlayerEntity {
 	public void draw(Graphics2D g2)
 	{
 		//State Image of Player
-		BufferedImage image = switch (direction) {
+		BufferedImage image = switch (playerSchema.getDirection()) {
             case jump -> playerSuit.getJumpFrame();
             case idle -> playerSuit.getIdleFrame();
             case run -> playerSuit.getRunFrame();
@@ -152,6 +154,7 @@ public class Player extends PlayerEntity {
 		return PlayerMessage.newBuilder()
 				.setPlayerHash(playerSchema.getClientHashCode())
 				.setSuitCode(1)
+				.setDirection(playerSchema.getDirection().toString())
 				.setName(playerSchema.getPlayerName())
 				.setTimestamp(System.currentTimeMillis())
 				.setX(playerSchema.getPlayerX())

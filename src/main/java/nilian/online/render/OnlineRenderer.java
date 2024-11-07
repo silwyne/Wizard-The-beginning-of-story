@@ -1,5 +1,6 @@
 package nilian.online.render;
 
+import nilian.Player.PlayerDirection;
 import nilian.Player.PlayerSchema;
 import nilian.Player.suit.PlayerSuit;
 
@@ -14,14 +15,14 @@ import java.util.List;
  */
 public class OnlineRenderer {
 
-    private final PlayerSuit playerImages;
-    private List<PlayerSchema> otherPlayersInGame = new ArrayList<>() ;
+    private final PlayerSuit playerSuit;
+    private final List<PlayerSchema> otherPlayersInGame = new ArrayList<>() ;
 
     public OnlineRenderer() {
-        playerImages = new PlayerSuit("/Player/suit_1");
-        playerImages.setImagesNum(4, 4, 6, 6);
-        playerImages.getImages();
-        playerImages.separate();
+        playerSuit = new PlayerSuit("/Player/suit_1");
+        playerSuit.setImagesNum(4, 4, 6, 6);
+        playerSuit.getImages();
+        playerSuit.separate();
     }
 
     public void addPlayer(PlayerSchema playerSchema) {
@@ -34,20 +35,33 @@ public class OnlineRenderer {
 
     public void updatePlayer(PlayerSchema playerSchema) {
         System.out.println("PLAYER UPDATE: x:"+playerSchema.getPlayerX()+" y:"+playerSchema.getPlayerY());
+        boolean updated = false;
         for (PlayerSchema schema : otherPlayersInGame) {
             if (schema.getClientHashCode() == playerSchema.getClientHashCode()) {
                 schema.setPlayerX(playerSchema.getPlayerX());
                 schema.setPlayerY(playerSchema.getPlayerY());
-                return;
+                schema.setDirection(playerSchema.getDirection());
+                updated = true;
+                break;
             }
         }
-        otherPlayersInGame.add(playerSchema);
+        if(!updated){
+            otherPlayersInGame.add(playerSchema);
+        }
     }
 
     // draws other players on screen
     public void draw(Graphics2D g2) {
-        BufferedImage image = playerImages.getIdleFrame() ;
+        BufferedImage image;
         for(PlayerSchema schema: otherPlayersInGame) {
+            //State Image of Player
+            image = switch (schema.getDirection()) {
+                case jump -> playerSuit.getJumpFrame();
+                case idle, normal -> playerSuit.getIdleFrame();
+                case run -> playerSuit.getRunFrame();
+                case runback -> playerSuit.getRunBackFrame();
+            };
+
             g2.drawImage(image, schema.getPlayerX(), schema.getPlayerY(), schema.getPlayerSize(), schema.getPlayerSize() , null) ;
 
             // Set up the font and color for the text

@@ -2,10 +2,9 @@ package nilian.Player;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.Random;
 
-import nilian.Player.suit.PlayerImages;
+import nilian.Player.suit.PlayerSuit;
 import nilian.game.panel.GamePanel;
 import nilian.input.KeyHandler;
 import nilian.online.message.PlayerMessage;
@@ -19,7 +18,7 @@ public class Player extends PlayerEntity {
 	public final PlayerSchema playerSchema;
 	private final MovementHandler movementHandler;
 
-	private final PlayerImages playerImages = new PlayerImages();
+	private final PlayerSuit playerSuit;
 	private static final Random random = new Random();
 
 	GamePanel gamePanel;
@@ -51,14 +50,15 @@ public class Player extends PlayerEntity {
 		speed = 2;
 		direction = PlayerDirection.normal;
 
-        try {
-			//load player images
-            playerImages.getImages();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-		//cutting images into image arrays
-        playerImages.separate();
+		// loading the player suit
+		playerSuit = new PlayerSuit("/Player/suit_1");
+
+		// set images number
+		playerSuit.setImagesNum(4, 4, 6, 6);
+		// load player images
+		playerSuit.getImages();
+		// cutting images into image arrays
+		playerSuit.separate();
 
 		//movement handler
 		this.movementHandler = new MovementHandler(this.playerSchema, this.gamePanel);
@@ -102,7 +102,6 @@ public class Player extends PlayerEntity {
 
 		}
 
-		sprite();
 		// check for move
 		if(ix != playerSchema.getPlayerX()
 		|| iy != playerSchema.getPlayerY()){
@@ -111,56 +110,6 @@ public class Player extends PlayerEntity {
 			return false ;
 		}
 	}
-	
-
-	public int spriteIdle = 0 ;
-	public int spriteJump = 0 ;
-	public int spriteRun = 0 ;
-	public int totalIdle = 4 ;
-	public int totalJump = 4 ;
-	public int totalRun = 6 ;
-
-	/**
-	 * Updates Player Images frame by frame!
-	 */
-	public void sprite()
-	{
-		spriteCounter ++ ;
-		if(spriteCounter > 6)
-		{
-			//sprite for idle images
-			if(spriteIdle == totalIdle-1)
-			{
-				spriteIdle = 0 ;
-				spriteCounter = 0 ;
-			}
-		    else if(spriteIdle < totalIdle)
-			{
-				spriteIdle ++ ;
-			}
-			//sprite for jump images
-			if(spriteJump == totalJump-1)
-			{
-				spriteJump = 0 ;
-				spriteCounter = 0 ;
-			}
-		    else if(spriteJump < totalJump)
-			{
-		    	spriteJump ++ ;
-			}	
-			//sprite for run images
-			if(spriteRun == totalRun-1)
-			{
-				spriteRun = 0 ;
-				spriteCounter = 0 ;
-			}
-		    else if(spriteRun < totalRun)
-			{
-		    	spriteRun ++ ;
-			}
-		}
-	}
-
 
 	/**
 	 * Simply draws the player Image on the JPanel!
@@ -169,29 +118,14 @@ public class Player extends PlayerEntity {
 	public void draw(Graphics2D g2)
 	{
 		//State Image of Player
-		BufferedImage image = null ;
-		switch(direction) 
-		{
-		
-		case jump :
-			image = playerImages.getJumpParts()[spriteJump].image ;
-			break ;
-			
-			
-		case idle :
-			image = playerImages.getIdleParts()[spriteIdle].image ;
-			break ;
-			
-			
-		case run :
-			image = playerImages.getRunParts()[spriteRun].image ;
-			break ;
-			
-		case runback :
-			image = playerImages.getRunBackParts()[spriteRun].image ;
-			break ;
-		}
-		g2.drawImage(image, playerSchema.getPlayerX(), playerSchema.getPlayerY(), playerSize, playerSize , null) ;
+		BufferedImage image = switch (direction) {
+            case jump -> playerSuit.getJumpFrame();
+            case idle -> playerSuit.getIdleFrame();
+            case run -> playerSuit.getRunFrame();
+            case runback -> playerSuit.getRunBackFrame();
+            default -> null;
+        };
+        g2.drawImage(image, playerSchema.getPlayerX(), playerSchema.getPlayerY(), playerSize, playerSize , null) ;
 
 		// Set up the font and color for the text
 		g2.setFont(new Font("Arial", Font.BOLD, 12)); // Adjust font and size as needed

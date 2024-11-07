@@ -1,11 +1,10 @@
 package nilian.online.render;
 
-import nilian.Player.suit.PlayerImages;
 import nilian.Player.PlayerSchema;
+import nilian.Player.suit.PlayerSuit;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -15,17 +14,13 @@ import java.util.List;
  */
 public class OnlineRenderer {
 
-    private final PlayerImages playerImages;
+    private final PlayerSuit playerImages;
     private List<PlayerSchema> otherPlayersInGame = new ArrayList<>() ;
 
     public OnlineRenderer() {
-        // loading suit 1 images
-        try {
-            playerImages = new PlayerImages();
-            playerImages.getImages();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        playerImages = new PlayerSuit("/Player/suit_1");
+        playerImages.setImagesNum(4, 4, 6, 6);
+        playerImages.getImages();
         playerImages.separate();
     }
 
@@ -51,7 +46,7 @@ public class OnlineRenderer {
 
     // draws other players on screen
     public void draw(Graphics2D g2) {
-        BufferedImage image = playerImages.getIdleParts()[0].image ;
+        BufferedImage image = playerImages.getIdleFrame() ;
         for(PlayerSchema schema: otherPlayersInGame) {
             g2.drawImage(image, schema.getPlayerX(), schema.getPlayerY(), schema.getPlayerSize(), schema.getPlayerSize() , null) ;
 

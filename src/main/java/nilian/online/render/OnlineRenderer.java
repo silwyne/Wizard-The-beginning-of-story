@@ -18,7 +18,7 @@ public class OnlineRenderer {
     private final List<PlayerSchema> otherPlayersInGame = new ArrayList<>() ;
 
     public OnlineRenderer() {
-        playerSuit = new PlayerSuit("/Player/suit_1");
+        playerSuit = new PlayerSuit("/Player/suit_1", "suit_1");
         playerSuit.setImagesNum(4, 4, 6, 6);
         playerSuit.loadImages();
         playerSuit.loadFrames();

@@ -60,7 +60,7 @@ public class Player extends PlayerEntity {
 		playerSchema.setDirection(PlayerDirection.idle);
 
 		// loading the player suit
-		playerSuit = new PlayerSuit("/Player/suit_1");
+		playerSuit = new PlayerSuit("/Player/suit_1", "suit_1");
 
 		// set images number
 		playerSuit.setImagesNum(4, 4, 6, 6);

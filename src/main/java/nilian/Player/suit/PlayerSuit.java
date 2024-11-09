@@ -7,6 +7,7 @@ import java.util.Objects;
 
 public class PlayerSuit {
 
+    private final String suitName;
     private final String pathToImagePack;
 
     private BufferedImage idle;
@@ -25,8 +26,9 @@ public class PlayerSuit {
     private int runBackImages_num;
 
 
-    public PlayerSuit(String pathToImagePack) {
+    public PlayerSuit(String pathToImagePack, String suitName) {
         this.pathToImagePack = pathToImagePack;
+        this.suitName = suitName;
     }
 
 
@@ -118,6 +120,10 @@ public class PlayerSuit {
             BufferedImage part = runBack.getSubimage(x, y, partWidth, height);
             runBackParts[i] = part;
         }
+    }
+
+    public String getSuitName() {
+        return suitName;
     }
 
     /*

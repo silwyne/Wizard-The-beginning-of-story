@@ -27,6 +27,22 @@ public class SuitHandler {
         fighter.loadFrames();
         availableSuits.add(fighter);
         allSuitNames.add("fighter");
+
+        // Samurai
+        PlayerSuit samurai = new PlayerSuit("/Player/Samurai", "samurai");
+        samurai.setImagesNum(6, 10, 8, 8);
+        samurai.loadImages();
+        samurai.loadFrames();
+        availableSuits.add(samurai);
+        allSuitNames.add("samurai");
+
+        // Samurai
+        PlayerSuit shinobi = new PlayerSuit("/Player/Shinobi", "shinobi");
+        shinobi.setImagesNum(6, 10, 8, 8);
+        shinobi.loadImages();
+        shinobi.loadFrames();
+        availableSuits.add(shinobi);
+        allSuitNames.add("shinobi");
     }
 
 

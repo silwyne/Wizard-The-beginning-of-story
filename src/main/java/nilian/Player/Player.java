@@ -81,6 +81,10 @@ public class Player extends PlayerEntity {
 		//Normal Moving process
 		if(key.upPressed || key.rightPressed || key.leftPressed)
 		{
+			if(key.attackPressed)
+			{
+				// TODO: Implement updating attacking logics
+			}
 			if(key.upPressed)
 			{
 				playerSchema.setDirection(PlayerDirection.jump);

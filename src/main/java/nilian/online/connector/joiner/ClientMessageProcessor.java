@@ -35,7 +35,7 @@ public class ClientMessageProcessor implements MessageProcessor<ServerMessage> {
                 stringToColor(message.getPlayer().getNameColor()),
                 48,
                 direction,
-                "message.getPlayer().getSuitCode()"
+                message.getPlayer().getSuitCode()
             );
         // so update his location
         onlineRenderer.updatePlayer(playerSchema);

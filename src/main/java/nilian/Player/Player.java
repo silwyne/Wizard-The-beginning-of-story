@@ -61,8 +61,6 @@ public class Player extends PlayerEntity {
 		speed = 2;
 		playerSchema.setDirection(PlayerDirection.idle);
 
-		// load suits
-		SuitHandler.loadAllSuits();
 		//get the suit
 		playerSuit = SuitHandler.getSuit(suitName);
 
@@ -163,7 +161,7 @@ public class Player extends PlayerEntity {
 				.setNameColor(nameColor)
 				.setType(PlayerMessageType.PLAYER_MESSAGE_TYPE_MOVE)
 				.setPlayerHash(playerSchema.getClientHashCode())
-				.setSuitCode(1)
+				.setSuitCode(playerSchema.getSuitName())
 				.setDirection(playerSchema.getDirection().toString())
 				.setName(playerSchema.getPlayerName())
 				.setTimestamp(System.currentTimeMillis())

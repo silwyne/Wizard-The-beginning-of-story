@@ -6,6 +6,7 @@ import java.util.List;
 public class SuitHandler {
 
     private static final List<PlayerSuit> availableSuits = new ArrayList<>();
+    private static final ArrayList<String> allSuitNames = new ArrayList<>();
 
     /**
      * Loads all suits classes
@@ -17,6 +18,7 @@ public class SuitHandler {
         suit_1.loadImages();
         suit_1.loadFrames();
         availableSuits.add(suit_1);
+        allSuitNames.add("suit_1");
 
         // Fighter
         PlayerSuit fighter = new PlayerSuit("/Player/Fighter", "fighter");
@@ -24,6 +26,7 @@ public class SuitHandler {
         fighter.loadImages();
         fighter.loadFrames();
         availableSuits.add(fighter);
+        allSuitNames.add("fighter");
     }
 
 
@@ -39,5 +42,9 @@ public class SuitHandler {
             }
         }
         return null;
+    }
+
+    public static ArrayList<String> getAllSuitNames() {
+        return allSuitNames;
     }
 }

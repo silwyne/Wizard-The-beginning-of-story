@@ -37,6 +37,7 @@ public class GamePanel extends JPanel {
     public GamePanel(Properties props, GameClient gameClient) {
 
         this.player = new Player(this , this.keyH, props.getProperty("player.name"), props.getProperty("player.suit"));
+        System.out.println(props.getProperty("player.suit"));
         this.gameClient = gameClient;
         this.setPreferredSize(new Dimension(screenWidth , screenHeight)) ;
         this.setBackground(Color.black) ;

@@ -1,5 +1,6 @@
 package nilian.graphics.panel;
 
+import nilian.Player.suit.SuitHandler;
 import nilian.graphics.window.LoadingWindow;
 import nilian.online.ConnectionHandler;
 import nilian.online.OnlineMode;
@@ -8,6 +9,8 @@ import nilian.graphics.window.MainWindow;
 import nilian.graphics.window.WindowEntity;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Properties;
 
 public class OnlineMenuPanel extends MenuPanel{
@@ -16,6 +19,7 @@ public class OnlineMenuPanel extends MenuPanel{
     private static JTextField serverIpField;
     private static JTextField serverPortField;
     private static JTextField passwordField;
+    private static JTextField playerSuitField;
     private static JButton hostServerButton;
     private static JButton joinServerButton;
     private static JButton goBackButton;
@@ -51,6 +55,7 @@ public class OnlineMenuPanel extends MenuPanel{
         serverIpField = createTextField("localhost", WindowEntity.TEXT_FIELD_COLUMNS);
         serverPortField = createTextField("8696", WindowEntity.TEXT_FIELD_COLUMNS);
         passwordField = createTextField("defaultPass", WindowEntity.TEXT_FIELD_COLUMNS);
+        playerSuitField = createTextField("fighter", WindowEntity.TEXT_FIELD_COLUMNS);
 
         // buttons
         hostServerButton = createButton("Host server", e -> hostServer());
@@ -71,18 +76,20 @@ public class OnlineMenuPanel extends MenuPanel{
         addComponent(panel, getNameLabel("server ip"), gbc, 0,1);
         addComponent(panel, getNameLabel("server port"), gbc, 0,2);
         addComponent(panel, getNameLabel("password"), gbc, 0,3);
+        addComponent(panel, getNameLabel("player suit"), gbc, 0,4);
 
         // text fields
         addComponent(panel, playerNameField, gbc, 1, 0);
         addComponent(panel, serverIpField, gbc, 1,1);
         addComponent(panel, serverPortField, gbc, 1,2);
         addComponent(panel, passwordField, gbc, 1,3);
+        addComponent(panel, getComboBoxLabel(SuitHandler.getAllSuitNames()), gbc, 1,4);
 
         // buttons
         gbc.fill = GridBagConstraints.VERTICAL;
-        addComponent(panel, hostServerButton, gbc, 0, 4);
-        addComponent(panel, joinServerButton, gbc, 1, 4);
-        addComponent(panel, goBackButton, gbc, 2, 4);
+        addComponent(panel, hostServerButton, gbc, 0, 5);
+        addComponent(panel, joinServerButton, gbc, 1, 5);
+        addComponent(panel, goBackButton, gbc, 2, 5);
     }
 
 
@@ -97,6 +104,9 @@ public class OnlineMenuPanel extends MenuPanel{
         return textField;
     }
 
+    private static JComboBox<String> getComboBoxLabel(ArrayList<String> options) {
+        return new JComboBox<>(options.toArray(new String[0]));
+    }
     /**
      * Does all the stuff needed to Create a Game server and then join it!
      */
@@ -205,6 +215,7 @@ public class OnlineMenuPanel extends MenuPanel{
         props.setProperty("server.port", serverPortField.getText());
         props.setProperty("server.password", passwordField.getText());
         props.setProperty("player.name", playerNameField.getText());
+        props.setProperty("player.suit", playerSuitField.getText());
 
         return props;
     }

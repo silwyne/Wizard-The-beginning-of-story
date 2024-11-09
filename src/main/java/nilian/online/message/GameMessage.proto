@@ -17,7 +17,7 @@ message PlayerMessage {
     int64 player_hash = 3;
     int32 x = 4;
     int32 y = 5;
-    int32 suit_code = 6;
+    string suit_code = 6;
     string name = 7;
     string nameColor = 8;
     string direction = 9;

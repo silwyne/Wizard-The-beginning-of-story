@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import nilian.Player.suit.PlayerSuit;
+import nilian.Player.suit.SuitHandler;
 import nilian.gamePanel.GamePanel;
 import nilian.input.KeyHandler;
 import nilian.online.message.PlayerMessage;
@@ -27,7 +28,7 @@ public class Player extends PlayerEntity {
 
 	private String nameColor ;
 
-	public Player(GamePanel gamePanel, KeyHandler key, String playerName)
+	public Player(GamePanel gamePanel, KeyHandler key, String playerName, String suitName)
 	{
 		playerSize = gamePanel.tileSize;
 		// extracting playerHash for PlayerSchema
@@ -49,7 +50,8 @@ public class Player extends PlayerEntity {
 				gamePanel.screenHeight / 2,
 				color,
 				playerSize,
-				PlayerDirection.idle);
+				PlayerDirection.idle,
+				suitName);
 
 		this.gamePanel = gamePanel;
 		this.key = key ;
@@ -59,15 +61,10 @@ public class Player extends PlayerEntity {
 		speed = 2;
 		playerSchema.setDirection(PlayerDirection.idle);
 
-		// loading the player suit
-		playerSuit = new PlayerSuit("/Player/suit_1", "suit_1");
-
-		// set images number
-		playerSuit.setImagesNum(4, 4, 6, 6);
-		// load player images
-		playerSuit.loadImages();
-		// cutting images into image arrays
-		playerSuit.loadFrames();
+		// load suits
+		SuitHandler.loadAllSuits();
+		//get the suit
+		playerSuit = SuitHandler.getSuit(suitName);
 
 		//movement handler
 		this.movementHandler = new MovementHandler(this.playerSchema, this.gamePanel);

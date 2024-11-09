@@ -32,7 +32,7 @@ public class SuitHandler {
      * @param suitName name of the suit
      * @return PlayerSuit Object
      */
-    public PlayerSuit getSuit(String suitName) {
+    public static PlayerSuit getSuit(String suitName) {
         for(PlayerSuit suit: availableSuits) {
             if(suit.getSuitName().equals(suitName)) {
                 return suit;

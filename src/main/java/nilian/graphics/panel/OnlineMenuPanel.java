@@ -55,7 +55,7 @@ public class OnlineMenuPanel extends MenuPanel{
         serverIpField = createTextField("localhost", WindowEntity.TEXT_FIELD_COLUMNS);
         serverPortField = createTextField("8696", WindowEntity.TEXT_FIELD_COLUMNS);
         passwordField = createTextField("defaultPass", WindowEntity.TEXT_FIELD_COLUMNS);
-        playerSuitField = createComboBoxLabel(new ArrayList<>(java.util.List.of("fighter", "suit_1")));
+        playerSuitField = createComboBoxLabel(SuitHandler.getAllSuitNames());
 
 
         // buttons

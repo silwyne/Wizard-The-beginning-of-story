@@ -36,7 +36,7 @@ public class OnlineRenderer {
             if (schema.getClientHashCode() == playerSchema.getClientHashCode()) {
                 schema.setPlayerX(playerSchema.getPlayerX());
                 schema.setPlayerY(playerSchema.getPlayerY());
-                schema.setDirection(playerSchema.getDirection());
+                schema.setPlayerState(playerSchema.getPlayerState());
                 updated = true;
                 break;
             }
@@ -51,7 +51,7 @@ public class OnlineRenderer {
         BufferedImage image;
         for(PlayerSchema schema: otherPlayersInGame) {
             //State Image of Player
-            image = getPlayerImage(schema.getDirection(), SuitHandler.getSuit(schema.getSuitName()));
+            image = getPlayerImage(schema.getPlayerState(), SuitHandler.getSuit(schema.getSuitName()));
 
             // draw player
             g2.drawImage(image, schema.getPlayerX(), schema.getPlayerY(), schema.getPlayerSize(), schema.getPlayerSize() , null) ;

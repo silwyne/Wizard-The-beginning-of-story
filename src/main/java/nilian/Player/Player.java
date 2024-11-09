@@ -62,7 +62,7 @@ public class Player extends PlayerEntity {
 		worldX = 256;
 		worldY = gamePanel.screenHeight / 2;
 		speed = 2;
-		playerSchema.setDirection(PlayerState.IDLE);
+		playerSchema.setPlayerState(PlayerState.IDLE);
 
 		//get the suit
 		playerSuit = SuitHandler.getSuit(suitName);
@@ -84,39 +84,38 @@ public class Player extends PlayerEntity {
 		//Normal Moving process
 		if(key.upPressed || key.rightPressed || key.leftPressed || key.attackPressed)
 		{
-			if(key.attackPressed)
-			{
-				// TODO: Implement updating attacking logics
-			}
 			if(key.upPressed)
 			{
-				playerSchema.setDirection(PlayerState.JUMP);
+				playerSchema.setPlayerState(PlayerState.JUMP);
 				movementHandler.startJump();
 			}
 			else if(key.rightPressed)
 			{
 				orientation = PlayerOrientation.RIGHT;
-				playerSchema.setDirection(PlayerState.RUN);
+				playerSchema.setPlayerState(PlayerState.RUN);
 				movementHandler.movePlayer(playerSchema.getPlayerX() + speed, playerSchema.getPlayerY());
 			}
 			else if(key.leftPressed)
 			{
 				orientation = PlayerOrientation.LEFT;
-				playerSchema.setDirection(PlayerState.RUN_BACK);
+				playerSchema.setPlayerState(PlayerState.RUN_BACK);
 				movementHandler.movePlayer(playerSchema.getPlayerX() - speed, playerSchema.getPlayerY());
 			}
+			if(key.attackPressed)
+			{
+				// TODO: Implement updating attacking logics
+				playerSchema.setPlayerState(PlayerState.ATTACK);
+			}
 		}
-		else if(movementHandler.isJumping) {// if player is on jump !
-			playerSchema.setDirection(PlayerState.JUMP);
-
+		else if(movementHandler.isJumping && !playerSchema.getPlayerState().equals(PlayerState.ATTACK)) {// if player is on jump !
+			playerSchema.setPlayerState(PlayerState.JUMP);
 		}
 		else {
-		playerSchema.setDirection(PlayerState.IDLE);
-
+		playerSchema.setPlayerState(PlayerState.IDLE);
 		}
 
 		//State Image of Player
-		playerFrameImage = getPlayerImage(playerSchema.getDirection(), playerSuit, orientation);
+		playerFrameImage = getPlayerImage(playerSchema.getPlayerState(), playerSuit, orientation);
 
 
 		// check for move
@@ -174,7 +173,7 @@ public class Player extends PlayerEntity {
 				.setType(PlayerMessageType.PLAYER_MESSAGE_TYPE_MOVE)
 				.setPlayerHash(playerSchema.getClientHashCode())
 				.setSuitCode(playerSchema.getSuitName())
-				.setDirection(playerSchema.getDirection().toString())
+				.setDirection(playerSchema.getPlayerState().toString())
 				.setName(playerSchema.getPlayerName())
 				.setTimestamp(System.currentTimeMillis())
 				.setX(playerSchema.getPlayerX())

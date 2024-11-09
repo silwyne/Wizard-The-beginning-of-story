@@ -1,5 +1,7 @@
 package nilian.Player.suit;
 
+import nilian.Player.PlayerDirection;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -263,12 +265,15 @@ public class PlayerSuit {
 
     // variables
     private final int updatePerFrame = 4;
+    private final int attackUpdatePerFrame = 6;
+
     private int roundFrame = 0;
 
     private int idleIndex = 0;
     private int jumpIndex = 0;
     private int runIndex = 0;
     private int runBackIndex = 0;
+    private int attackIndex = 0;
 
     public BufferedImage getIdleFrame() {
         roundFrame ++;
@@ -304,5 +309,63 @@ public class PlayerSuit {
             runBackIndex = (runBackIndex + 1) % runImages_num;
         }
         return runBackParts[runBackIndex] ;
+    }
+
+    /*
+    Attacking frames
+     */
+
+    public BufferedImage getRightAttack_1Frame() {
+        roundFrame ++;
+        if(roundFrame == attackUpdatePerFrame) {
+            roundFrame = 0;
+            attackIndex = (attackIndex + 1) % attack_1_Images_num;
+        }
+        return right_attack_1Parts[attackIndex] ;
+    }
+
+    public BufferedImage getLeftAttack_1Frame() {
+        roundFrame ++;
+        if(roundFrame == attackUpdatePerFrame) {
+            roundFrame = 0;
+            attackIndex = (attackIndex + 1) % attack_1_Images_num;
+        }
+        return left_attack_1Parts[attackIndex] ;
+    }
+
+    public BufferedImage getRightAttack_2Frame() {
+        roundFrame ++;
+        if(roundFrame == attackUpdatePerFrame) {
+            roundFrame = 0;
+            attackIndex = (attackIndex + 1) % attack_2_Images_num;
+        }
+        return right_attack_2Parts[attackIndex] ;
+    }
+
+    public BufferedImage getLeftAttack_2Frame() {
+        roundFrame ++;
+        if(roundFrame == attackUpdatePerFrame) {
+            roundFrame = 0;
+            attackIndex = (attackIndex + 1) % attack_2_Images_num;
+        }
+        return left_attack_2Parts[attackIndex] ;
+    }
+
+    public BufferedImage getRightAttack_3Frame() {
+        roundFrame ++;
+        if(roundFrame == attackUpdatePerFrame) {
+            roundFrame = 0;
+            attackIndex = (attackIndex + 1) % attack_3_Images_num;
+        }
+        return right_attack_3Parts[attackIndex] ;
+    }
+
+    public BufferedImage getLeftAttack_3Frame() {
+        roundFrame ++;
+        if(roundFrame == attackUpdatePerFrame) {
+            roundFrame = 0;
+            attackIndex = (attackIndex + 1) % attack_3_Images_num;
+        }
+        return left_attack_3Parts[attackIndex] ;
     }
 }

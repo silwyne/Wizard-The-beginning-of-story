@@ -1,7 +1,6 @@
 package nilian.online.render;
 
-import nilian.Player.Player;
-import nilian.Player.PlayerDirection;
+import nilian.Player.PlayerState;
 import nilian.Player.PlayerSchema;
 import nilian.Player.suit.PlayerSuit;
 import nilian.Player.suit.SuitHandler;
@@ -10,7 +9,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Handles events and players coming and going
@@ -76,7 +74,7 @@ public class OnlineRenderer {
         }
     }
 
-    private static BufferedImage getPlayerImage(PlayerDirection direction, PlayerSuit suit) {
+    private static BufferedImage getPlayerImage(PlayerState direction, PlayerSuit suit) {
         return switch (direction) {
             case jump -> suit.getJumpFrame();
             case idle -> suit.getIdle_RightFrame();

@@ -1,6 +1,6 @@
 package nilian.Player;
 
-public enum PlayerDirection {
+public enum PlayerState {
 
     idle, runback, run, jump, normal
 }

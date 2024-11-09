@@ -13,17 +13,8 @@ public class AttackFrameProvider {
         this.suit = suit;
     }
 
-    public void updateAttackState(PlayerDirection direction) {
+    public void updateAttackState(PlayerState direction) {
         // first check if he is not already attacking !
-//        if(attackState.equals(AttackState.NO_ATTACK)) {
-//            if(lastAttackState.equals(AttackState.NO_ATTACK)) {
-//                if(direction.equals(PlayerDirection.idle)) {
-//
-//                }
-//            }
-//        }
-        // TODO: implement your updating logics
-        // TODO: but before that make sure you know the player direction is to left or right!
 
     }
 }

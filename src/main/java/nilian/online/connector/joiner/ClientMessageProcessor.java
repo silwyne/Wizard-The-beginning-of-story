@@ -1,6 +1,6 @@
 package nilian.online.connector.joiner;
 
-import nilian.Player.PlayerDirection;
+import nilian.Player.PlayerState;
 import nilian.Player.PlayerSchema;
 import nilian.online.connector.message.MessageProcessor;
 import nilian.online.message.ServerMessage;
@@ -20,11 +20,11 @@ public class ClientMessageProcessor implements MessageProcessor<ServerMessage> {
     public void process(ServerMessage message) {
         System.out.println("Message from : "+message.getPlayer().getName());
         System.out.println("Message : "+message);
-        PlayerDirection direction ;
+        PlayerState direction ;
         try  {
-            direction = PlayerDirection.valueOf(message.getPlayer().getDirection());
+            direction = PlayerState.valueOf(message.getPlayer().getDirection());
         } catch (IllegalArgumentException e) {
-            direction = PlayerDirection.idle;
+            direction = PlayerState.idle;
             System.out.println(e.getMessage());
         }
         PlayerSchema playerSchema = new PlayerSchema(

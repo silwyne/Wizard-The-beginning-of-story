@@ -1,6 +1,5 @@
 package nilian.online.connector.joiner;
 
-import nilian.Player.PlayerDirection;
 import nilian.online.connector.message.MessageListener;
 import nilian.online.connector.message.MessageWriter;
 import nilian.online.message.*;

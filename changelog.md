@@ -6,6 +6,13 @@
   - #### fixes
   - #### additions
 
+- - - 
+- ### [0.0.2.4] - 9/11/2024
+  - #### additions
+    - new characters
+    - main loader class for handling all loadings in program
+    - SuitLoader class for handling all suit loadings
+    - option to choose suit in online menu panel!
 - - -
 - ### [0.0.2.3] - 7/11/2024
   - #### fixes

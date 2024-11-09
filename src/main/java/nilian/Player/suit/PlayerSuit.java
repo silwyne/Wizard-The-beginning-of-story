@@ -14,17 +14,30 @@ public class PlayerSuit {
     private BufferedImage jump;
     private BufferedImage run;
     private BufferedImage runBack;
+    private BufferedImage right_attack_1;
+    private BufferedImage left_attack_1;
+    private BufferedImage right_attack_2;
+    private BufferedImage left_attack_2;
+    private BufferedImage right_attack_3;
+    private BufferedImage left_attack_3;
 
     private BufferedImage[] idleParts;
     private BufferedImage[] jumpParts;
     private BufferedImage[] runParts;
     private BufferedImage[] runBackParts;
+    private BufferedImage[] right_attack_1Parts;
+    private BufferedImage[] left_attack_1Parts;
+    private BufferedImage[] right_attack_2Parts;
+    private BufferedImage[] left_attack_2Parts;
+    private BufferedImage[] right_attack_3Parts;
+    private BufferedImage[] left_attack_3Parts;
 
     private int idleImages_num;
     private int jumpImages_num;
     private int runImages_num;
-    private int runBackImages_num;
-
+    private int attack_1_Images_num;
+    private int attack_2_Images_num;
+    private int attack_3_Images_num;
 
     public PlayerSuit(String pathToImagePack, String suitName) {
         this.pathToImagePack = pathToImagePack;
@@ -35,11 +48,13 @@ public class PlayerSuit {
     /**
      * Sets the number of images of each act
      */
-    public void setImagesNum(int idleN, int jumpN, int runN, int runBackN) {
+    public void setImagesNum(int idleN, int jumpN, int runN, int attack_1, int attack_2, int attack_3) {
         this.idleImages_num = idleN;
         this.jumpImages_num = jumpN;
         this.runImages_num = runN;
-        this.runBackImages_num = runBackN;
+        this.attack_1_Images_num = attack_1;
+        this.attack_2_Images_num = attack_2;
+        this.attack_3_Images_num = attack_3;
     }
 
     /**
@@ -51,6 +66,12 @@ public class PlayerSuit {
             jump = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/jump.png"))) ;
             run = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/run.png"))) ;
             runBack = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/run-backward.png"))) ;
+            right_attack_1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/right_attack_1.png"))) ;;
+            left_attack_1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/left_attack_1.png"))) ;;
+            right_attack_2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/right_attack_2.png"))) ;;
+            left_attack_2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/left_attack_2.png"))) ;;
+            right_attack_3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/right_attack_3.png"))) ;;
+            left_attack_3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/left_attack_3.png"))) ;;
         } catch(IOException e) {
             e.printStackTrace(System.out);
         }
@@ -110,11 +131,11 @@ public class PlayerSuit {
         height = runBack.getHeight();
         partWidth = 48;
         remainingWidth = width % partWidth;
-        runBackParts = new BufferedImage[runBackImages_num];
-        for (int i = 0; i < runBackImages_num; i++) {
+        runBackParts = new BufferedImage[runImages_num];
+        for (int i = 0; i < runImages_num; i++) {
             int x = i * partWidth;
             int y = 0;
-            if (i == runBackImages_num - 1 && remainingWidth > 0) {
+            if (i == runImages_num - 1 && remainingWidth > 0) {
                 partWidth = remainingWidth;
             }
             BufferedImage part = runBack.getSubimage(x, y, partWidth, height);
@@ -170,7 +191,7 @@ public class PlayerSuit {
         roundFrame ++;
         if(roundFrame == updatePerFrame) {
             roundFrame = 0;
-            runBackIndex = (runBackIndex + 1) % runBackImages_num;
+            runBackIndex = (runBackIndex + 1) % runImages_num;
         }
         return runBackParts[runBackIndex] ;
     }

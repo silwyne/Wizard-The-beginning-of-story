@@ -14,7 +14,7 @@ public class SuitHandler {
     public static void loadAllSuits() {
         // Fighter
         PlayerSuit fighter = new PlayerSuit("/Player/Fighter", "fighter");
-        fighter.setImagesNum(6, 10, 8, 8);
+        fighter.setImagesNum(6, 10, 8, 4, 3, 4);
         fighter.loadImages();
         fighter.loadFrames();
         availableSuits.add(fighter);
@@ -22,7 +22,7 @@ public class SuitHandler {
 
         // Samurai
         PlayerSuit samurai = new PlayerSuit("/Player/Samurai", "samurai");
-        samurai.setImagesNum(6, 10, 8, 8);
+        samurai.setImagesNum(6, 10, 8, 6, 4, 3);
         samurai.loadImages();
         samurai.loadFrames();
         availableSuits.add(samurai);
@@ -30,7 +30,7 @@ public class SuitHandler {
 
         // Samurai
         PlayerSuit shinobi = new PlayerSuit("/Player/Shinobi", "shinobi");
-        shinobi.setImagesNum(6, 10, 8, 8);
+        shinobi.setImagesNum(6, 10, 8, 5, 3, 4);
         shinobi.loadImages();
         shinobi.loadFrames();
         availableSuits.add(shinobi);

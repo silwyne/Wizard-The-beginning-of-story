@@ -23,7 +23,8 @@ public class Player extends PlayerEntity {
 	private BufferedImage playerFrameImage;
 
 	private final PlayerSuit playerSuit;
-	private static final Random random = new Random();
+
+	private PlayerOrientation orientation = PlayerOrientation.RIGHT;
 
 	GamePanel gamePanel;
 	KeyHandler key;
@@ -81,7 +82,7 @@ public class Player extends PlayerEntity {
 
 		movementHandler.handleJump();
 		//Normal Moving process
-		if(key.upPressed || key.rightPressed || key.leftPressed)
+		if(key.upPressed || key.rightPressed || key.leftPressed || key.attackPressed)
 		{
 			if(key.attackPressed)
 			{
@@ -94,11 +95,13 @@ public class Player extends PlayerEntity {
 			}
 			else if(key.rightPressed)
 			{
+				orientation = PlayerOrientation.RIGHT;
 				playerSchema.setDirection(PlayerDirection.run);
 				movementHandler.movePlayer(playerSchema.getPlayerX() + speed, playerSchema.getPlayerY());
 			}
 			else if(key.leftPressed)
 			{
+				orientation = PlayerOrientation.LEFT;
 				playerSchema.setDirection(PlayerDirection.runback);
 				movementHandler.movePlayer(playerSchema.getPlayerX() - speed, playerSchema.getPlayerY());
 			}
@@ -113,7 +116,7 @@ public class Player extends PlayerEntity {
 		}
 
 		//State Image of Player
-		playerFrameImage = getPlayerImage(playerSchema.getDirection(), playerSuit);
+		playerFrameImage = getPlayerImage(playerSchema.getDirection(), playerSuit, orientation);
 
 
 		// check for move
@@ -185,13 +188,23 @@ public class Player extends PlayerEntity {
 	 * @param suit player suit object which contains player images
 	 * @return image of the frame for the player
 	 */
-	public static BufferedImage getPlayerImage(PlayerDirection direction, PlayerSuit suit) {
-        return switch (direction) {
-			case jump -> suit.getJumpFrame();
-			case idle -> suit.getIdle_RightFrame();
-			case run -> suit.getRunFrame();
-			case runback -> suit.getRunBackFrame();
-			default -> null;
-		};
+	public static BufferedImage getPlayerImage(PlayerDirection direction, PlayerSuit suit, PlayerOrientation playerOrientation) {
+		if (direction.equals(PlayerDirection.jump)) {
+			return suit.getJumpFrame();
+		}
+		if (direction.equals(PlayerDirection.idle)) {
+			if (playerOrientation.equals(PlayerOrientation.LEFT)) {
+				return suit.getIdle_LeftFrame();
+			} else {
+				return suit.getIdle_RightFrame();
+			}
+		}
+		if (direction.equals(PlayerDirection.run)) {
+			return suit.getRunFrame();
+		}
+		if (direction.equals(PlayerDirection.runback)) {
+			return suit.getRunBackFrame();
+		}
+		return null;
 	}
 }

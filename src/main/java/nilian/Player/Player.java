@@ -101,13 +101,13 @@ public class Player extends PlayerEntity {
 				playerSchema.setPlayerState(PlayerState.RUN_BACK);
 				movementHandler.movePlayer(playerSchema.getPlayerX() - speed, playerSchema.getPlayerY());
 			}
-			if(key.attackPressed)
-			{
-				// TODO: Implement updating attacking logics
-				playerSchema.setPlayerState(PlayerState.ATTACK);
-			}
+//			if(key.attackPressed)
+//			{
+//				// TODO: Implement updating attacking logics
+//				playerSchema.setPlayerState(PlayerState.ATTACK);
+//			}
 		}
-		else if(movementHandler.isJumping && !playerSchema.getPlayerState().equals(PlayerState.ATTACK)) {// if player is on jump !
+		else if(movementHandler.isJumping) {// if player is on jump !
 			playerSchema.setPlayerState(PlayerState.JUMP);
 		}
 		else {

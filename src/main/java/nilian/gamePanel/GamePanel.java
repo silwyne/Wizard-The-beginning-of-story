@@ -16,7 +16,7 @@ import java.util.Properties;
 public class GamePanel extends JPanel {
 
     public int originalTileSize = 16 ;
-    public int scale = 3 ;
+    public int scale = 4 ;
     public int tileSize = originalTileSize * scale ;//16 * 3 = 48 x48 tile
     public int maxScreenCol = 24 ;
     public int maxScreenRow = 14 ;

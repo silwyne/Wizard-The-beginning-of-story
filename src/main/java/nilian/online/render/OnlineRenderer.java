@@ -1,5 +1,6 @@
 package nilian.online.render;
 
+import nilian.Player.Player;
 import nilian.Player.PlayerSchema;
 import nilian.Player.suit.SuitHandler;
 
@@ -50,13 +51,9 @@ public class OnlineRenderer {
         BufferedImage image;
         for(PlayerSchema schema: otherPlayersInGame) {
             //State Image of Player
-            image = switch (schema.getDirection()) {
-                case jump -> Objects.requireNonNull(SuitHandler.getSuit(schema.getSuitName())).getJumpFrame();
-                case idle, normal -> Objects.requireNonNull(SuitHandler.getSuit(schema.getSuitName())).getIdleFrame();
-                case run -> Objects.requireNonNull(SuitHandler.getSuit(schema.getSuitName())).getRunFrame();
-                case runback -> Objects.requireNonNull(SuitHandler.getSuit(schema.getSuitName())).getRunBackFrame();
-            };
+            image = Player.getPlayerImage(schema.getDirection(), SuitHandler.getSuit(schema.getSuitName()));
 
+            // draw player
             g2.drawImage(image, schema.getPlayerX(), schema.getPlayerY(), schema.getPlayerSize(), schema.getPlayerSize() , null) ;
 
             // Set up the font and color for the text

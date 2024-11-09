@@ -122,13 +122,7 @@ public class Player extends PlayerEntity {
 	public void draw(Graphics2D g2)
 	{
 		//State Image of Player
-		BufferedImage image = switch (playerSchema.getDirection()) {
-            case jump -> playerSuit.getJumpFrame();
-            case idle -> playerSuit.getIdleFrame();
-            case run -> playerSuit.getRunFrame();
-            case runback -> playerSuit.getRunBackFrame();
-            default -> null;
-        };
+		BufferedImage image = getPlayerImage(playerSchema.getDirection(), playerSuit);
         g2.drawImage(image, playerSchema.getPlayerX(), playerSchema.getPlayerY(), playerSize, playerSize , null) ;
 
 		// Set up the font and color for the text
@@ -156,6 +150,11 @@ public class Player extends PlayerEntity {
 		return new Color(r, g, b);
 	}
 
+	/**
+	 * returns a PlayerMessage which is the stat of the player!
+	 * about where it is and how he looks there!
+	 * @return PlayerMessage
+	 */
 	public PlayerMessage getPlayerMessage() {
 		return PlayerMessage.newBuilder()
 				.setNameColor(nameColor)
@@ -168,5 +167,21 @@ public class Player extends PlayerEntity {
 				.setX(playerSchema.getPlayerX())
 				.setY(playerSchema.getPlayerY())
 				.build();
+	}
+
+	/**
+	 * returns the player image Based on direction and suit!
+	 * @param direction direction of the player
+	 * @param suit player suit object which contains player images
+	 * @return image of the frame for the player
+	 */
+	public static BufferedImage getPlayerImage(PlayerDirection direction, PlayerSuit suit) {
+        return switch (direction) {
+			case jump -> suit.getJumpFrame();
+			case idle -> suit.getIdleFrame();
+			case run -> suit.getRunFrame();
+			case runback -> suit.getRunBackFrame();
+			default -> null;
+		};
 	}
 }

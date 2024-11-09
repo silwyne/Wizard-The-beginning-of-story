@@ -14,15 +14,15 @@ public class SuitHandler {
         // suit_1
         PlayerSuit suit_1 = new PlayerSuit("/Player/suit_1");
         suit_1.setImagesNum(4, 4, 6, 6);
-        suit_1.getImages();
-        suit_1.separate();
+        suit_1.loadImages();
+        suit_1.loadFrames();
         availableSuits.add(suit_1);
 
         // Fighter
         PlayerSuit fighter = new PlayerSuit("/Player/Fighter");
         fighter.setImagesNum(6, 10, 8, 8);
-        fighter.getImages();
-        fighter.separate();
+        fighter.loadImages();
+        fighter.loadFrames();
         availableSuits.add(fighter);
     }
 }

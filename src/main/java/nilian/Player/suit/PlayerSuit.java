@@ -43,7 +43,7 @@ public class PlayerSuit {
     /**
      * reads raw images
      */
-    public void getImages() {
+    public void loadImages() {
         try {
             idle = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/idle.png"))) ;
             jump = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/jump.png"))) ;
@@ -58,7 +58,7 @@ public class PlayerSuit {
      * Processes each image into images you want!
      * The final function which gets called is this to make all things done!
      */
-    public void separate() {
+    public void loadFrames() {
         int width = idle.getWidth();
         int height = idle.getHeight();
         int partWidth = 48;

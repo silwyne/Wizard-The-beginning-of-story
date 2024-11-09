@@ -20,8 +20,8 @@ public class OnlineRenderer {
     public OnlineRenderer() {
         playerSuit = new PlayerSuit("/Player/suit_1");
         playerSuit.setImagesNum(4, 4, 6, 6);
-        playerSuit.getImages();
-        playerSuit.separate();
+        playerSuit.loadImages();
+        playerSuit.loadFrames();
     }
 
     public void addPlayer(PlayerSchema playerSchema) {

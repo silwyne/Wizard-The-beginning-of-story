@@ -65,9 +65,9 @@ public class Player extends PlayerEntity {
 		// set images number
 		playerSuit.setImagesNum(4, 4, 6, 6);
 		// load player images
-		playerSuit.getImages();
+		playerSuit.loadImages();
 		// cutting images into image arrays
-		playerSuit.separate();
+		playerSuit.loadFrames();
 
 		//movement handler
 		this.movementHandler = new MovementHandler(this.playerSchema, this.gamePanel);

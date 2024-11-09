@@ -24,7 +24,7 @@ public class ClientMessageProcessor implements MessageProcessor<ServerMessage> {
         try  {
             direction = PlayerState.valueOf(message.getPlayer().getDirection());
         } catch (IllegalArgumentException e) {
-            direction = PlayerState.idle;
+            direction = PlayerState.IDLE;
             System.out.println(e.getMessage());
         }
         PlayerSchema playerSchema = new PlayerSchema(

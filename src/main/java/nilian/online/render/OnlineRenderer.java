@@ -76,10 +76,10 @@ public class OnlineRenderer {
 
     private static BufferedImage getPlayerImage(PlayerState direction, PlayerSuit suit) {
         return switch (direction) {
-            case jump -> suit.getJumpFrame();
-            case idle -> suit.getIdle_RightFrame();
-            case run -> suit.getRunFrame();
-            case runback -> suit.getRunBackFrame();
+            case JUMP -> suit.getJumpFrame();
+            case IDLE -> suit.getIdle_RightFrame();
+            case RUN -> suit.getRunFrame();
+            case RUN_BACK -> suit.getRunBackFrame();
             default -> null;
         };
     }

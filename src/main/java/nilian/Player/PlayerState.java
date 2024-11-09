@@ -2,5 +2,5 @@ package nilian.Player;
 
 public enum PlayerState {
 
-    idle, runback, run, jump ;
+    IDLE, RUN_BACK, RUN, JUMP, ATTACK
 }

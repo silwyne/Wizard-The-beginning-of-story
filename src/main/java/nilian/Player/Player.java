@@ -20,6 +20,8 @@ public class Player extends PlayerEntity {
 	public final PlayerSchema playerSchema ;
 	private final MovementHandler movementHandler;
 
+	private BufferedImage playerFrameImage;
+
 	private final PlayerSuit playerSuit;
 	private static final Random random = new Random();
 
@@ -110,6 +112,10 @@ public class Player extends PlayerEntity {
 
 		}
 
+		//State Image of Player
+		playerFrameImage = getPlayerImage(playerSchema.getDirection(), playerSuit);
+
+
 		// check for move
 		if(ix != playerSchema.getPlayerX()
 		|| iy != playerSchema.getPlayerY()){
@@ -117,6 +123,7 @@ public class Player extends PlayerEntity {
 		} else {
 			return false ;
 		}
+
 	}
 
 	/**
@@ -125,9 +132,8 @@ public class Player extends PlayerEntity {
 	 */
 	public void draw(Graphics2D g2)
 	{
-		//State Image of Player
-		BufferedImage image = getPlayerImage(playerSchema.getDirection(), playerSuit);
-        g2.drawImage(image, playerSchema.getPlayerX(), playerSchema.getPlayerY(), playerSize, playerSize , null) ;
+
+        g2.drawImage(playerFrameImage, playerSchema.getPlayerX(), playerSchema.getPlayerY(), playerSize, playerSize , null) ;
 
 		// Set up the font and color for the text
 		g2.setFont(new Font("Arial", Font.BOLD, 12)); // Adjust font and size as needed

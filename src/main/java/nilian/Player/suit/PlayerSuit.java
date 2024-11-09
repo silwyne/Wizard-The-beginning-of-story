@@ -82,6 +82,13 @@ public class PlayerSuit {
      * The final function which gets called is this to make all things done!
      */
     public void loadFrames() {
+        /*
+        loading moving frames:
+        1. idle
+        2. run
+        3. runback
+        4. jump
+         */
         int width = idle.getWidth();
         int height = idle.getHeight();
         int partWidth = 48;
@@ -141,6 +148,109 @@ public class PlayerSuit {
             BufferedImage part = runBack.getSubimage(x, y, partWidth, height);
             runBackParts[i] = part;
         }
+
+        /*
+        Loading attack moves
+        1. attack 1 : right & left
+        2. attack 2 : right & left
+        3. attack 3 : right & left
+         */
+
+        // attack 1 : right
+        width = right_attack_1.getWidth();
+        height = right_attack_1.getHeight();
+        partWidth = 48;
+        remainingWidth = width % partWidth;
+        right_attack_1Parts = new BufferedImage[attack_1_Images_num];
+        for (int i = 0; i < attack_1_Images_num; i++) {
+            int x = i * partWidth;
+            int y = 0;
+            if (i == attack_1_Images_num - 1 && remainingWidth > 0) {
+                partWidth = remainingWidth;
+            }
+            BufferedImage part = right_attack_1.getSubimage(x, y, partWidth, height);
+            right_attack_1Parts[i] = part;
+        }
+
+        // attack 1 : left
+        width = left_attack_1.getWidth();
+        height = left_attack_1.getHeight();
+        partWidth = 48;
+        remainingWidth = width % partWidth;
+        left_attack_1Parts = new BufferedImage[attack_1_Images_num];
+        for (int i = 0; i < attack_1_Images_num; i++) {
+            int x = i * partWidth;
+            int y = 0;
+            if (i == attack_1_Images_num - 1 && remainingWidth > 0) {
+                partWidth = remainingWidth;
+            }
+            BufferedImage part = left_attack_1.getSubimage(x, y, partWidth, height);
+            left_attack_1Parts[i] = part;
+        }
+
+        // attack 2 : right
+        width = right_attack_2.getWidth();
+        height = right_attack_2.getHeight();
+        partWidth = 48;
+        remainingWidth = width % partWidth;
+        right_attack_2Parts = new BufferedImage[attack_2_Images_num];
+        for (int i = 0; i < attack_2_Images_num; i++) {
+            int x = i * partWidth;
+            int y = 0;
+            if (i == attack_2_Images_num - 1 && remainingWidth > 0) {
+                partWidth = remainingWidth;
+            }
+            BufferedImage part = right_attack_2.getSubimage(x, y, partWidth, height);
+            right_attack_2Parts[i] = part;
+        }
+
+        // attack 2 : left
+        width = left_attack_2.getWidth();
+        height = left_attack_2.getHeight();
+        partWidth = 48;
+        remainingWidth = width % partWidth;
+        left_attack_2Parts = new BufferedImage[attack_2_Images_num];
+        for (int i = 0; i < attack_2_Images_num; i++) {
+            int x = i * partWidth;
+            int y = 0;
+            if (i == attack_2_Images_num - 1 && remainingWidth > 0) {
+                partWidth = remainingWidth;
+            }
+            BufferedImage part = left_attack_2.getSubimage(x, y, partWidth, height);
+            left_attack_2Parts[i] = part;
+        }
+
+        // attack 3 : right
+        width = right_attack_3.getWidth();
+        height = right_attack_3.getHeight();
+        partWidth = 48;
+        remainingWidth = width % partWidth;
+        right_attack_3Parts = new BufferedImage[attack_3_Images_num];
+        for (int i = 0; i < attack_3_Images_num; i++) {
+            int x = i * partWidth;
+            int y = 0;
+            if (i == attack_3_Images_num - 1 && remainingWidth > 0) {
+                partWidth = remainingWidth;
+            }
+            BufferedImage part = right_attack_3.getSubimage(x, y, partWidth, height);
+            right_attack_3Parts[i] = part;
+        }
+
+        // attack 3 : left
+        width = left_attack_3.getWidth();
+        height = left_attack_3.getHeight();
+        partWidth = 48;
+        remainingWidth = width % partWidth;
+        left_attack_3Parts = new BufferedImage[attack_3_Images_num];
+        for (int i = 0; i < attack_3_Images_num; i++) {
+            int x = i * partWidth;
+            int y = 0;
+            if (i == attack_3_Images_num - 1 && remainingWidth > 0) {
+                partWidth = remainingWidth;
+            }
+            BufferedImage part = left_attack_3.getSubimage(x, y, partWidth, height);
+            left_attack_3Parts[i] = part;
+        }
     }
 
     public String getSuitName() {
@@ -152,7 +262,7 @@ public class PlayerSuit {
      */
 
     // variables
-    private final int updatePerFrame = 3;
+    private final int updatePerFrame = 4;
     private int roundFrame = 0;
 
     private int idleIndex = 0;

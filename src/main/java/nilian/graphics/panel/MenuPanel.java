@@ -15,7 +15,7 @@ public class MenuPanel extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(400, 300); // Set your preferred size here
+        return new Dimension(500, 400); // Set your preferred size here
     }
 
     @Override

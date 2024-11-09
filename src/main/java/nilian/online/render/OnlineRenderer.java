@@ -1,12 +1,14 @@
 package nilian.online.render;
 
 import nilian.Player.PlayerSchema;
-import nilian.Player.suit.PlayerSuit;
+import nilian.Player.suit.SuitHandler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 /**
  * Handles events and players coming and going
  * We pass this class to the GamePanel so the GamePanel uses it to update everything!
@@ -14,15 +16,9 @@ import java.util.List;
  */
 public class OnlineRenderer {
 
-    private final PlayerSuit playerSuit;
     private final List<PlayerSchema> otherPlayersInGame = new ArrayList<>() ;
 
-    public OnlineRenderer() {
-        playerSuit = new PlayerSuit("/Player/suit_1", "suit_1");
-        playerSuit.setImagesNum(4, 4, 6, 6);
-        playerSuit.loadImages();
-        playerSuit.loadFrames();
-    }
+    public OnlineRenderer() {}
 
     public void addPlayer(PlayerSchema playerSchema) {
         otherPlayersInGame.add(playerSchema);
@@ -55,10 +51,10 @@ public class OnlineRenderer {
         for(PlayerSchema schema: otherPlayersInGame) {
             //State Image of Player
             image = switch (schema.getDirection()) {
-                case jump -> playerSuit.getJumpFrame();
-                case idle, normal -> playerSuit.getIdleFrame();
-                case run -> playerSuit.getRunFrame();
-                case runback -> playerSuit.getRunBackFrame();
+                case jump -> Objects.requireNonNull(SuitHandler.getSuit(schema.getSuitName())).getJumpFrame();
+                case idle, normal -> Objects.requireNonNull(SuitHandler.getSuit(schema.getSuitName())).getIdleFrame();
+                case run -> Objects.requireNonNull(SuitHandler.getSuit(schema.getSuitName())).getRunFrame();
+                case runback -> Objects.requireNonNull(SuitHandler.getSuit(schema.getSuitName())).getRunBackFrame();
             };
 
             g2.drawImage(image, schema.getPlayerX(), schema.getPlayerY(), schema.getPlayerSize(), schema.getPlayerSize() , null) ;

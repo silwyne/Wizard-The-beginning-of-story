@@ -12,14 +12,6 @@ public class SuitHandler {
      * Loads all suits classes
      */
     public static void loadAllSuits() {
-        // suit_1
-        PlayerSuit suit_1 = new PlayerSuit("/Player/suit_1", "suit_1");
-        suit_1.setImagesNum(4, 4, 6, 6);
-        suit_1.loadImages();
-        suit_1.loadFrames();
-        availableSuits.add(suit_1);
-        allSuitNames.add("suit_1");
-
         // Fighter
         PlayerSuit fighter = new PlayerSuit("/Player/Fighter", "fighter");
         fighter.setImagesNum(6, 10, 8, 8);

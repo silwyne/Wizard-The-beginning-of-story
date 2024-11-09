@@ -26,10 +26,10 @@ public class Player extends PlayerEntity {
 
 	private PlayerOrientation orientation = PlayerOrientation.RIGHT;
 
-	GamePanel gamePanel;
-	KeyHandler key;
+	private final GamePanel gamePanel;
+	private final KeyHandler key;
 
-	private String nameColor ;
+	private final String nameColor ;
 
 	public Player(GamePanel gamePanel, KeyHandler key, String playerName, String suitName)
 	{

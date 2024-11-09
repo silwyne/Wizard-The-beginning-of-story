@@ -1,7 +1,5 @@
 package nilian.Player.suit;
 
-import nilian.Player.PlayerDirection;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -12,7 +10,8 @@ public class PlayerSuit {
     private final String suitName;
     private final String pathToImagePack;
 
-    private BufferedImage idle;
+    private BufferedImage idle_right;
+    private BufferedImage idle_left;
     private BufferedImage jump;
     private BufferedImage run;
     private BufferedImage runBack;
@@ -23,7 +22,8 @@ public class PlayerSuit {
     private BufferedImage right_attack_3;
     private BufferedImage left_attack_3;
 
-    private BufferedImage[] idleParts;
+    private BufferedImage[] idle_rightParts;
+    private BufferedImage[] idle_leftParts;
     private BufferedImage[] jumpParts;
     private BufferedImage[] runParts;
     private BufferedImage[] runBackParts;
@@ -64,7 +64,8 @@ public class PlayerSuit {
      */
     public void loadImages() {
         try {
-            idle = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/idle.png"))) ;
+            idle_right = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/idle.png"))) ;
+            idle_left = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/idle-left.png"))) ;
             jump = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/jump.png"))) ;
             run = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/run.png"))) ;
             runBack = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/run-backward.png"))) ;
@@ -91,19 +92,34 @@ public class PlayerSuit {
         3. runback
         4. jump
          */
-        int width = idle.getWidth();
-        int height = idle.getHeight();
+        int width = idle_right.getWidth();
+        int height = idle_right.getHeight();
         int partWidth = 48;
         int remainingWidth = width % partWidth;
-        idleParts = new BufferedImage[idleImages_num];
+        idle_rightParts = new BufferedImage[idleImages_num];
         for (int i = 0; i < idleImages_num; i++) {
             int x = i * partWidth;
             int y = 0;
             if (i == idleImages_num - 1 && remainingWidth > 0) {
                 partWidth = remainingWidth;
             }
-            BufferedImage part = idle.getSubimage(x, y, partWidth, height);
-            idleParts[i] = part;
+            BufferedImage part = idle_right.getSubimage(x, y, partWidth, height);
+            idle_rightParts[i] = part;
+        }
+
+        width = idle_left.getWidth();
+        height = idle_left.getHeight();
+        partWidth = 48;
+        remainingWidth = width % partWidth;
+        idle_leftParts = new BufferedImage[idleImages_num];
+        for (int i = 0; i < idleImages_num; i++) {
+            int x = i * partWidth;
+            int y = 0;
+            if (i == idleImages_num - 1 && remainingWidth > 0) {
+                partWidth = remainingWidth;
+            }
+            BufferedImage part = idle_left.getSubimage(x, y, partWidth, height);
+            idle_leftParts[i] = part;
         }
 
         width = jump.getWidth();
@@ -275,13 +291,22 @@ public class PlayerSuit {
     private int runBackIndex = 0;
     private int attackIndex = 0;
 
-    public BufferedImage getIdleFrame() {
+    public BufferedImage getIdle_RightFrame() {
         roundFrame ++;
         if(roundFrame == updatePerFrame) {
             roundFrame = 0;
             idleIndex = (idleIndex + 1) % idleImages_num;
         }
-        return idleParts[idleIndex] ;
+        return idle_rightParts[idleIndex] ;
+    }
+
+    public BufferedImage getIdle_LeftFrame() {
+        roundFrame ++;
+        if(roundFrame == updatePerFrame) {
+            roundFrame = 0;
+            idleIndex = (idleIndex + 1) % idleImages_num;
+        }
+        return idle_leftParts[idleIndex] ;
     }
 
     public BufferedImage getJumpFrame() {

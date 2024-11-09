@@ -188,7 +188,7 @@ public class Player extends PlayerEntity {
 	public static BufferedImage getPlayerImage(PlayerDirection direction, PlayerSuit suit) {
         return switch (direction) {
 			case jump -> suit.getJumpFrame();
-			case idle -> suit.getIdleFrame();
+			case idle -> suit.getIdle_RightFrame();
 			case run -> suit.getRunFrame();
 			case runback -> suit.getRunBackFrame();
 			default -> null;

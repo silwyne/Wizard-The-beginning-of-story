@@ -3,6 +3,9 @@ package nilian.Player.suit;
 import nilian.Player.PlayerOrientation;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
@@ -67,16 +70,21 @@ public class PlayerSuit {
     public void loadImages() {
         try {
             idle_right = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/idle.png"))) ;
-            idle_left = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/idle-left.png"))) ;
+            idle_left = mirrorHorizontally(idle_right);
+
             jump = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/jump.png"))) ;
+
             run = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/run.png"))) ;
-            runBack = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/run-backward.png"))) ;
+            runBack = mirrorHorizontally(run);
+
             right_attack_1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/right_attack_1.png"))) ;;
-            left_attack_1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/left_attack_1.png"))) ;;
+            left_attack_1 = mirrorHorizontally(right_attack_1);
+
             right_attack_2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/right_attack_2.png"))) ;;
-            left_attack_2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/left_attack_2.png"))) ;;
+            left_attack_2 = mirrorHorizontally(right_attack_2);
+
             right_attack_3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/right_attack_3.png"))) ;;
-            left_attack_3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(pathToImagePack+"/left_attack_3.png"))) ;;
+            left_attack_3 = mirrorHorizontally(right_attack_3);
         } catch(IOException e) {
             e.printStackTrace(System.out);
         }
@@ -275,6 +283,13 @@ public class PlayerSuit {
 
     public String getSuitName() {
         return suitName;
+    }
+
+    private static BufferedImage mirrorHorizontally(BufferedImage image) {
+        AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+        tx.translate(-image.getWidth(null), 0);
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+        return op.filter(image, null);
     }
 
     /*

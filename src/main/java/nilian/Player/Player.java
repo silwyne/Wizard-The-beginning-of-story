@@ -17,11 +17,15 @@ import nilian.online.message.PlayerMessageType;
  */
 public class Player extends PlayerEntity {
 
+
+	private Random random = new Random();
+	private boolean isPlayerAttacking = false;
+	private int playerAttackNumber = 0;
+
 	public final PlayerSchema playerSchema ;
 	private final MovementHandler movementHandler;
 
 	private BufferedImage playerFrameImage;
-
 	private final PlayerSuit playerSuit;
 
 	private PlayerOrientation orientation = PlayerOrientation.RIGHT;
@@ -101,11 +105,6 @@ public class Player extends PlayerEntity {
 				playerSchema.setPlayerState(PlayerState.RUN_BACK);
 				movementHandler.movePlayer(playerSchema.getPlayerX() - speed, playerSchema.getPlayerY());
 			}
-//			if(key.attackPressed)
-//			{
-//				// TODO: Implement updating attacking logics
-//				playerSchema.setPlayerState(PlayerState.ATTACK);
-//			}
 		}
 		else if(movementHandler.isJumping) {// if player is on jump !
 			playerSchema.setPlayerState(PlayerState.JUMP);

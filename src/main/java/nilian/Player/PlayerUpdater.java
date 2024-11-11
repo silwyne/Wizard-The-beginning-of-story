@@ -28,50 +28,47 @@ public class PlayerUpdater {
         this.keyHandler = keyHandler;
     }
 
+
     public boolean update() {
         int ix = playerSchema.getPlayerX();
         int iy = playerSchema.getPlayerY();
 
-        movementHandler.handleJump();
-        //Normal Moving process
-        if(movementHandler.isJumping) {// if player is on jump !
-            playerSchema.setPlayerState(PlayerState.JUMP);
-        }
-        else if(keyHandler.upPressed) {
-            playerSchema.setPlayerState(PlayerState.JUMP);
-            movementHandler.startJump();
-        }
-        if(keyHandler.rightPressed)
+        // Updating
+        // check if anything is pressed or states else set it idle
+        if(keyHandler.upPressed || keyHandler.downPressed ||
+        keyHandler.rightPressed || keyHandler.leftPressed)
         {
-            orientation = PlayerOrientation.RIGHT;
-            playerSchema.setPlayerState(PlayerState.RUN);
-            movementHandler.movePlayer(playerSchema.getPlayerX() + speed, playerSchema.getPlayerY());
+            if (keyHandler.upPressed && !movementHandler.isJumping) {
+                movementHandler.startJump();
+            }
+            if (movementHandler.isJumping) {
+                movementHandler.handleJump();
+            }
+            if (keyHandler.rightPressed) {
+                orientation = PlayerOrientation.RIGHT;
+                playerSchema.setPlayerState(PlayerState.RUN);
+                movementHandler.movePlayer(playerSchema.getPlayerX() + speed, playerSchema.getPlayerY());
+            }
+            if (keyHandler.leftPressed) {
+                orientation = PlayerOrientation.LEFT;
+                playerSchema.setPlayerState(PlayerState.RUN_BACK);
+                movementHandler.movePlayer(playerSchema.getPlayerX() - speed, playerSchema.getPlayerY());
+            }
         }
-        else if(keyHandler.leftPressed)
-        {
-            orientation = PlayerOrientation.LEFT;
-            playerSchema.setPlayerState(PlayerState.RUN_BACK);
-            movementHandler.movePlayer(playerSchema.getPlayerX() - speed, playerSchema.getPlayerY());
-        }
-
         else {
             playerSchema.setPlayerState(PlayerState.IDLE);
         }
 
-
-
-        //State Image of Player
-        playerFrameImage = getPlayerImage(playerSchema.getPlayerState(), playerSuit, orientation);
-
-
-        // check for move
-        if(ix != playerSchema.getPlayerX()
-                || iy != playerSchema.getPlayerY()){
-            return true ;
-        } else {
-            return false ;
+        // make sure to set state on jump if jumping
+        if(movementHandler.isJumping) {
+            playerSchema.setPlayerState(PlayerState.JUMP);
         }
 
+        // Update player image
+        playerFrameImage = getPlayerImage(playerSchema.getPlayerState(), playerSuit, orientation);
+
+        // Check for move
+        return ix != playerSchema.getPlayerX() || iy != playerSchema.getPlayerY();
     }
 
 

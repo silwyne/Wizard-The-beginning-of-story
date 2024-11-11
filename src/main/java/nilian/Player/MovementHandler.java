@@ -59,9 +59,9 @@ public class MovementHandler {
         int pertXValue = gamePanel.tileSize / 3;
         int pertYValue = gamePanel.tileSize / 8;
         // Check all four corners of the player
-        return checkMoveable(x, y) &&
-                checkMoveable(x + playerWidth - pertXValue, y) &&
-                checkMoveable(x, y + playerHeight - pertYValue) &&
+        return checkMoveable(x + pertXValue, y) &&
+                checkMoveable(x + pertXValue, y) &&
+                checkMoveable(x + pertXValue, y + playerHeight - pertYValue) &&
                 checkMoveable(x + playerWidth - pertXValue, y + playerHeight - pertYValue);
     }
 

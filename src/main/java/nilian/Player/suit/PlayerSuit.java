@@ -288,9 +288,10 @@ public class PlayerSuit {
     private int roundFrame = 0;
 
     private int idleIndex = 0;
+    private int idleLeftIndex = idleImages_num;
     private int jumpIndex = 0;
     private int runIndex = 0;
-    private int runBackIndex = 0;
+    private int runBackIndex = runImages_num;
     private int attackIndex = 0;
 
     public BufferedImage getIdle_RightFrame() {
@@ -306,9 +307,12 @@ public class PlayerSuit {
         roundFrame ++;
         if(roundFrame == framePerUpdate) {
             roundFrame = 0;
-            idleIndex = (idleIndex + 1) % idleImages_num;
+            idleLeftIndex = (idleLeftIndex - 1 + idleImages_num) % idleImages_num;
+            if (idleLeftIndex < 0) {
+                idleLeftIndex = idleImages_num - 1;
+            }
         }
-        return idle_leftParts[idleIndex] ;
+        return idle_leftParts[idleLeftIndex] ;
     }
 
     public BufferedImage getJumpFrame() {
@@ -333,7 +337,10 @@ public class PlayerSuit {
         roundFrame ++;
         if(roundFrame == framePerUpdate) {
             roundFrame = 0;
-            runBackIndex = (runBackIndex + 1) % runImages_num;
+            runBackIndex = (runBackIndex - 1 + runImages_num) % runImages_num;
+            if (runBackIndex < 0) {
+                runBackIndex = runImages_num - 2;
+            }
         }
         return runBackParts[runBackIndex] ;
     }

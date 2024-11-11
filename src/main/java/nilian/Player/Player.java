@@ -1,10 +1,8 @@
 package nilian.Player;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.Random;
 
-import nilian.Player.suit.PlayerSuit;
 import nilian.Player.suit.SuitHandler;
 import nilian.gamePanel.GamePanel;
 import nilian.input.KeyHandler;
@@ -17,22 +15,9 @@ import nilian.online.message.PlayerMessageType;
  */
 public class Player extends PlayerEntity {
 
-
-	private Random random = new Random();
-	private boolean isPlayerAttacking = false;
-	private int playerAttackNumber = 0;
-
-	public final PlayerSchema playerSchema ;
-	private final MovementHandler movementHandler;
-
-	private BufferedImage playerFrameImage;
-	private final PlayerSuit playerSuit;
-
-	private PlayerOrientation orientation = PlayerOrientation.RIGHT;
-
+	private final PlayerSchema playerSchema ;
+	private final PlayerUpdater  playerUpdater;
 	private final GamePanel gamePanel;
-	private final KeyHandler key;
-
 	private final String nameColor ;
 
 	public Player(GamePanel gamePanel, KeyHandler key, String playerName, String suitName)
@@ -45,7 +30,6 @@ public class Player extends PlayerEntity {
 		} else {
 			playerHash = ((System.currentTimeMillis() * 100) + "default").hashCode();
 		}
-
 		// getting some random color
 		Color color = getRandomColor();
 		nameColor = color.getRed() + "," + color.getGreen() + "," + color.getBlue();
@@ -59,69 +43,20 @@ public class Player extends PlayerEntity {
 				playerSize,
 				PlayerState.IDLE,
 				suitName);
-
 		this.gamePanel = gamePanel;
-		this.key = key ;
-		// Set Default values
-		worldX = 256;
-		worldY = gamePanel.screenHeight / 2;
-		speed = 2;
 		playerSchema.setPlayerState(PlayerState.IDLE);
-
-		//get the suit
-		playerSuit = SuitHandler.getSuit(suitName);
-
 		//movement handler
-		this.movementHandler = new MovementHandler(this.playerSchema, this.gamePanel);
+		MovementHandler movementHandler = new MovementHandler(this.playerSchema, this.gamePanel);
+		// get the player updater
+		playerUpdater = new PlayerUpdater(SuitHandler.getSuit(suitName), this.playerSchema, movementHandler, key);
 	}
 
 	/**
 	 * updates player location
 	 * @return true if player is not in the same position as it was
 	 */
-	public boolean update()
-	{
-		int ix = playerSchema.getPlayerX();
-		int iy = playerSchema.getPlayerY();
-
-		movementHandler.handleJump();
-		//Normal Moving process
-		if(key.upPressed)
-		{
-			playerSchema.setPlayerState(PlayerState.JUMP);
-			movementHandler.startJump();
-		}
-		else if(key.rightPressed)
-		{
-			orientation = PlayerOrientation.RIGHT;
-			playerSchema.setPlayerState(PlayerState.RUN);
-			movementHandler.movePlayer(playerSchema.getPlayerX() + speed, playerSchema.getPlayerY());
-		}
-		else if(key.leftPressed)
-		{
-			orientation = PlayerOrientation.LEFT;
-			playerSchema.setPlayerState(PlayerState.RUN_BACK);
-			movementHandler.movePlayer(playerSchema.getPlayerX() - speed, playerSchema.getPlayerY());
-		}
-		else if(movementHandler.isJumping) {// if player is on jump !
-			playerSchema.setPlayerState(PlayerState.JUMP);
-		}
-		else {
-		playerSchema.setPlayerState(PlayerState.IDLE);
-		}
-
-		//State Image of Player
-		playerFrameImage = getPlayerImage(playerSchema.getPlayerState(), playerSuit, orientation);
-
-
-		// check for move
-		if(ix != playerSchema.getPlayerX()
-		|| iy != playerSchema.getPlayerY()){
-			return true ;
-		} else {
-			return false ;
-		}
-
+	public boolean update() {
+		return playerUpdater.update();
 	}
 
 	/**
@@ -131,7 +66,7 @@ public class Player extends PlayerEntity {
 	public void draw(Graphics2D g2)
 	{
 
-        g2.drawImage(playerFrameImage, playerSchema.getPlayerX(), playerSchema.getPlayerY(), playerSize, playerSize , null) ;
+        g2.drawImage(playerUpdater.getPlayerFrameImage(), playerSchema.getPlayerX(), playerSchema.getPlayerY(), playerSize, playerSize , null) ;
 
 		// Set up the font and color for the text
 		g2.setFont(new Font("Arial", Font.BOLD, 12)); // Adjust font and size as needed
@@ -177,29 +112,4 @@ public class Player extends PlayerEntity {
 				.build();
 	}
 
-	/**
-	 * returns the player image Based on direction and suit!
-	 * @param direction direction of the player
-	 * @param suit player suit object which contains player images
-	 * @return image of the frame for the player
-	 */
-	public static BufferedImage getPlayerImage(PlayerState direction, PlayerSuit suit, PlayerOrientation playerOrientation) {
-		if (direction.equals(PlayerState.JUMP)) {
-			return suit.getJumpFrame();
-		}
-		if (direction.equals(PlayerState.IDLE)) {
-			if (playerOrientation.equals(PlayerOrientation.LEFT)) {
-				return suit.getIdle_LeftFrame();
-			} else {
-				return suit.getIdle_RightFrame();
-			}
-		}
-		if (direction.equals(PlayerState.RUN)) {
-			return suit.getRunFrame();
-		}
-		if (direction.equals(PlayerState.RUN_BACK)) {
-			return suit.getRunBackFrame();
-		}
-		return null;
-	}
 }

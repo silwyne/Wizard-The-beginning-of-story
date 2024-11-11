@@ -86,25 +86,22 @@ public class Player extends PlayerEntity {
 
 		movementHandler.handleJump();
 		//Normal Moving process
-		if(key.upPressed || key.rightPressed || key.leftPressed || key.attackPressed)
+		if(key.upPressed)
 		{
-			if(key.upPressed)
-			{
-				playerSchema.setPlayerState(PlayerState.JUMP);
-				movementHandler.startJump();
-			}
-			else if(key.rightPressed)
-			{
-				orientation = PlayerOrientation.RIGHT;
-				playerSchema.setPlayerState(PlayerState.RUN);
-				movementHandler.movePlayer(playerSchema.getPlayerX() + speed, playerSchema.getPlayerY());
-			}
-			else if(key.leftPressed)
-			{
-				orientation = PlayerOrientation.LEFT;
-				playerSchema.setPlayerState(PlayerState.RUN_BACK);
-				movementHandler.movePlayer(playerSchema.getPlayerX() - speed, playerSchema.getPlayerY());
-			}
+			playerSchema.setPlayerState(PlayerState.JUMP);
+			movementHandler.startJump();
+		}
+		else if(key.rightPressed)
+		{
+			orientation = PlayerOrientation.RIGHT;
+			playerSchema.setPlayerState(PlayerState.RUN);
+			movementHandler.movePlayer(playerSchema.getPlayerX() + speed, playerSchema.getPlayerY());
+		}
+		else if(key.leftPressed)
+		{
+			orientation = PlayerOrientation.LEFT;
+			playerSchema.setPlayerState(PlayerState.RUN_BACK);
+			movementHandler.movePlayer(playerSchema.getPlayerX() - speed, playerSchema.getPlayerY());
 		}
 		else if(movementHandler.isJumping) {// if player is on jump !
 			playerSchema.setPlayerState(PlayerState.JUMP);

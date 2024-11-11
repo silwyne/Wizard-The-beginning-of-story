@@ -282,8 +282,8 @@ public class PlayerSuit {
      */
 
     // variables
-    private final int updatePerFrame = 4;
-    private final int attackUpdatePerFrame = 6;
+    private final int framePerUpdate = 4;
+    private final int framePerAttackUpdate = 6;
 
     private int roundFrame = 0;
 
@@ -295,7 +295,7 @@ public class PlayerSuit {
 
     public BufferedImage getIdle_RightFrame() {
         roundFrame ++;
-        if(roundFrame == updatePerFrame) {
+        if(roundFrame == framePerUpdate) {
             roundFrame = 0;
             idleIndex = (idleIndex + 1) % idleImages_num;
         }
@@ -304,7 +304,7 @@ public class PlayerSuit {
 
     public BufferedImage getIdle_LeftFrame() {
         roundFrame ++;
-        if(roundFrame == updatePerFrame) {
+        if(roundFrame == framePerUpdate) {
             roundFrame = 0;
             idleIndex = (idleIndex + 1) % idleImages_num;
         }
@@ -313,7 +313,7 @@ public class PlayerSuit {
 
     public BufferedImage getJumpFrame() {
         roundFrame ++;
-        if(roundFrame == updatePerFrame) {
+        if(roundFrame == framePerUpdate) {
             roundFrame = 0;
             jumpIndex = (jumpIndex + 1) % jumpImages_num;
         }
@@ -322,7 +322,7 @@ public class PlayerSuit {
 
     public BufferedImage getRunFrame() {
         roundFrame ++;
-        if(roundFrame == updatePerFrame) {
+        if(roundFrame == framePerUpdate) {
             roundFrame = 0;
             runIndex = (runIndex + 1) % runImages_num;
         }
@@ -331,7 +331,7 @@ public class PlayerSuit {
 
     public BufferedImage getRunBackFrame() {
         roundFrame ++;
-        if(roundFrame == updatePerFrame) {
+        if(roundFrame == framePerUpdate) {
             roundFrame = 0;
             runBackIndex = (runBackIndex + 1) % runImages_num;
         }
@@ -342,7 +342,10 @@ public class PlayerSuit {
     Attacking frames
      */
     // attack 1
-    public BufferedImage getAttack_01Frame(PlayerOrientation playerOrientation) {
+    public BufferedImage getAttack_01Frame(PlayerOrientation playerOrientation, boolean start) {
+        if(start) {
+            roundFrame = 0;
+        }
         if(playerOrientation.equals(PlayerOrientation.LEFT)) {
             return getLeftAttack_1Frame();
         } else {
@@ -351,7 +354,10 @@ public class PlayerSuit {
     }
 
     // attack 2
-    public BufferedImage getAttack_02Frame(PlayerOrientation playerOrientation) {
+    public BufferedImage getAttack_02Frame(PlayerOrientation playerOrientation, boolean start) {
+        if(start) {
+            roundFrame = 0;
+        }
         if(playerOrientation.equals(PlayerOrientation.LEFT)) {
             return getLeftAttack_2Frame();
         } else {
@@ -360,7 +366,10 @@ public class PlayerSuit {
     }
 
     // attack 3
-    public BufferedImage getAttack_03Frame(PlayerOrientation playerOrientation) {
+    public BufferedImage getAttack_03Frame(PlayerOrientation playerOrientation, boolean start) {
+        if(start) {
+            roundFrame = 0;
+        }
         if(playerOrientation.equals(PlayerOrientation.LEFT)) {
             return getLeftAttack_3Frame();
         } else {
@@ -369,11 +378,11 @@ public class PlayerSuit {
     }
 
     /*
-    Rookie 1 getters
+    Rookie attack getters
      */
     private BufferedImage getRightAttack_1Frame() {
         roundFrame ++;
-        if(roundFrame == attackUpdatePerFrame) {
+        if(roundFrame == framePerAttackUpdate) {
             roundFrame = 0;
             attackIndex = (attackIndex + 1) % attack_1_Images_num;
         }
@@ -382,7 +391,7 @@ public class PlayerSuit {
 
     private BufferedImage getLeftAttack_1Frame() {
         roundFrame ++;
-        if(roundFrame == attackUpdatePerFrame) {
+        if(roundFrame == framePerAttackUpdate) {
             roundFrame = 0;
             attackIndex = (attackIndex + 1) % attack_1_Images_num;
         }
@@ -391,7 +400,7 @@ public class PlayerSuit {
 
     private BufferedImage getRightAttack_2Frame() {
         roundFrame ++;
-        if(roundFrame == attackUpdatePerFrame) {
+        if(roundFrame == framePerAttackUpdate) {
             roundFrame = 0;
             attackIndex = (attackIndex + 1) % attack_2_Images_num;
         }
@@ -400,7 +409,7 @@ public class PlayerSuit {
 
     private BufferedImage getLeftAttack_2Frame() {
         roundFrame ++;
-        if(roundFrame == attackUpdatePerFrame) {
+        if(roundFrame == framePerAttackUpdate) {
             roundFrame = 0;
             attackIndex = (attackIndex + 1) % attack_2_Images_num;
         }
@@ -409,7 +418,7 @@ public class PlayerSuit {
 
     private BufferedImage getRightAttack_3Frame() {
         roundFrame ++;
-        if(roundFrame == attackUpdatePerFrame) {
+        if(roundFrame == framePerAttackUpdate) {
             roundFrame = 0;
             attackIndex = (attackIndex + 1) % attack_3_Images_num;
         }
@@ -418,10 +427,29 @@ public class PlayerSuit {
 
     private BufferedImage getLeftAttack_3Frame() {
         roundFrame ++;
-        if(roundFrame == attackUpdatePerFrame) {
+        if(roundFrame == framePerAttackUpdate) {
             roundFrame = 0;
             attackIndex = (attackIndex + 1) % attack_3_Images_num;
         }
         return left_attack_3Parts[attackIndex] ;
     }
+
+
+    /*
+    Getters for images  numbers
+     */
+
+    public int getAttack_1_Frames_num() {
+        return attack_1_Images_num * framePerAttackUpdate;
+    }
+
+    public int getAttack_2_Frames_num() {
+        return attack_2_Images_num * framePerAttackUpdate;
+    }
+
+    public int getAttack_3_Frames_num() {
+        return attack_3_Images_num * framePerAttackUpdate;
+    }
+
+
 }

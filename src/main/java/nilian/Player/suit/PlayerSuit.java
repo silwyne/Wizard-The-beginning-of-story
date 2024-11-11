@@ -1,5 +1,7 @@
 package nilian.Player.suit;
 
+import nilian.Player.PlayerOrientation;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -339,8 +341,37 @@ public class PlayerSuit {
     /*
     Attacking frames
      */
+    // attack 1
+    public BufferedImage getAttack_01Frame(PlayerOrientation playerOrientation) {
+        if(playerOrientation.equals(PlayerOrientation.LEFT)) {
+            return getLeftAttack_1Frame();
+        } else {
+            return getRightAttack_1Frame();
+        }
+    }
 
-    public BufferedImage getRightAttack_1Frame() {
+    // attack 2
+    public BufferedImage getAttack_02Frame(PlayerOrientation playerOrientation) {
+        if(playerOrientation.equals(PlayerOrientation.LEFT)) {
+            return getLeftAttack_2Frame();
+        } else {
+            return getRightAttack_2Frame();
+        }
+    }
+
+    // attack 3
+    public BufferedImage getAttack_03Frame(PlayerOrientation playerOrientation) {
+        if(playerOrientation.equals(PlayerOrientation.LEFT)) {
+            return getLeftAttack_3Frame();
+        } else {
+            return getRightAttack_3Frame();
+        }
+    }
+
+    /*
+    Rookie 1 getters
+     */
+    private BufferedImage getRightAttack_1Frame() {
         roundFrame ++;
         if(roundFrame == attackUpdatePerFrame) {
             roundFrame = 0;
@@ -349,7 +380,7 @@ public class PlayerSuit {
         return right_attack_1Parts[attackIndex] ;
     }
 
-    public BufferedImage getLeftAttack_1Frame() {
+    private BufferedImage getLeftAttack_1Frame() {
         roundFrame ++;
         if(roundFrame == attackUpdatePerFrame) {
             roundFrame = 0;
@@ -358,7 +389,7 @@ public class PlayerSuit {
         return left_attack_1Parts[attackIndex] ;
     }
 
-    public BufferedImage getRightAttack_2Frame() {
+    private BufferedImage getRightAttack_2Frame() {
         roundFrame ++;
         if(roundFrame == attackUpdatePerFrame) {
             roundFrame = 0;
@@ -367,7 +398,7 @@ public class PlayerSuit {
         return right_attack_2Parts[attackIndex] ;
     }
 
-    public BufferedImage getLeftAttack_2Frame() {
+    private BufferedImage getLeftAttack_2Frame() {
         roundFrame ++;
         if(roundFrame == attackUpdatePerFrame) {
             roundFrame = 0;
@@ -376,7 +407,7 @@ public class PlayerSuit {
         return left_attack_2Parts[attackIndex] ;
     }
 
-    public BufferedImage getRightAttack_3Frame() {
+    private BufferedImage getRightAttack_3Frame() {
         roundFrame ++;
         if(roundFrame == attackUpdatePerFrame) {
             roundFrame = 0;
@@ -385,7 +416,7 @@ public class PlayerSuit {
         return right_attack_3Parts[attackIndex] ;
     }
 
-    public BufferedImage getLeftAttack_3Frame() {
+    private BufferedImage getLeftAttack_3Frame() {
         roundFrame ++;
         if(roundFrame == attackUpdatePerFrame) {
             roundFrame = 0;

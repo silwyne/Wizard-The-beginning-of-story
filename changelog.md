@@ -7,6 +7,22 @@
   - #### additions
 
 - - - 
+- ### [0.2.5] - 11/11/2024
+  - #### changes
+    - not containing mirror images anymore instead using a mirror function!
+    - Using PlayerUpdate Class to update Player State
+  - #### fixes
+  - jump logics now work great
+  - movement handler now works great in finding the floor
+  - when jump the state of player stays jumping, so we see the jumping frames
+  - using SuitHandler Class as the main Loader of all suits
+  - showing other clients with their real Suits!
+  - reading mirror images recurse now which makes sense now.
+  - #### additions
+  - attacking button (space)
+  - attacking frames
+  - idle_left makes it more friendly
+- - - 
 - ### [0.0.2.4] - 9/11/2024
   - #### additions
     - new characters

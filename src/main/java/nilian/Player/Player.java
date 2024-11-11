@@ -17,7 +17,6 @@ public class Player extends PlayerEntity {
 
 	private final PlayerSchema playerSchema ;
 	private final PlayerUpdater  playerUpdater;
-	private final GamePanel gamePanel;
 	private final String nameColor ;
 
 	public Player(GamePanel gamePanel, KeyHandler key, String playerName, String suitName)
@@ -43,10 +42,9 @@ public class Player extends PlayerEntity {
 				playerSize,
 				PlayerState.IDLE,
 				suitName);
-		this.gamePanel = gamePanel;
 		playerSchema.setPlayerState(PlayerState.IDLE);
 		//movement handler
-		MovementHandler movementHandler = new MovementHandler(this.playerSchema, this.gamePanel);
+		MovementHandler movementHandler = new MovementHandler(this.playerSchema, gamePanel);
 		// get the player updater
 		playerUpdater = new PlayerUpdater(SuitHandler.getSuit(suitName), this.playerSchema, movementHandler, key);
 	}
@@ -78,7 +76,7 @@ public class Player extends PlayerEntity {
 		// Calculate the position for the text
 		FontMetrics fm = g2.getFontMetrics();
 		int textWidth = fm.stringWidth(text);
-		int textX = playerSchema.getPlayerX() + (gamePanel.tileSize / 2) - (textWidth / 2); // Center the text above the player
+		int textX = playerSchema.getPlayerX() + (playerSize / 2) - (textWidth / 2); // Center the text above the player
 		int textY = playerSchema.getPlayerY() - 2; // 2 pixels above the player, adjust as needed
 
 		// Draw the text

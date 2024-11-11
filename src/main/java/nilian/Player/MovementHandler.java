@@ -9,13 +9,16 @@ public class MovementHandler {
 
 
     private final PlayerSchema playerSchema;
-    private final GamePanel gamePanel ;
+    private final GamePanel gamePanel;
     private static final double GRAVITY = 0.6;
     private static final double JUMP_FORCE = -10; // Negative because y-axis is inverted in most game coordinate systems
     private static final double MAX_FALL_SPEED = 10;
     public boolean isJumping = false;
+    private boolean cancellingJump = false;
     private double verticalVelocity = 0; // Current vertical velocity
     private int initialY; // Store the initial Y position when jump starts
+    private int detectedFloor = 0;
+    private final int playerHeight;
 
     /**
      * Makes an instance of MovementHandler Class
@@ -24,6 +27,7 @@ public class MovementHandler {
     public MovementHandler(PlayerSchema playerSchema, GamePanel gamePanel) {
         this.playerSchema = playerSchema;
         this.gamePanel = gamePanel;
+        this.playerHeight = gamePanel.tileSize;
     }
 
 
@@ -31,24 +35,16 @@ public class MovementHandler {
      * moves the player
      * @param dx destination player x
      * @param dy destination player y
-     * @return boolean if the move happened (true) or not (false)!
      */
-    public boolean movePlayer(int dx, int dy) {
-        boolean moved = false;
-
+    public void movePlayer(int dx, int dy) {
         // Check horizontal movement
         if (canMove(dx, playerSchema.getPlayerY())) {
             playerSchema.setPlayerX(dx);
-            moved = true ;
         }
-
         // Check vertical movement
         if (canMove(playerSchema.getPlayerX(), dy)) {
             playerSchema.setPlayerY(dy);
-            moved = true ;
         }
-
-        return moved ;
     }
 
     /**
@@ -94,19 +90,23 @@ public class MovementHandler {
             int newY = (int) (playerSchema.getPlayerY() + verticalVelocity);
 
             // Attempt to move player
-            boolean moved = movePlayer(playerSchema.getPlayerX(), newY);
+            movePlayer(playerSchema.getPlayerX(), newY);
 
-            if (!moved) {
-                // Collision detected
-                if (verticalVelocity > 0) {
-                    // We hit the ground
+            if (verticalVelocity == MAX_FALL_SPEED && !cancellingJump) {
+                // cancelling the jump
+                cancellingJump = true;
+                // finding the floor
+                detectedFloor = findFloor(playerSchema.getPlayerX(), playerSchema.getPlayerY());
+            }
+
+            // We hit the ground
+            if(cancellingJump) {
+                if(playerSchema.getPlayerY() + verticalVelocity - playerHeight >= detectedFloor) {
                     isJumping = false;
                     verticalVelocity = 0;
-                    // Find the floor
-                    playerSchema.setPlayerY(findFloor(playerSchema.getPlayerY(), newY));
                 } else {
-                    // We hit a ceiling
-                    verticalVelocity = 0;
+                    // Attempt to move player
+                    movePlayer(playerSchema.getPlayerX(), newY);
                 }
             }
 
@@ -132,21 +132,16 @@ public class MovementHandler {
 
     /**
      * tries to find the floor
-     * @param oldY bullshit
-     * @param newY bullshit
      * @return bullshit
      */
-    private int findFloor(int oldY, int newY) {
-        // Binary search to find the exact floor position
-        while (oldY < newY) {
-            int midY = (oldY + newY) / 2;
-            if (movePlayer(playerSchema.getPlayerX(), midY)) {
-                oldY = midY + 1;
-            } else {
-                newY = midY;
+    private int findFloor(int playerX, int playerY) {
+        int countDown = 0;
+        while(true) {
+            if(!checkMoveable(playerX, playerY + countDown)) {
+                return playerX + countDown;
             }
+            countDown ++;
         }
-        return oldY - 1;
     }
     
 }

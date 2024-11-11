@@ -42,6 +42,21 @@ public class MovementHandler {
         if (canMove(playerSchema.getPlayerX(), dy)) {
             playerSchema.setPlayerY(dy);
         }
+
+        // handle the fall
+        if(!isJumping) {
+            int detectedFloor = findFloor(playerSchema.getPlayerX(), playerSchema.getPlayerY());
+            if(playerSchema.getPlayerY() + playerHeight != detectedFloor) {
+                if(canMove(playerSchema.getPlayerX(), (int) (playerSchema.getPlayerY() + MAX_FALL_SPEED))){
+                    playerSchema.setPlayerY((int) (playerSchema.getPlayerY() + MAX_FALL_SPEED));
+                }
+                if(playerSchema.getPlayerY() + playerHeight > detectedFloor) {
+                    if(canMove(playerSchema.getPlayerX(), detectedFloor - playerHeight)) {
+                        playerSchema.setPlayerY(detectedFloor - playerHeight);
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -117,9 +132,10 @@ public class MovementHandler {
         int countDown = 0;
         int playerHeight = gamePanel.tileSize ;
         int y;
+        int x = playerX + gamePanel.tileSize / 3 ;
         while(true) {
             y = playerY + playerHeight + countDown;
-            if(!gamePanel.getTileM().getTile(playerX, y).moveable) {
+            if(!gamePanel.getTileM().getTile(x, y).moveable) {
                 return y - 1;
             }
             countDown ++;

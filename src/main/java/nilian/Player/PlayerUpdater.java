@@ -34,15 +34,13 @@ public class PlayerUpdater {
         int iy = playerSchema.getPlayerY();
 
         // Updating
+        movementHandler.handleJump();
         // check if anything is pressed or states else set it idle
         if(keyHandler.upPressed || keyHandler.downPressed ||
         keyHandler.rightPressed || keyHandler.leftPressed)
         {
             if (keyHandler.upPressed && !movementHandler.isJumping) {
                 movementHandler.startJump();
-            }
-            if (movementHandler.isJumping) {
-                movementHandler.handleJump();
             }
             if (keyHandler.rightPressed) {
                 orientation = PlayerOrientation.RIGHT;
@@ -82,6 +80,9 @@ public class PlayerUpdater {
      */
     public static BufferedImage getPlayerImage(PlayerState direction, PlayerSuit suit, PlayerOrientation playerOrientation) {
         if (direction.equals(PlayerState.JUMP)) {
+            if(playerOrientation.equals(PlayerOrientation.LEFT)) {
+                return suit.getJumpBackFrame();
+            }
             return suit.getJumpFrame();
         }
         if (direction.equals(PlayerState.IDLE)) {

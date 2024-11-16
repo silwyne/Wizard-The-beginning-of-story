@@ -41,7 +41,9 @@ public class Player extends PlayerEntity {
 				color,
 				playerSize,
 				PlayerState.IDLE,
-				suitName);
+				suitName,
+				PlayerOrientation.RIGHT);
+
 		playerSchema.setPlayerState(PlayerState.IDLE);
 		//movement handler
 		MovementHandler movementHandler = new MovementHandler(this.playerSchema, gamePanel);
@@ -89,7 +91,8 @@ public class Player extends PlayerEntity {
 				.setType(PlayerMessageType.PLAYER_MESSAGE_TYPE_MOVE)
 				.setPlayerHash(playerSchema.getClientHashCode())
 				.setSuitCode(playerSchema.getSuitName())
-				.setDirection(playerSchema.getPlayerState().toString())
+				.setState(playerSchema.getPlayerState().toString())
+				.setOrientation(playerSchema.getPlayerOrientation().toString())
 				.setName(playerSchema.getPlayerName())
 				.setTimestamp(System.currentTimeMillis())
 				.setX(playerSchema.getPlayerX())

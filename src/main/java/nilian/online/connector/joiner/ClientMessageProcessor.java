@@ -1,5 +1,6 @@
 package nilian.online.connector.joiner;
 
+import nilian.Player.PlayerOrientation;
 import nilian.Player.PlayerState;
 import nilian.Player.PlayerSchema;
 import nilian.online.connector.message.MessageProcessor;
@@ -22,7 +23,7 @@ public class ClientMessageProcessor implements MessageProcessor<ServerMessage> {
         System.out.println("Message : "+message);
         PlayerState direction ;
         try  {
-            direction = PlayerState.valueOf(message.getPlayer().getDirection());
+            direction = PlayerState.valueOf(message.getPlayer().getState());
         } catch (IllegalArgumentException e) {
             direction = PlayerState.IDLE;
             System.out.println(e.getMessage());
@@ -35,7 +36,8 @@ public class ClientMessageProcessor implements MessageProcessor<ServerMessage> {
                 stringToColor(message.getPlayer().getNameColor()),
                 48,
                 direction,
-                message.getPlayer().getSuitCode()
+                message.getPlayer().getSuitCode(),
+                PlayerOrientation.valueOf(message.getPlayer().getOrientation())
             );
         // so update his location
         onlineRenderer.updatePlayer(playerSchema);

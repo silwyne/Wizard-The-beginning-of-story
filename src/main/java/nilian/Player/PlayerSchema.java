@@ -11,12 +11,19 @@ public class PlayerSchema {
     private Color playerColor;
     private String suitName;
     private PlayerState playerState;
+    private PlayerOrientation playerOrientation;
     private int clientHashCode;
     private int playerX;
     private int playerY;
     private int playerSize;
 
-    public PlayerSchema(String playerName, int clientHashCode, int playerX, int playerY, Color playerColor, int playerSize, PlayerState playerState, String suitName) {
+    public PlayerSchema
+            (String playerName,
+             int clientHashCode,
+             int playerX, int playerY,
+             Color playerColor, int playerSize,
+             PlayerState playerState, String suitName,
+             PlayerOrientation playerOrientation) {
         this.playerName = playerName;
         this.playerColor = playerColor;
         this.playerState = playerState;
@@ -25,6 +32,7 @@ public class PlayerSchema {
         this.playerY = playerY;
         this.playerSize = playerSize;
         this.suitName = suitName;
+        this.playerOrientation = playerOrientation;
     }
 
     public int getPlayerSize() {
@@ -89,5 +97,13 @@ public class PlayerSchema {
 
     public void setSuitName(String suitName) {
         this.suitName = suitName;
+    }
+
+    public PlayerOrientation getPlayerOrientation() {
+        return playerOrientation;
+    }
+
+    public void setPlayerOrientation(PlayerOrientation playerOrientation) {
+        this.playerOrientation = playerOrientation;
     }
 }

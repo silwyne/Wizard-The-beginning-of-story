@@ -67,20 +67,7 @@ public class Player extends PlayerEntity {
         g2.drawImage(playerUpdater.getPlayerFrameImage(), playerSchema.getPlayerX(), playerSchema.getPlayerY(), playerSize, playerSize , null) ;
 
 		// Set up the font and color for the text
-		g2.setFont(new Font("Arial", Font.BOLD, 12)); // Adjust font and size as needed
-		g2.setColor(playerSchema.getPlayerColor());
-
-		// The text you want to display
-		String text = playerSchema.getPlayerName(); // Replace with actual player name or desired text
-
-		// Calculate the position for the text
-		FontMetrics fm = g2.getFontMetrics();
-		int textWidth = fm.stringWidth(text);
-		int textX = playerSchema.getPlayerX() + (playerSize / 2) - (textWidth / 2); // Center the text above the player
-		int textY = playerSchema.getPlayerY() - 2; // 2 pixels above the player, adjust as needed
-
-		// Draw the text
-		g2.drawString(text, textX, textY);
+		drawPlayerName(g2, playerSchema);
 	}
 
 	public static Color getRandomColor() {
@@ -108,6 +95,22 @@ public class Player extends PlayerEntity {
 				.setX(playerSchema.getPlayerX())
 				.setY(playerSchema.getPlayerY())
 				.build();
+	}
+
+	public static void drawPlayerName(Graphics2D g2, PlayerSchema schema) {
+		g2.setFont(new Font("Arial", Font.BOLD, 12)); // Adjust font and size as needed
+		g2.setColor(schema.getPlayerColor());
+
+		// The text you want to display
+
+        // Calculate the position for the text
+		FontMetrics fm = g2.getFontMetrics();
+		int textWidth = fm.stringWidth(schema.getPlayerName());
+		int textX = schema.getPlayerX() + (schema.getPlayerSize() / 2) - (textWidth / 2); // Center the text above the player
+		int textY = schema.getPlayerY() - 2; // 2 pixels above the player, adjust as needed
+
+		// Draw the text
+		g2.drawString(schema.getPlayerName(), textX, textY);
 	}
 
 }

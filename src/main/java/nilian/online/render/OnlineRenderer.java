@@ -1,5 +1,6 @@
 package nilian.online.render;
 
+import nilian.Player.Player;
 import nilian.Player.PlayerState;
 import nilian.Player.PlayerSchema;
 import nilian.Player.suit.PlayerSuit;
@@ -56,21 +57,8 @@ public class OnlineRenderer {
             // draw player
             g2.drawImage(image, schema.getPlayerX(), schema.getPlayerY(), schema.getPlayerSize(), schema.getPlayerSize() , null) ;
 
-            // Set up the font and color for the text
-            g2.setFont(new Font("Arial", Font.BOLD, 12)); // Adjust font and size as needed
-            g2.setColor(schema.getPlayerColor());
-
-            // The text you want to display
-            String text = schema.getPlayerName(); // Replace with actual player name or desired text
-
-            // Calculate the position for the text
-            FontMetrics fm = g2.getFontMetrics();
-            int textWidth = fm.stringWidth(text);
-            int textX = schema.getPlayerX() + (schema.getPlayerSize() / 2) - (textWidth / 2); // Center the text above the player
-            int textY = schema.getPlayerY() - 2; // 2 pixels above the player, adjust as needed
-
-            // Draw the text
-            g2.drawString(text, textX, textY);
+            // draw player name
+            Player.drawPlayerName(g2, schema);
         }
     }
 

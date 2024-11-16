@@ -67,7 +67,6 @@ public class OnlineRenderer {
             case JUMP -> suit.getJumpFrame();
             case IDLE -> suit.getIdle_RightFrame();
             case RUN -> suit.getRunFrame();
-            case RUN_BACK -> suit.getRunBackFrame();
             default -> null;
         };
     }

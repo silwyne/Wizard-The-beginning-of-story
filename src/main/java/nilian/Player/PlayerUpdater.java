@@ -50,7 +50,7 @@ public class PlayerUpdater {
             }
             if (keyHandler.leftPressed) {
                 orientation = PlayerOrientation.LEFT;
-                playerSchema.setPlayerState(PlayerState.RUN_BACK);
+                playerSchema.setPlayerState(PlayerState.RUN);
                 movementHandler.movePlayer(playerSchema.getPlayerX() - speed, playerSchema.getPlayerY());
             }
             if(keyHandler.attackPressed) {
@@ -98,9 +98,9 @@ public class PlayerUpdater {
             }
         }
         if (direction.equals(PlayerState.RUN)) {
-            return suit.getRunFrame();
-        }
-        if (direction.equals(PlayerState.RUN_BACK)) {
+            if(playerOrientation.equals(PlayerOrientation.RIGHT)) {
+                return suit.getRunFrame();
+            }
             return suit.getRunBackFrame();
         }
         return null;

@@ -15,7 +15,7 @@ public class PlayerUpdater {
 
     private PlayerOrientation orientation = PlayerOrientation.RIGHT;
     private BufferedImage playerFrameImage;
-
+    private boolean isAttacking = false;
 
     // low level unrelated
     // Set Default values
@@ -37,7 +37,8 @@ public class PlayerUpdater {
         movementHandler.handleJump();
         // check if anything is pressed or states else set it idle
         if(keyHandler.upPressed || keyHandler.downPressed ||
-        keyHandler.rightPressed || keyHandler.leftPressed)
+        keyHandler.rightPressed || keyHandler.leftPressed ||
+        keyHandler.attackPressed)
         {
             if (keyHandler.upPressed && !movementHandler.isJumping) {
                 movementHandler.startJump();
@@ -52,13 +53,19 @@ public class PlayerUpdater {
                 playerSchema.setPlayerState(PlayerState.RUN_BACK);
                 movementHandler.movePlayer(playerSchema.getPlayerX() - speed, playerSchema.getPlayerY());
             }
+            if(keyHandler.attackPressed) {
+                if(!isAttacking) {
+                    playerSchema.setPlayerState(PlayerState.ATTACK);
+                    isAttacking = true;
+                }
+            }
         }
         else {
             playerSchema.setPlayerState(PlayerState.IDLE);
         }
 
         // make sure to set state on jump if jumping
-        if(movementHandler.isJumping) {
+        if(movementHandler.isJumping && !isAttacking) {
             playerSchema.setPlayerState(PlayerState.JUMP);
         }
 
@@ -68,8 +75,6 @@ public class PlayerUpdater {
         // Check for move
         return ix != playerSchema.getPlayerX() || iy != playerSchema.getPlayerY();
     }
-
-
 
 
     /**

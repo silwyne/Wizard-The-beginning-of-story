@@ -81,19 +81,31 @@ public interface PlayerMessageOrBuilder extends
       getNameColorBytes();
 
   /**
-   * <code>string direction = 9;</code>
-   * @return The direction.
+   * <code>string state = 9;</code>
+   * @return The state.
    */
-  java.lang.String getDirection();
+  java.lang.String getState();
   /**
-   * <code>string direction = 9;</code>
-   * @return The bytes for direction.
+   * <code>string state = 9;</code>
+   * @return The bytes for state.
    */
   com.google.protobuf.ByteString
-      getDirectionBytes();
+      getStateBytes();
 
   /**
-   * <code>int32 teamCode = 10;</code>
+   * <code>string orientation = 10;</code>
+   * @return The orientation.
+   */
+  java.lang.String getOrientation();
+  /**
+   * <code>string orientation = 10;</code>
+   * @return The bytes for orientation.
+   */
+  com.google.protobuf.ByteString
+      getOrientationBytes();
+
+  /**
+   * <code>int32 teamCode = 11;</code>
    * @return The teamCode.
    */
   int getTeamCode();

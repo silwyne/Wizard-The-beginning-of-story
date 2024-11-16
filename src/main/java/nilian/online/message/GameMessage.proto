@@ -20,8 +20,9 @@ message PlayerMessage {
     string suit_code = 6;
     string name = 7;
     string nameColor = 8;
-    string direction = 9;
-    int32 teamCode = 10;
+    string state = 9;
+    string orientation = 10;
+    int32 teamCode = 11;
 }
 
 // Game configuration messages and enums

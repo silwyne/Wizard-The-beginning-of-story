@@ -31,7 +31,8 @@ private static final long serialVersionUID = 0L;
     suitCode_ = "";
     name_ = "";
     nameColor_ = "";
-    direction_ = "";
+    state_ = "";
+    orientation_ = "";
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
@@ -226,49 +227,88 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int DIRECTION_FIELD_NUMBER = 9;
+  public static final int STATE_FIELD_NUMBER = 9;
   @SuppressWarnings("serial")
-  private volatile java.lang.Object direction_ = "";
+  private volatile java.lang.Object state_ = "";
   /**
-   * <code>string direction = 9;</code>
-   * @return The direction.
+   * <code>string state = 9;</code>
+   * @return The state.
    */
   @java.lang.Override
-  public java.lang.String getDirection() {
-    java.lang.Object ref = direction_;
+  public java.lang.String getState() {
+    java.lang.Object ref = state_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      direction_ = s;
+      state_ = s;
       return s;
     }
   }
   /**
-   * <code>string direction = 9;</code>
-   * @return The bytes for direction.
+   * <code>string state = 9;</code>
+   * @return The bytes for state.
    */
   @java.lang.Override
   public com.google.protobuf.ByteString
-      getDirectionBytes() {
-    java.lang.Object ref = direction_;
+      getStateBytes() {
+    java.lang.Object ref = state_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      direction_ = b;
+      state_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
     }
   }
 
-  public static final int TEAMCODE_FIELD_NUMBER = 10;
+  public static final int ORIENTATION_FIELD_NUMBER = 10;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object orientation_ = "";
+  /**
+   * <code>string orientation = 10;</code>
+   * @return The orientation.
+   */
+  @java.lang.Override
+  public java.lang.String getOrientation() {
+    java.lang.Object ref = orientation_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      orientation_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string orientation = 10;</code>
+   * @return The bytes for orientation.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getOrientationBytes() {
+    java.lang.Object ref = orientation_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      orientation_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int TEAMCODE_FIELD_NUMBER = 11;
   private int teamCode_ = 0;
   /**
-   * <code>int32 teamCode = 10;</code>
+   * <code>int32 teamCode = 11;</code>
    * @return The teamCode.
    */
   @java.lang.Override
@@ -314,11 +354,14 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessage.isStringEmpty(nameColor_)) {
       com.google.protobuf.GeneratedMessage.writeString(output, 8, nameColor_);
     }
-    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(direction_)) {
-      com.google.protobuf.GeneratedMessage.writeString(output, 9, direction_);
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(state_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 9, state_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(orientation_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 10, orientation_);
     }
     if (teamCode_ != 0) {
-      output.writeInt32(10, teamCode_);
+      output.writeInt32(11, teamCode_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -358,12 +401,15 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessage.isStringEmpty(nameColor_)) {
       size += com.google.protobuf.GeneratedMessage.computeStringSize(8, nameColor_);
     }
-    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(direction_)) {
-      size += com.google.protobuf.GeneratedMessage.computeStringSize(9, direction_);
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(state_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(9, state_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(orientation_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(10, orientation_);
     }
     if (teamCode_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(10, teamCode_);
+        .computeInt32Size(11, teamCode_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -395,8 +441,10 @@ private static final long serialVersionUID = 0L;
         .equals(other.getName())) return false;
     if (!getNameColor()
         .equals(other.getNameColor())) return false;
-    if (!getDirection()
-        .equals(other.getDirection())) return false;
+    if (!getState()
+        .equals(other.getState())) return false;
+    if (!getOrientation()
+        .equals(other.getOrientation())) return false;
     if (getTeamCode()
         != other.getTeamCode()) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
@@ -428,8 +476,10 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getName().hashCode();
     hash = (37 * hash) + NAMECOLOR_FIELD_NUMBER;
     hash = (53 * hash) + getNameColor().hashCode();
-    hash = (37 * hash) + DIRECTION_FIELD_NUMBER;
-    hash = (53 * hash) + getDirection().hashCode();
+    hash = (37 * hash) + STATE_FIELD_NUMBER;
+    hash = (53 * hash) + getState().hashCode();
+    hash = (37 * hash) + ORIENTATION_FIELD_NUMBER;
+    hash = (53 * hash) + getOrientation().hashCode();
     hash = (37 * hash) + TEAMCODE_FIELD_NUMBER;
     hash = (53 * hash) + getTeamCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
@@ -571,7 +621,8 @@ private static final long serialVersionUID = 0L;
       suitCode_ = "";
       name_ = "";
       nameColor_ = "";
-      direction_ = "";
+      state_ = "";
+      orientation_ = "";
       teamCode_ = 0;
       return this;
     }
@@ -631,9 +682,12 @@ private static final long serialVersionUID = 0L;
         result.nameColor_ = nameColor_;
       }
       if (((from_bitField0_ & 0x00000100) != 0)) {
-        result.direction_ = direction_;
+        result.state_ = state_;
       }
       if (((from_bitField0_ & 0x00000200) != 0)) {
+        result.orientation_ = orientation_;
+      }
+      if (((from_bitField0_ & 0x00000400) != 0)) {
         result.teamCode_ = teamCode_;
       }
     }
@@ -680,9 +734,14 @@ private static final long serialVersionUID = 0L;
         bitField0_ |= 0x00000080;
         onChanged();
       }
-      if (!other.getDirection().isEmpty()) {
-        direction_ = other.direction_;
+      if (!other.getState().isEmpty()) {
+        state_ = other.state_;
         bitField0_ |= 0x00000100;
+        onChanged();
+      }
+      if (!other.getOrientation().isEmpty()) {
+        orientation_ = other.orientation_;
+        bitField0_ |= 0x00000200;
         onChanged();
       }
       if (other.getTeamCode() != 0) {
@@ -755,15 +814,20 @@ private static final long serialVersionUID = 0L;
               break;
             } // case 66
             case 74: {
-              direction_ = input.readStringRequireUtf8();
+              state_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000100;
               break;
             } // case 74
-            case 80: {
-              teamCode_ = input.readInt32();
+            case 82: {
+              orientation_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000200;
               break;
-            } // case 80
+            } // case 82
+            case 88: {
+              teamCode_ = input.readInt32();
+              bitField0_ |= 0x00000400;
+              break;
+            } // case 88
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -1178,81 +1242,153 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object direction_ = "";
+    private java.lang.Object state_ = "";
     /**
-     * <code>string direction = 9;</code>
-     * @return The direction.
+     * <code>string state = 9;</code>
+     * @return The state.
      */
-    public java.lang.String getDirection() {
-      java.lang.Object ref = direction_;
+    public java.lang.String getState() {
+      java.lang.Object ref = state_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        direction_ = s;
+        state_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string direction = 9;</code>
-     * @return The bytes for direction.
+     * <code>string state = 9;</code>
+     * @return The bytes for state.
      */
     public com.google.protobuf.ByteString
-        getDirectionBytes() {
-      java.lang.Object ref = direction_;
+        getStateBytes() {
+      java.lang.Object ref = state_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        direction_ = b;
+        state_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string direction = 9;</code>
-     * @param value The direction to set.
+     * <code>string state = 9;</code>
+     * @param value The state to set.
      * @return This builder for chaining.
      */
-    public Builder setDirection(
+    public Builder setState(
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
-      direction_ = value;
+      state_ = value;
       bitField0_ |= 0x00000100;
       onChanged();
       return this;
     }
     /**
-     * <code>string direction = 9;</code>
+     * <code>string state = 9;</code>
      * @return This builder for chaining.
      */
-    public Builder clearDirection() {
-      direction_ = getDefaultInstance().getDirection();
+    public Builder clearState() {
+      state_ = getDefaultInstance().getState();
       bitField0_ = (bitField0_ & ~0x00000100);
       onChanged();
       return this;
     }
     /**
-     * <code>string direction = 9;</code>
-     * @param value The bytes for direction to set.
+     * <code>string state = 9;</code>
+     * @param value The bytes for state to set.
      * @return This builder for chaining.
      */
-    public Builder setDirectionBytes(
+    public Builder setStateBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
-      direction_ = value;
+      state_ = value;
       bitField0_ |= 0x00000100;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object orientation_ = "";
+    /**
+     * <code>string orientation = 10;</code>
+     * @return The orientation.
+     */
+    public java.lang.String getOrientation() {
+      java.lang.Object ref = orientation_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        orientation_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string orientation = 10;</code>
+     * @return The bytes for orientation.
+     */
+    public com.google.protobuf.ByteString
+        getOrientationBytes() {
+      java.lang.Object ref = orientation_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        orientation_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string orientation = 10;</code>
+     * @param value The orientation to set.
+     * @return This builder for chaining.
+     */
+    public Builder setOrientation(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      orientation_ = value;
+      bitField0_ |= 0x00000200;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string orientation = 10;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearOrientation() {
+      orientation_ = getDefaultInstance().getOrientation();
+      bitField0_ = (bitField0_ & ~0x00000200);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string orientation = 10;</code>
+     * @param value The bytes for orientation to set.
+     * @return This builder for chaining.
+     */
+    public Builder setOrientationBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      orientation_ = value;
+      bitField0_ |= 0x00000200;
       onChanged();
       return this;
     }
 
     private int teamCode_ ;
     /**
-     * <code>int32 teamCode = 10;</code>
+     * <code>int32 teamCode = 11;</code>
      * @return The teamCode.
      */
     @java.lang.Override
@@ -1260,23 +1396,23 @@ private static final long serialVersionUID = 0L;
       return teamCode_;
     }
     /**
-     * <code>int32 teamCode = 10;</code>
+     * <code>int32 teamCode = 11;</code>
      * @param value The teamCode to set.
      * @return This builder for chaining.
      */
     public Builder setTeamCode(int value) {
 
       teamCode_ = value;
-      bitField0_ |= 0x00000200;
+      bitField0_ |= 0x00000400;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 teamCode = 10;</code>
+     * <code>int32 teamCode = 11;</code>
      * @return This builder for chaining.
      */
     public Builder clearTeamCode() {
-      bitField0_ = (bitField0_ & ~0x00000200);
+      bitField0_ = (bitField0_ & ~0x00000400);
       teamCode_ = 0;
       onChanged();
       return this;

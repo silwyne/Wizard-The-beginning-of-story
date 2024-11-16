@@ -55,36 +55,36 @@ public final class GameMessage {
   static {
     java.lang.String[] descriptorData = {
       "\n5src/main/java/nilian/online/message/Ga" +
-      "meMessage.proto\"\310\001\n\rPlayerMessage\022 \n\004typ" +
+      "meMessage.proto\"\331\001\n\rPlayerMessage\022 \n\004typ" +
       "e\030\001 \001(\0162\022.PlayerMessageType\022\021\n\ttimestamp" +
       "\030\002 \001(\003\022\023\n\013player_hash\030\003 \001(\003\022\t\n\001x\030\004 \001(\005\022\t" +
       "\n\001y\030\005 \001(\005\022\021\n\tsuit_code\030\006 \001(\t\022\014\n\004name\030\007 \001" +
-      "(\t\022\021\n\tnameColor\030\010 \001(\t\022\021\n\tdirection\030\t \001(\t" +
-      "\022\020\n\010teamCode\030\n \001(\005\"_\n\021GameConfigMessage\022" +
-      "\013\n\003map\030\001 \001(\t\022\r\n\005theme\030\002 \001(\t\022\033\n\004mode\030\003 \001(" +
-      "\0162\r.GameModeType\022\021\n\ttimestamp\030\004 \001(\003\"z\n\rS" +
-      "erverMessage\022 \n\004type\030\001 \001(\0162\022.ServerMessa" +
-      "geType\022\'\n\013game_config\030\002 \001(\0132\022.GameConfig" +
-      "Message\022\036\n\006player\030\003 \001(\0132\016.PlayerMessage\"" +
-      "i\n\rClientMessage\022 \n\004type\030\001 \001(\0162\022.ClientM" +
-      "essageType\022#\n\013player_info\030\002 \001(\0132\016.Player" +
-      "Message\022\021\n\ttimestamp\030\003 \001(\003*\230\001\n\021PlayerMes" +
-      "sageType\022#\n\037PLAYER_MESSAGE_TYPE_UNSPECIF" +
-      "IED\020\000\022\035\n\031PLAYER_MESSAGE_TYPE_SPAWN\020\001\022!\n\035" +
-      "PLAYER_MESSAGE_TYPE_DISAPPEAR\020\002\022\034\n\030PLAYE" +
-      "R_MESSAGE_TYPE_MOVE\020\003*t\n\014GameModeType\022\036\n" +
-      "\032GAME_MODE_TYPE_UNSPECIFIED\020\000\022\037\n\033GAME_MO" +
-      "DE_TYPE_FREE_FOR_ALL\020\001\022#\n\037GAME_MODE_TYPE" +
-      "_TEAM_DEATH_MATCH\020\002*\227\001\n\021ServerMessageTyp" +
-      "e\022#\n\037SERVER_MESSAGE_TYPE_UNSPECIFIED\020\000\022\037" +
-      "\n\033SERVER_MESSAGE_TYPE_WELCOME\020\001\022\036\n\032SERVE" +
-      "R_MESSAGE_TYPE_PLAYER\020\002\022\034\n\030SERVER_MESSAG" +
-      "E_TYPE_GAME\020\003*\245\001\n\021ClientMessageType\022#\n\037C" +
-      "LIENT_MESSAGE_TYPE_UNSPECIFIED\020\000\022!\n\035CLIE" +
-      "NT_MESSAGE_TYPE_INTRODUCE\020\001\022$\n CLIENT_ME" +
-      "SSAGE_TYPE_UPDATE_PLACE\020\002\022\"\n\036CLIENT_MESS" +
-      "AGE_TYPE_UPDATE_ACT\020\003B\031\n\025nilian.online.m" +
-      "essageP\001b\006proto3"
+      "(\t\022\021\n\tnameColor\030\010 \001(\t\022\r\n\005state\030\t \001(\t\022\023\n\013" +
+      "orientation\030\n \001(\t\022\020\n\010teamCode\030\013 \001(\005\"_\n\021G" +
+      "ameConfigMessage\022\013\n\003map\030\001 \001(\t\022\r\n\005theme\030\002" +
+      " \001(\t\022\033\n\004mode\030\003 \001(\0162\r.GameModeType\022\021\n\ttim" +
+      "estamp\030\004 \001(\003\"z\n\rServerMessage\022 \n\004type\030\001 " +
+      "\001(\0162\022.ServerMessageType\022\'\n\013game_config\030\002" +
+      " \001(\0132\022.GameConfigMessage\022\036\n\006player\030\003 \001(\013" +
+      "2\016.PlayerMessage\"i\n\rClientMessage\022 \n\004typ" +
+      "e\030\001 \001(\0162\022.ClientMessageType\022#\n\013player_in" +
+      "fo\030\002 \001(\0132\016.PlayerMessage\022\021\n\ttimestamp\030\003 " +
+      "\001(\003*\230\001\n\021PlayerMessageType\022#\n\037PLAYER_MESS" +
+      "AGE_TYPE_UNSPECIFIED\020\000\022\035\n\031PLAYER_MESSAGE" +
+      "_TYPE_SPAWN\020\001\022!\n\035PLAYER_MESSAGE_TYPE_DIS" +
+      "APPEAR\020\002\022\034\n\030PLAYER_MESSAGE_TYPE_MOVE\020\003*t" +
+      "\n\014GameModeType\022\036\n\032GAME_MODE_TYPE_UNSPECI" +
+      "FIED\020\000\022\037\n\033GAME_MODE_TYPE_FREE_FOR_ALL\020\001\022" +
+      "#\n\037GAME_MODE_TYPE_TEAM_DEATH_MATCH\020\002*\227\001\n" +
+      "\021ServerMessageType\022#\n\037SERVER_MESSAGE_TYP" +
+      "E_UNSPECIFIED\020\000\022\037\n\033SERVER_MESSAGE_TYPE_W" +
+      "ELCOME\020\001\022\036\n\032SERVER_MESSAGE_TYPE_PLAYER\020\002" +
+      "\022\034\n\030SERVER_MESSAGE_TYPE_GAME\020\003*\245\001\n\021Clien" +
+      "tMessageType\022#\n\037CLIENT_MESSAGE_TYPE_UNSP" +
+      "ECIFIED\020\000\022!\n\035CLIENT_MESSAGE_TYPE_INTRODU" +
+      "CE\020\001\022$\n CLIENT_MESSAGE_TYPE_UPDATE_PLACE" +
+      "\020\002\022\"\n\036CLIENT_MESSAGE_TYPE_UPDATE_ACT\020\003B\031" +
+      "\n\025nilian.online.messageP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -95,7 +95,7 @@ public final class GameMessage {
     internal_static_PlayerMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_PlayerMessage_descriptor,
-        new java.lang.String[] { "Type", "Timestamp", "PlayerHash", "X", "Y", "SuitCode", "Name", "NameColor", "Direction", "TeamCode", });
+        new java.lang.String[] { "Type", "Timestamp", "PlayerHash", "X", "Y", "SuitCode", "Name", "NameColor", "State", "Orientation", "TeamCode", });
     internal_static_GameConfigMessage_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_GameConfigMessage_fieldAccessorTable = new

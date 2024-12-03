@@ -1,9 +1,8 @@
 package nilian.online.render;
 
 import nilian.Player.Player;
-import nilian.Player.PlayerState;
 import nilian.Player.PlayerSchema;
-import nilian.Player.suit.PlayerSuit;
+import nilian.Player.PlayerUpdater;
 import nilian.Player.suit.SuitHandler;
 
 import java.awt.*;
@@ -52,7 +51,10 @@ public class OnlineRenderer {
         BufferedImage image;
         for(PlayerSchema schema: otherPlayersInGame) {
             //State Image of Player
-            image = getPlayerImage(schema.getPlayerState(), SuitHandler.getSuit(schema.getSuitName()));
+            image = PlayerUpdater.getPlayerImage(
+                    schema.getPlayerState(),
+                    SuitHandler.getSuit(schema.getSuitName()),
+                    schema.getPlayerOrientation());
 
             // draw player
             g2.drawImage(image, schema.getPlayerX(), schema.getPlayerY(), schema.getPlayerSize(), schema.getPlayerSize() , null) ;
@@ -60,14 +62,5 @@ public class OnlineRenderer {
             // draw player name
             Player.drawPlayerName(g2, schema);
         }
-    }
-
-    private static BufferedImage getPlayerImage(PlayerState direction, PlayerSuit suit) {
-        return switch (direction) {
-            case JUMP -> suit.getJumpFrame();
-            case IDLE -> suit.getIdle_RightFrame();
-            case RUN -> suit.getRunFrame();
-            default -> null;
-        };
     }
 }

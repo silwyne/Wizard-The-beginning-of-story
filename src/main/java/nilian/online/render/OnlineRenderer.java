@@ -3,7 +3,7 @@ package nilian.online.render;
 import nilian.Player.Player;
 import nilian.Player.PlayerSchema;
 import nilian.Player.PlayerUpdater;
-import nilian.Player.suit.SuitHandler;
+import nilian.Player.suit.PlayerFrameProvider;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,22 +17,23 @@ import java.util.List;
  */
 public class OnlineRenderer {
 
-    private final List<PlayerSchema> otherPlayersInGame = new ArrayList<>() ;
+    private final List<OnlinePlayer> otherPlayersInGame = new ArrayList<>() ;
 
     public OnlineRenderer() {}
 
     public void addPlayer(PlayerSchema playerSchema) {
-        otherPlayersInGame.add(playerSchema);
+        otherPlayersInGame.add(new OnlinePlayer(playerSchema, new PlayerFrameProvider(playerSchema.getSuitName())));
     }
 
     public void removePlayer(PlayerSchema playerSchema) {
-        otherPlayersInGame.removeIf(schema -> schema.getClientHashCode() == playerSchema.getClientHashCode());
+        otherPlayersInGame.removeIf(player -> player.schema.getClientHashCode() == playerSchema.getClientHashCode());
     }
 
     public void updatePlayer(PlayerSchema playerSchema) {
         System.out.println("PLAYER UPDATE: x:"+playerSchema.getPlayerX()+" y:"+playerSchema.getPlayerY());
         boolean updated = false;
-        for (PlayerSchema schema : otherPlayersInGame) {
+        for (OnlinePlayer player : otherPlayersInGame) {
+            PlayerSchema schema = player.schema;
             if (schema.getClientHashCode() == playerSchema.getClientHashCode()) {
                 schema.setPlayerX(playerSchema.getPlayerX());
                 schema.setPlayerY(playerSchema.getPlayerY());
@@ -42,18 +43,19 @@ public class OnlineRenderer {
             }
         }
         if(!updated){
-            otherPlayersInGame.add(playerSchema);
+            addPlayer(playerSchema);
         }
     }
 
     // draws other players on screen
     public void draw(Graphics2D g2) {
         BufferedImage image;
-        for(PlayerSchema schema: otherPlayersInGame) {
+        for(OnlinePlayer player: otherPlayersInGame) {
+            PlayerSchema schema = player.schema;
             //State Image of Player
             image = PlayerUpdater.getPlayerImage(
                     schema.getPlayerState(),
-                    SuitHandler.getSuit(schema.getSuitName()),
+                    player.frameProvider,
                     schema.getPlayerOrientation());
 
             // draw player

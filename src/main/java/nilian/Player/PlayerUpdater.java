@@ -1,6 +1,6 @@
 package nilian.Player;
 
-import nilian.Player.suit.PlayerSuit;
+import nilian.Player.suit.PlayerFrameProvider;
 import nilian.input.KeyHandler;
 
 import java.awt.image.BufferedImage;
@@ -10,7 +10,7 @@ public class PlayerUpdater {
     private final PlayerSchema playerSchema;
     private final MovementHandler movementHandler;
     private final KeyHandler keyHandler;
-    private final PlayerSuit playerSuit;
+    private final PlayerFrameProvider playerFrames;
 
 
     private PlayerOrientation orientation = PlayerOrientation.RIGHT;
@@ -21,8 +21,8 @@ public class PlayerUpdater {
     // Set Default values
     private final int speed = 2;
 
-    public PlayerUpdater(PlayerSuit playerSuit, PlayerSchema playerSchema, MovementHandler movementHandler, KeyHandler keyHandler) {
-        this.playerSuit = playerSuit;
+    public PlayerUpdater(PlayerFrameProvider playerFrames, PlayerSchema playerSchema, MovementHandler movementHandler, KeyHandler keyHandler) {
+        this.playerFrames = playerFrames;
         this.playerSchema = playerSchema;
         this.movementHandler = movementHandler;
         this.keyHandler = keyHandler;
@@ -70,7 +70,7 @@ public class PlayerUpdater {
         }
 
         // Update player image
-        playerFrameImage = getPlayerImage(playerSchema.getPlayerState(), playerSuit, orientation);
+        playerFrameImage = getPlayerImage(playerSchema.getPlayerState(), playerFrames, orientation);
 
         // Check for move
         return ix != playerSchema.getPlayerX() || iy != playerSchema.getPlayerY();
@@ -80,28 +80,28 @@ public class PlayerUpdater {
     /**
      * returns the player image Based on direction and suit!
      * @param direction direction of the player
-     * @param suit player suit object which contains player images
+     * @param playerFrames PlayerFrameProvider object which contains player images
      * @return image of the frame for the player
      */
-    public static BufferedImage getPlayerImage(PlayerState direction, PlayerSuit suit, PlayerOrientation playerOrientation) {
+    public static BufferedImage getPlayerImage(PlayerState direction, PlayerFrameProvider playerFrames, PlayerOrientation playerOrientation) {
         if (direction.equals(PlayerState.JUMP)) {
             if(playerOrientation.equals(PlayerOrientation.LEFT)) {
-                return suit.getJumpBackFrame();
+                return playerFrames.getJumpBackFrame();
             }
-            return suit.getJumpFrame();
+            return playerFrames.getJumpFrame();
         }
         if (direction.equals(PlayerState.IDLE)) {
             if (playerOrientation.equals(PlayerOrientation.LEFT)) {
-                return suit.getIdle_LeftFrame();
+                return playerFrames.getIdle_LeftFrame();
             } else {
-                return suit.getIdle_RightFrame();
+                return playerFrames.getIdle_RightFrame();
             }
         }
         if (direction.equals(PlayerState.RUN)) {
             if(playerOrientation.equals(PlayerOrientation.RIGHT)) {
-                return suit.getRunFrame();
+                return playerFrames.getRunFrame();
             }
-            return suit.getRunBackFrame();
+            return playerFrames.getRunBackFrame();
         }
         return null;
     }

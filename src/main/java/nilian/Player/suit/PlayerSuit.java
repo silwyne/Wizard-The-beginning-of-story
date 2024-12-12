@@ -27,25 +27,25 @@ public class PlayerSuit {
     private BufferedImage right_attack_3;
     private BufferedImage left_attack_3;
 
-    private BufferedImage[] idle_rightParts;
-    private BufferedImage[] idle_leftParts;
-    private BufferedImage[] jump_rightParts;
-    private BufferedImage[] jump_leftParts;
-    private BufferedImage[] runParts;
-    private BufferedImage[] runBackParts;
-    private BufferedImage[] right_attack_1Parts;
-    private BufferedImage[] left_attack_1Parts;
-    private BufferedImage[] right_attack_2Parts;
-    private BufferedImage[] left_attack_2Parts;
-    private BufferedImage[] right_attack_3Parts;
-    private BufferedImage[] left_attack_3Parts;
+    public BufferedImage[] idle_rightParts;
+    public BufferedImage[] idle_leftParts;
+    public BufferedImage[] jump_rightParts;
+    public BufferedImage[] jump_leftParts;
+    public BufferedImage[] runParts;
+    public BufferedImage[] runBackParts;
+    public BufferedImage[] right_attack_1Parts;
+    public BufferedImage[] left_attack_1Parts;
+    public BufferedImage[] right_attack_2Parts;
+    public BufferedImage[] left_attack_2Parts;
+    public BufferedImage[] right_attack_3Parts;
+    public BufferedImage[] left_attack_3Parts;
 
-    private int idleImages_num;
-    private int jumpImages_num;
-    private int runImages_num;
-    private int attack_1_Images_num;
-    private int attack_2_Images_num;
-    private int attack_3_Images_num;
+    public int idleImages_num;
+    public int jumpImages_num;
+    public int runImages_num;
+    public int attack_1_Images_num;
+    public int attack_2_Images_num;
+    public int attack_3_Images_num;
 
     public PlayerSuit(String pathToImagePack, String suitName) {
         this.pathToImagePack = pathToImagePack;
@@ -313,177 +313,6 @@ public class PlayerSuit {
     Pro getters which handle the sprite between images as the frame goes on
      */
 
-    // variables
-    private final int framePerUpdate = 4;
-    private final int framePerAttackUpdate = 6;
 
-    private int roundFrame = 0;
-
-    private int idleIndex = 0;
-    private int idleLeftIndex = idleImages_num;
-    private int jumpIndex = 0;
-    private int jumpBackIndex = jumpImages_num;
-    private int runIndex = 0;
-    private int runBackIndex = runImages_num;
-    private int attackIndex = 0;
-
-    public BufferedImage getIdle_RightFrame() {
-        roundFrame ++;
-        if(roundFrame == framePerUpdate) {
-            roundFrame = 0;
-            idleIndex = (idleIndex + 1) % idleImages_num;
-        }
-        return idle_rightParts[idleIndex] ;
-    }
-
-    public BufferedImage getIdle_LeftFrame() {
-        roundFrame ++;
-        if(roundFrame == framePerUpdate) {
-            roundFrame = 0;
-            idleLeftIndex = (idleLeftIndex - 1 + idleImages_num) % idleImages_num;
-            if (idleLeftIndex < 0) {
-                idleLeftIndex = idleImages_num - 1;
-            }
-        }
-        return idle_leftParts[idleLeftIndex] ;
-    }
-
-    public BufferedImage getJumpFrame() {
-        roundFrame ++;
-        if(roundFrame == framePerUpdate) {
-            roundFrame = 0;
-            jumpIndex = (jumpIndex + 1) % jumpImages_num;
-        }
-        return jump_rightParts[jumpIndex] ;
-    }
-
-    public BufferedImage getJumpBackFrame() {
-        roundFrame ++;
-        if(roundFrame == framePerUpdate) {
-            roundFrame = 0;
-            jumpBackIndex = (jumpBackIndex - 1 + jumpImages_num) % jumpImages_num;
-            if (jumpBackIndex < 0) {
-                jumpBackIndex = runImages_num - 2;
-            }
-        }
-        return jump_leftParts[jumpBackIndex] ;
-    }
-
-    public BufferedImage getRunFrame() {
-        roundFrame ++;
-        if(roundFrame == framePerUpdate) {
-            roundFrame = 0;
-            runIndex = (runIndex + 1) % runImages_num;
-        }
-        return runParts[runIndex] ;
-    }
-
-    public BufferedImage getRunBackFrame() {
-        roundFrame ++;
-        if(roundFrame == framePerUpdate) {
-            roundFrame = 0;
-            runBackIndex = (runBackIndex - 1 + runImages_num) % runImages_num;
-            if (runBackIndex < 0) {
-                runBackIndex = runImages_num - 2;
-            }
-        }
-        return runBackParts[runBackIndex] ;
-    }
-
-    /*
-    Attacking frames
-     */
-    // attack 1
-    public BufferedImage getAttack_01Frame(PlayerOrientation playerOrientation, boolean start) {
-        if(start) {
-            roundFrame = 0;
-        }
-        if(playerOrientation.equals(PlayerOrientation.LEFT)) {
-            return getLeftAttack_1Frame();
-        } else {
-            return getRightAttack_1Frame();
-        }
-    }
-
-    // attack 2
-    public BufferedImage getAttack_02Frame(PlayerOrientation playerOrientation, boolean start) {
-        if(start) {
-            roundFrame = 0;
-        }
-        if(playerOrientation.equals(PlayerOrientation.LEFT)) {
-            return getLeftAttack_2Frame();
-        } else {
-            return getRightAttack_2Frame();
-        }
-    }
-
-    // attack 3
-    public BufferedImage getAttack_03Frame(PlayerOrientation playerOrientation, boolean start) {
-        if(start) {
-            roundFrame = 0;
-        }
-        if(playerOrientation.equals(PlayerOrientation.LEFT)) {
-            return getLeftAttack_3Frame();
-        } else {
-            return getRightAttack_3Frame();
-        }
-    }
-
-    /*
-    Rookie attack getters
-     */
-    private BufferedImage getRightAttack_1Frame() {
-        roundFrame ++;
-        if(roundFrame == framePerAttackUpdate) {
-            roundFrame = 0;
-            attackIndex = (attackIndex + 1) % attack_1_Images_num;
-        }
-        return right_attack_1Parts[attackIndex] ;
-    }
-
-    private BufferedImage getLeftAttack_1Frame() {
-        roundFrame ++;
-        if(roundFrame == framePerAttackUpdate) {
-            roundFrame = 0;
-            attackIndex = (attackIndex + 1) % attack_1_Images_num;
-        }
-        return left_attack_1Parts[attackIndex] ;
-    }
-
-    private BufferedImage getRightAttack_2Frame() {
-        roundFrame ++;
-        if(roundFrame == framePerAttackUpdate) {
-            roundFrame = 0;
-            attackIndex = (attackIndex + 1) % attack_2_Images_num;
-        }
-        return right_attack_2Parts[attackIndex] ;
-    }
-
-    private BufferedImage getLeftAttack_2Frame() {
-        roundFrame ++;
-        if(roundFrame == framePerAttackUpdate) {
-            roundFrame = 0;
-            attackIndex = (attackIndex + 1) % attack_2_Images_num;
-        }
-        return left_attack_2Parts[attackIndex] ;
-    }
-
-    private BufferedImage getRightAttack_3Frame() {
-        roundFrame ++;
-        if(roundFrame == framePerAttackUpdate) {
-            roundFrame = 0;
-            attackIndex = (attackIndex + 1) % attack_3_Images_num;
-        }
-        return right_attack_3Parts[attackIndex] ;
-    }
-
-    private BufferedImage getLeftAttack_3Frame() {
-        roundFrame ++;
-        if(roundFrame == framePerAttackUpdate) {
-            roundFrame = 0;
-            attackIndex = (attackIndex + 1) % attack_3_Images_num;
-        }
-        return left_attack_3Parts[attackIndex] ;
-    }
 
 }

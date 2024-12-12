@@ -3,6 +3,7 @@ package nilian.Player;
 import java.awt.*;
 import java.util.Random;
 
+import nilian.Player.suit.PlayerFrameProvider;
 import nilian.Player.suit.SuitHandler;
 import nilian.gamePanel.GamePanel;
 import nilian.input.KeyHandler;
@@ -48,7 +49,11 @@ public class Player extends PlayerEntity {
 		//movement handler
 		MovementHandler movementHandler = new MovementHandler(this.playerSchema, gamePanel);
 		// get the player updater
-		playerUpdater = new PlayerUpdater(SuitHandler.getSuit(suitName), this.playerSchema, movementHandler, key);
+		playerUpdater = new PlayerUpdater(
+				new PlayerFrameProvider(suitName),
+				this.playerSchema,
+				movementHandler,
+				key);
 	}
 
 	/**

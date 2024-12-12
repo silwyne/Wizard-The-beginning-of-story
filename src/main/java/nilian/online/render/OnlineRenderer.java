@@ -37,6 +37,7 @@ public class OnlineRenderer {
             if (schema.getClientHashCode() == playerSchema.getClientHashCode()) {
                 schema.setPlayerX(playerSchema.getPlayerX());
                 schema.setPlayerY(playerSchema.getPlayerY());
+                schema.setPlayerOrientation(playerSchema.getPlayerOrientation());
                 schema.setPlayerState(playerSchema.getPlayerState());
                 updated = true;
                 break;

@@ -13,7 +13,6 @@ public class PlayerUpdater {
     private final PlayerFrameProvider playerFrames;
 
 
-    private PlayerOrientation orientation = PlayerOrientation.RIGHT;
     private BufferedImage playerFrameImage;
     private boolean isAttacking = false;
 
@@ -44,12 +43,12 @@ public class PlayerUpdater {
                 movementHandler.startJump();
             }
             if (keyHandler.rightPressed) {
-                orientation = PlayerOrientation.RIGHT;
+                playerSchema.setPlayerOrientation(PlayerOrientation.RIGHT);
                 playerSchema.setPlayerState(PlayerState.RUN);
                 movementHandler.movePlayer(playerSchema.getPlayerX() + speed, playerSchema.getPlayerY());
             }
             if (keyHandler.leftPressed) {
-                orientation = PlayerOrientation.LEFT;
+                playerSchema.setPlayerOrientation(PlayerOrientation.LEFT);
                 playerSchema.setPlayerState(PlayerState.RUN);
                 movementHandler.movePlayer(playerSchema.getPlayerX() - speed, playerSchema.getPlayerY());
             }
@@ -70,7 +69,7 @@ public class PlayerUpdater {
         }
 
         // Update player image
-        playerFrameImage = getPlayerImage(playerSchema.getPlayerState(), playerFrames, orientation);
+        playerFrameImage = getPlayerImage(playerSchema.getPlayerState(), playerFrames, playerSchema.getPlayerOrientation());
 
         // Check for move
         return ix != playerSchema.getPlayerX() || iy != playerSchema.getPlayerY();

@@ -486,22 +486,4 @@ public class PlayerSuit {
         return left_attack_3Parts[attackIndex] ;
     }
 
-
-    /*
-    Getters for images  numbers
-     */
-
-    public int getAttack_1_Frames_num() {
-        return attack_1_Images_num * framePerAttackUpdate;
-    }
-
-    public int getAttack_2_Frames_num() {
-        return attack_2_Images_num * framePerAttackUpdate;
-    }
-
-    public int getAttack_3_Frames_num() {
-        return attack_3_Images_num * framePerAttackUpdate;
-    }
-
-
 }

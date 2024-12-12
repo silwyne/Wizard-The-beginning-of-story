@@ -68,13 +68,35 @@ public class MovementHandler {
     private boolean canMove(int x, int y) {
         int playerWidth = gamePanel.tileSize;
         int playerHeight = gamePanel.tileSize;
-        int pertXValue = gamePanel.tileSize / 3;
+        int pertXValue = gamePanel.tileSize / 4;
         int pertYValue = gamePanel.tileSize / 8;
+
         // Check all four corners of the player
-        return checkMoveable(x + pertXValue, y) &&
-                checkMoveable(x + pertXValue, y) &&
-                checkMoveable(x + pertXValue, y + playerHeight - pertYValue) &&
-                checkMoveable(x + playerWidth - pertXValue, y + playerHeight - pertYValue);
+        return
+                // left feet
+            checkMoveable(
+                    x + pertXValue, // left
+                    y + playerHeight - pertYValue // feet
+            )
+            &&
+                // right feet
+            checkMoveable(
+                    x + playerWidth - pertXValue, // right
+                    y + playerHeight - pertYValue // feet
+            )
+            &&
+                // left head
+            checkMoveable(
+                    x + pertXValue, // left
+                    y + pertYValue // head
+            )
+            &&
+                // right head
+            checkMoveable(
+                    x + playerWidth - pertXValue, // right
+                    y + pertYValue // head
+            );
+
     }
 
     /**

@@ -6,7 +6,17 @@
   - #### fixes
   - #### additions
 
+
+- ### [0.2.6] - ?/?/2024
+  - #### changes
+    - Player Orientation gets updated to server now
+    - Player Collision checker now works more accurate
+    - each online player has its own sequent of frames now in onlineRenderer
+
+
 - - - 
+ 
+
 - ### [0.2.5] - 11/11/2024
   - #### changes
     - not containing mirror images anymore instead using a mirror function!

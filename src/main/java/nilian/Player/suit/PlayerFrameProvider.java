@@ -1,8 +1,8 @@
 package nilian.Player.suit;
 
-import nilian.Player.PlayerOrientation;
-
 import java.awt.image.BufferedImage;
+
+import nilian.Player.PlayerOrientation;
 
 public class PlayerFrameProvider {
 
@@ -43,7 +43,7 @@ public class PlayerFrameProvider {
             roundFrame = 0;
             idleIndex = (idleIndex + 1) % playerSuit.idleImages_num;
         }
-        return playerSuit.idle_rightParts[idleIndex] ;
+        return playerSuit.idleRightParts[idleIndex] ;
     }
 
     public BufferedImage getIdle_LeftFrame() {
@@ -55,7 +55,7 @@ public class PlayerFrameProvider {
                 idleLeftIndex = playerSuit.idleImages_num - 1;
             }
         }
-        return playerSuit.idle_leftParts[idleLeftIndex] ;
+        return playerSuit.idleLeftParts[idleLeftIndex] ;
     }
 
     public BufferedImage getJumpFrame() {
@@ -64,7 +64,7 @@ public class PlayerFrameProvider {
             roundFrame = 0;
             jumpIndex = (jumpIndex + 1) % playerSuit.jumpImages_num;
         }
-        return playerSuit.jump_rightParts[jumpIndex] ;
+        return playerSuit.jumpRightParts[jumpIndex] ;
     }
 
     public BufferedImage getJumpBackFrame() {
@@ -79,7 +79,7 @@ public class PlayerFrameProvider {
                 jumpBackIndex = playerSuit.jumpImages_num - 2;
             }
         }
-        return playerSuit.jump_leftParts[jumpBackIndex] ;
+        return playerSuit.jumpLeftParts[jumpBackIndex] ;
     }
 
     public BufferedImage getRunFrame() {
@@ -151,54 +151,54 @@ public class PlayerFrameProvider {
         roundFrame ++;
         if(roundFrame == framePerAttackUpdate) {
             roundFrame = 0;
-            attackIndex = (attackIndex + 1) % playerSuit.attack_1_Images_num;
+            attackIndex = (attackIndex + 1) % playerSuit.attack_1_images_num;
         }
-        return playerSuit.right_attack_1Parts[attackIndex] ;
+        return playerSuit.rightAttack_1_Parts[attackIndex] ;
     }
 
     private BufferedImage getLeftAttack_1Frame() {
         roundFrame ++;
         if(roundFrame == framePerAttackUpdate) {
             roundFrame = 0;
-            attackIndex = (attackIndex + 1) % playerSuit.attack_1_Images_num;
+            attackIndex = (attackIndex + 1) % playerSuit.attack_1_images_num;
         }
-        return playerSuit.left_attack_1Parts[attackIndex] ;
+        return playerSuit.leftAttack_1_Parts[attackIndex] ;
     }
 
     private BufferedImage getRightAttack_2Frame() {
         roundFrame ++;
         if(roundFrame == framePerAttackUpdate) {
             roundFrame = 0;
-            attackIndex = (attackIndex + 1) % playerSuit.attack_2_Images_num;
+            attackIndex = (attackIndex + 1) % playerSuit.attack_2_images_num;
         }
-        return playerSuit.right_attack_2Parts[attackIndex] ;
+        return playerSuit.rightAttack_2_Parts[attackIndex] ;
     }
 
     private BufferedImage getLeftAttack_2Frame() {
         roundFrame ++;
         if(roundFrame == framePerAttackUpdate) {
             roundFrame = 0;
-            attackIndex = (attackIndex + 1) % playerSuit.attack_2_Images_num;
+            attackIndex = (attackIndex + 1) % playerSuit.attack_2_images_num;
         }
-        return playerSuit.left_attack_2Parts[attackIndex] ;
+        return playerSuit.leftAttack_2_Parts[attackIndex] ;
     }
 
     private BufferedImage getRightAttack_3Frame() {
         roundFrame ++;
         if(roundFrame == framePerAttackUpdate) {
             roundFrame = 0;
-            attackIndex = (attackIndex + 1) % playerSuit.attack_3_Images_num;
+            attackIndex = (attackIndex + 1) % playerSuit.attack_3_images_num;
         }
-        return playerSuit.right_attack_3Parts[attackIndex] ;
+        return playerSuit.rightAttack_3_Parts[attackIndex] ;
     }
 
     private BufferedImage getLeftAttack_3Frame() {
         roundFrame ++;
         if(roundFrame == framePerAttackUpdate) {
             roundFrame = 0;
-            attackIndex = (attackIndex + 1) % playerSuit.attack_3_Images_num;
+            attackIndex = (attackIndex + 1) % playerSuit.attack_3_images_num;
         }
-        return playerSuit.left_attack_3Parts[attackIndex] ;
+        return playerSuit.leftAttack_3_Parts[attackIndex] ;
     }
 
 }

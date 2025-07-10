@@ -5,9 +5,7 @@ import nilian.loader.MainLoader;
 
 public class Main {
     public static void main(String[] args) {
-        // loading up
         MainLoader.loadAll();
-        // start
         MainWindow.show();
     }
 }

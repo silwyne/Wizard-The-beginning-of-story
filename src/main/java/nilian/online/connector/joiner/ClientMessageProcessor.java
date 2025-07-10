@@ -1,13 +1,13 @@
 package nilian.online.connector.joiner;
 
-import nilian.Player.PlayerOrientation;
-import nilian.Player.PlayerState;
-import nilian.Player.PlayerSchema;
+import java.awt.Color;
+
 import nilian.online.connector.message.MessageProcessor;
 import nilian.online.message.ServerMessage;
 import nilian.online.render.OnlineRenderer;
-
-import java.awt.*;
+import nilian.player.PlayerOrientation;
+import nilian.player.PlayerSchema;
+import nilian.player.PlayerState;
 
 public class ClientMessageProcessor implements MessageProcessor<ServerMessage> {
 

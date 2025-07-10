@@ -1,6 +1,6 @@
 package nilian.loader;
 
-import nilian.Player.suit.SuitHandler;
+import nilian.player.suit.SuitHandler;
 
 public class MainLoader {
     public static void loadAll() {

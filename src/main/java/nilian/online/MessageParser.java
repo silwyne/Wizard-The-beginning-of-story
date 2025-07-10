@@ -1,6 +1,11 @@
 package nilian.online;
 
-import nilian.online.message.*;
+import nilian.online.message.ClientMessage;
+import nilian.online.message.ClientMessageType;
+import nilian.online.message.GameConfigMessage;
+import nilian.online.message.GameModeType;
+import nilian.online.message.ServerMessage;
+import nilian.online.message.ServerMessageType;
 
 public class MessageParser {
 

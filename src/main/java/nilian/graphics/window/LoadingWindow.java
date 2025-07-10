@@ -1,7 +1,12 @@
 package nilian.graphics.window;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
 public class LoadingWindow extends JFrame {
     private JLabel messageLabel;

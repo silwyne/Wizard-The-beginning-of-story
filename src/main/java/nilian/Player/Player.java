@@ -1,13 +1,16 @@
-package nilian.Player;
+package nilian.player;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
 import java.util.Random;
 
-import nilian.Player.suit.PlayerFrameProvider;
-import nilian.gamePanel.GamePanel;
+import nilian.gamepanel.GamePanel;
 import nilian.input.KeyHandler;
 import nilian.online.message.PlayerMessage;
 import nilian.online.message.PlayerMessageType;
+import nilian.player.suit.PlayerFrameProvider;
 
 public class Player extends PlayerEntity {
 

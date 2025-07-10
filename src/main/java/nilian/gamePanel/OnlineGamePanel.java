@@ -1,9 +1,8 @@
-package nilian.gamePanel;
+package nilian.gamepanel;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.Properties;
-
 
 import nilian.online.connector.joiner.GameClient;
 import nilian.online.message.ClientMessage;

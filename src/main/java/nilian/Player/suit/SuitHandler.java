@@ -1,4 +1,4 @@
-package nilian.Player.suit;
+package nilian.player.suit;
 
 import java.util.ArrayList;
 import java.util.List;

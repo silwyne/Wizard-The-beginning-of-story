@@ -1,6 +1,6 @@
-package nilian.Player;
+package nilian.player;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * Holds Info about how player looks!

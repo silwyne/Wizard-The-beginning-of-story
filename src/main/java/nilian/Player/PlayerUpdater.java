@@ -1,9 +1,9 @@
-package nilian.Player;
-
-import nilian.Player.suit.PlayerFrameProvider;
-import nilian.input.KeyHandler;
+package nilian.player;
 
 import java.awt.image.BufferedImage;
+
+import nilian.input.KeyHandler;
+import nilian.player.suit.PlayerFrameProvider;
 
 public class PlayerUpdater {
 
@@ -12,7 +12,6 @@ public class PlayerUpdater {
     private final KeyHandler keyHandler;
     private final PlayerFrameProvider playerFrames;
 
-
     private BufferedImage playerFrameImage;
     private boolean isAttacking = false;
 
@@ -20,13 +19,13 @@ public class PlayerUpdater {
     // Set Default values
     private final int speed = 2;
 
-    public PlayerUpdater(PlayerFrameProvider playerFrames, PlayerSchema playerSchema, MovementHandler movementHandler, KeyHandler keyHandler) {
+    public PlayerUpdater(PlayerFrameProvider playerFrames, PlayerSchema playerSchema, MovementHandler movementHandler,
+            KeyHandler keyHandler) {
         this.playerFrames = playerFrames;
         this.playerSchema = playerSchema;
         this.movementHandler = movementHandler;
         this.keyHandler = keyHandler;
     }
-
 
     public boolean update() {
         int ix = playerSchema.getPlayerX();
@@ -35,10 +34,9 @@ public class PlayerUpdater {
         // Updating
         movementHandler.handleJump();
         // check if anything is pressed or states else set it idle
-        if(keyHandler.upPressed || keyHandler.downPressed ||
-        keyHandler.rightPressed || keyHandler.leftPressed ||
-        keyHandler.attackPressed)
-        {
+        if (keyHandler.upPressed || keyHandler.downPressed ||
+                keyHandler.rightPressed || keyHandler.leftPressed ||
+                keyHandler.attackPressed) {
             if (keyHandler.upPressed && !movementHandler.isJumping) {
                 movementHandler.startJump();
             }
@@ -52,39 +50,40 @@ public class PlayerUpdater {
                 playerSchema.setPlayerState(PlayerState.RUN);
                 movementHandler.movePlayer(playerSchema.getPlayerX() - speed, playerSchema.getPlayerY());
             }
-            if(keyHandler.attackPressed) {
-                if(!isAttacking) {
+            if (keyHandler.attackPressed) {
+                if (!isAttacking) {
                     playerSchema.setPlayerState(PlayerState.ATTACK);
                     isAttacking = true;
                 }
             }
-        }
-        else {
+        } else {
             playerSchema.setPlayerState(PlayerState.IDLE);
         }
 
         // make sure to set state on jump if jumping
-        if(movementHandler.isJumping && !isAttacking) {
+        if (movementHandler.isJumping && !isAttacking) {
             playerSchema.setPlayerState(PlayerState.JUMP);
         }
 
         // Update player image
-        playerFrameImage = getPlayerImage(playerSchema.getPlayerState(), playerFrames, playerSchema.getPlayerOrientation());
+        playerFrameImage = getPlayerImage(playerSchema.getPlayerState(), playerFrames,
+                playerSchema.getPlayerOrientation());
 
         // Check for move
         return ix != playerSchema.getPlayerX() || iy != playerSchema.getPlayerY();
     }
 
-
     /**
      * returns the player image Based on direction and suit!
-     * @param direction direction of the player
+     * 
+     * @param direction    direction of the player
      * @param playerFrames PlayerFrameProvider object which contains player images
      * @return image of the frame for the player
      */
-    public static BufferedImage getPlayerImage(PlayerState direction, PlayerFrameProvider playerFrames, PlayerOrientation playerOrientation) {
+    public static BufferedImage getPlayerImage(PlayerState direction, PlayerFrameProvider playerFrames,
+            PlayerOrientation playerOrientation) {
         if (direction.equals(PlayerState.JUMP)) {
-            if(playerOrientation.equals(PlayerOrientation.LEFT)) {
+            if (playerOrientation.equals(PlayerOrientation.LEFT)) {
                 return playerFrames.getJumpBackFrame();
             }
             return playerFrames.getJumpFrame();
@@ -97,14 +96,13 @@ public class PlayerUpdater {
             }
         }
         if (direction.equals(PlayerState.RUN)) {
-            if(playerOrientation.equals(PlayerOrientation.RIGHT)) {
+            if (playerOrientation.equals(PlayerOrientation.RIGHT)) {
                 return playerFrames.getRunFrame();
             }
             return playerFrames.getRunBackFrame();
         }
         return null;
     }
-
 
     public BufferedImage getPlayerFrameImage() {
         return playerFrameImage;

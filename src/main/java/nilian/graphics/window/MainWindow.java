@@ -1,9 +1,11 @@
 package nilian.graphics.window;
 
-import nilian.graphics.panel.OfflineMenuPanel;
+import java.awt.Container;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import nilian.graphics.panel.OfflineMenuPanel;
 
 public class MainWindow {
 

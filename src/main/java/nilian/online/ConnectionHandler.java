@@ -1,10 +1,10 @@
 package nilian.online;
 
-import nilian.online.connector.host.GameServer;
-import nilian.online.connector.joiner.GameClient;
-
 import java.io.IOException;
 import java.util.Properties;
+
+import nilian.online.connector.host.GameServer;
+import nilian.online.connector.joiner.GameClient;
 
 /**
  * Handles all sending and other stuff!

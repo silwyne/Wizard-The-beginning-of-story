@@ -1,14 +1,14 @@
 package nilian.online.render;
 
-import nilian.Player.Player;
-import nilian.Player.PlayerSchema;
-import nilian.Player.PlayerUpdater;
-import nilian.Player.suit.PlayerFrameProvider;
-
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+
+import nilian.player.Player;
+import nilian.player.PlayerSchema;
+import nilian.player.PlayerUpdater;
+import nilian.player.suit.PlayerFrameProvider;
 
 /**
  * Handles events and players coming and going

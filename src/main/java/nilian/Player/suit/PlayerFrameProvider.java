@@ -1,8 +1,8 @@
-package nilian.Player.suit;
+package nilian.player.suit;
 
 import java.awt.image.BufferedImage;
 
-import nilian.Player.PlayerOrientation;
+import nilian.player.PlayerOrientation;
 
 public class PlayerFrameProvider {
 

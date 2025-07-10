@@ -1,7 +1,7 @@
 package nilian.online.render;
 
-import nilian.Player.PlayerSchema;
-import nilian.Player.suit.PlayerFrameProvider;
+import nilian.player.PlayerSchema;
+import nilian.player.suit.PlayerFrameProvider;
 
 public class OnlinePlayer {
     PlayerSchema schema;

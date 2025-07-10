@@ -1,9 +1,13 @@
 package nilian.tile;
 
-import nilian.gamePanel.GamePanel;
-
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Transparency;
 import java.awt.image.BufferedImage;
+
+import nilian.gamepanel.GamePanel;
 
 /**
  * Provides background picture for game panel

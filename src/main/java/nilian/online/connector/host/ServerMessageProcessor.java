@@ -1,10 +1,11 @@
 package nilian.online.connector.host;
 
+import java.util.ArrayList;
+
 import nilian.online.MessageParser;
 import nilian.online.connector.message.MessageProcessor;
-import nilian.online.message.*;
-
-import java.util.ArrayList;
+import nilian.online.message.ClientMessage;
+import nilian.online.message.ServerMessage;
 
 public class ServerMessageProcessor implements MessageProcessor<ClientMessage> {
 

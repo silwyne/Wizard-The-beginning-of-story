@@ -1,12 +1,16 @@
 package nilian.graphics.panel;
 
-import nilian.graphics.window.GameWindow;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import nilian.graphics.window.MainWindow;
 import nilian.graphics.window.WindowEntity;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.Properties;
 
 public class OfflineMenuPanel extends MenuPanel{
 

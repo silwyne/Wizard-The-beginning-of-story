@@ -1,11 +1,11 @@
 package nilian.online.connector.message;
 
-import com.google.protobuf.CodedOutputStream;
-import com.google.protobuf.Message;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
+
+import com.google.protobuf.CodedOutputStream;
+import com.google.protobuf.Message;
 
 public class MessageWriter<T extends Message> {
 

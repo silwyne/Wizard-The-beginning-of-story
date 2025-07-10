@@ -1,14 +1,12 @@
 package nilian.online.connector.host;
 
-import nilian.online.message.ClientMessage;
-import nilian.online.message.ClientMessageType;
-import nilian.online.message.ServerMessage;
-import nilian.online.message.ServerMessageType;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+
+import nilian.online.message.ServerMessage;
+import nilian.online.message.ServerMessageType;
 
 /**
  * This class accepts new connection
@@ -17,26 +15,16 @@ import java.util.ArrayList;
 public class GameServer {
 
     private static final ArrayList<ClientHandler> allClients = new ArrayList<>();
-    private final int serverPort;
     private ServerSocket serverSocket;
 
     public GameServer(int serverPort) {
-        this.serverPort = serverPort;
-        setServer();
-        System.out.println("SERVER: server is up!");
-    }
-
-    /**
-     * Gets the ports for its own and makes the server!
-     */
-    public void setServer(){
         try {
             this.serverSocket = new ServerSocket(serverPort);
         } catch (IOException e) {
             e.printStackTrace(System.out);
         }
+        System.out.println("[SERVER]: server is up on port: "+ serverPort);
     }
-
 
     /**
      * Waits for new connections
@@ -73,13 +61,15 @@ public class GameServer {
      * @param newClient the client who connected to server recently
      */
     private void informNewClient(ClientHandler newClient) {
+        
         for(ClientHandler clientHandler: allClients) {
+            
             ServerMessage clientMessage = ServerMessage.newBuilder()
-                    .setType(ServerMessageType.SERVER_MESSAGE_TYPE_WELCOME)
-                    .setPlayer(clientHandler.getLastPlayerMessage())
-                    .build();
-            newClient.getMessageWriter()
-                    .send(clientMessage);
+                .setType(ServerMessageType.SERVER_MESSAGE_TYPE_WELCOME)
+                .setPlayer(clientHandler.getLastPlayerMessage())
+                .build();
+
+            newClient.getMessageWriter().send(clientMessage);
         }
     }
 

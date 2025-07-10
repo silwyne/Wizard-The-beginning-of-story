@@ -1,14 +1,16 @@
-package nilian.gamePanel;
+package nilian.gamepanel;
 
-import nilian.Player.Player;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.util.Properties;
+
+import javax.swing.JPanel;
+
 import nilian.input.KeyHandler;
 import nilian.online.connector.joiner.GameClient;
+import nilian.player.Player;
 import nilian.tile.BackGroundPic;
 import nilian.tile.TileManager;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.Properties;
 
 /**
  * Main Game Class which handles rendering

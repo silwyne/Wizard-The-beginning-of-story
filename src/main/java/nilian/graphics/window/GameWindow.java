@@ -1,10 +1,11 @@
 package nilian.graphics.window;
 
-import nilian.gamePanel.OnlineGamePanel;
-import nilian.online.connector.joiner.GameClient;
-
-import javax.swing.*;
 import java.util.Properties;
+
+import javax.swing.JFrame;
+
+import nilian.gamepanel.OnlineGamePanel;
+import nilian.online.connector.joiner.GameClient;
 
 public class GameWindow {
 

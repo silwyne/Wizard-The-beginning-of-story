@@ -1,4 +1,4 @@
-package nilian.Player;
+package nilian.player;
 
 public enum PlayerOrientation {
     RIGHT, LEFT;

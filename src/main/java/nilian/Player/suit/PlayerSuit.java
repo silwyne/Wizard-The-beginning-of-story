@@ -1,4 +1,4 @@
-package nilian.Player.suit;
+package nilian.player.suit;
 
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;

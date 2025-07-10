@@ -1,17 +1,26 @@
 package nilian.graphics.panel;
 
-import nilian.Player.suit.SuitHandler;
-import nilian.graphics.window.LoadingWindow;
-import nilian.online.ConnectionHandler;
-import nilian.online.OnlineMode;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.util.ArrayList;
+import java.util.Properties;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
 import nilian.graphics.window.GameWindow;
+import nilian.graphics.window.LoadingWindow;
 import nilian.graphics.window.MainWindow;
 import nilian.graphics.window.WindowEntity;
-import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Properties;
+import nilian.online.ConnectionHandler;
+import nilian.online.OnlineMode;
+import nilian.player.suit.SuitHandler;
 
 public class OnlineMenuPanel extends MenuPanel{
 

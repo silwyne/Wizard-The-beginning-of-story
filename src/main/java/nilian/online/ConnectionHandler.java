@@ -17,7 +17,7 @@ public class ConnectionHandler {
     private final OnlineMode onlineMode;
     private final Properties props;
     private GameServer gameServer;
-    private Thread serverListener ;
+    private Thread serverListener;
     private GameClient gameClient;
 
     public ConnectionHandler(OnlineMode onlineMode, Properties props) {
@@ -34,7 +34,7 @@ public class ConnectionHandler {
      */
     private void initialSetUp() {
         // handling Server Connection mode
-        if(onlineMode.equals(OnlineMode.host)) {
+        if (onlineMode.equals(OnlineMode.host)) {
             // building up the server
             this.gameServer = new GameServer(Integer.parseInt(props.get("server.port").toString()));
         }
@@ -45,7 +45,6 @@ public class ConnectionHandler {
                 Integer.parseInt(props.get("server.port").toString()));
     }
 
-
     public void setUpServer() {
         // step 1
         // starting the server
@@ -55,14 +54,14 @@ public class ConnectionHandler {
 
     public boolean setUpClient() {
         // first try to connect to server
-        boolean connected ;
+        boolean connected;
         try {
             this.gameClient.connect();
-            connected = true ;
+            connected = true;
         } catch (IOException e) {
             connected = false;
         }
-        if(connected){
+        if (connected) {
             // starting client listener
             // listen for incoming messages
             System.out.println("Listening to server messages");
@@ -72,7 +71,7 @@ public class ConnectionHandler {
         return connected;
     }
 
-    public GameClient getGameClient(){
+    public GameClient getGameClient() {
         return gameClient;
     }
 }

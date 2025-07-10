@@ -19,18 +19,12 @@ public class GameClient {
 
     private OnlineRenderer onlineRenderer;
 
-    private final String username ;
-    private int userHash ;
+    private int userHash;
 
     private MessageListener<ServerMessage> messageListener;
     private MessageWriter<ClientMessage> messageWriter;
 
-    private PlayerMessage playerMessage;
-    private ClientMessage introductionMessage;
-
-
     public GameClient(String username, String serverIP, int serverPort) {
-        this.username = username;
         this.serverIP = serverIP;
         this.serverPort = serverPort;
 
@@ -42,10 +36,11 @@ public class GameClient {
 
     /**
      * Connects you to GameServer
+     * 
      * @throws IOException I don't know
      */
     public void connect() throws IOException {
-        if(socket == null) {
+        if (socket == null) {
             socket = new Socket(serverIP, serverPort);
             // initializing MessageListener Object which listens to server messages
             messageListener = new MessageListener<ServerMessage>(
@@ -62,16 +57,17 @@ public class GameClient {
     }
 
     /**
-    * Simply sends message to server.
-    * @param message message string!
-    */
+     * Simply sends message to server.
+     * 
+     * @param message message string!
+     */
     public void sendMessage(ClientMessage message) {
         messageWriter.send(message);
     }
 
     /**
      * Listens for other Clients messages!
-     * Actually from server which broadcasts other client messages  to me!
+     * Actually from server which broadcasts other client messages to me!
      */
     public void listenForMessage() {
         messageListener.start();

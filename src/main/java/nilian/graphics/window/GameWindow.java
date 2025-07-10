@@ -8,8 +8,7 @@ import java.util.Properties;
 
 public class GameWindow {
 
-
-    public static void show(Properties props, GameClient gameClient){
+    public static void show(Properties props, GameClient gameClient) {
 
         JFrame gameWindow = new JFrame();
         gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

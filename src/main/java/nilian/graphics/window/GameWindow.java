@@ -4,7 +4,7 @@ import java.util.Properties;
 
 import javax.swing.JFrame;
 
-import nilian.gamepanel.OnlineGamePanel;
+import nilian.core.RenderCore;
 import nilian.online.connector.joiner.GameClient;
 
 public class GameWindow {
@@ -16,7 +16,7 @@ public class GameWindow {
         gameWindow.setResizable(false);
         gameWindow.setTitle(WindowEntity.WINDOW_TITLE);
 
-        OnlineGamePanel onlinePanel = new OnlineGamePanel(props, gameClient);
+        RenderCore onlinePanel = new RenderCore(props, gameClient);
         gameWindow.add(onlinePanel);
         onlinePanel.startGameThread();
 

@@ -1,6 +1,7 @@
 package nilian.tile;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,10 +27,13 @@ public class TileManager {
 	public TileManager (GamePanel gp)
 	{
 		this.gp = gp ;
-		
 		mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow] ;
+	}
 
-		//Loading the  tiles!
+	public TileManager(){}
+
+	public void loadTiles() {
+		//Loading the  tiles! 
 		loadTiles = new Tile[4] ;//number  of tiles !
 		loadTiles[0] = getTileImage("/tiles/transparent.png");
 		loadTiles[0].setMoveable(true);
@@ -86,11 +90,12 @@ public class TileManager {
 	 */
 	public Tile getTileImage(String tilePath)
 	{
-		Tile tile = null;
-		try{
-			tile = new Tile();
-			tile.image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(tilePath)));
-		} catch (IOException e){
+		Tile tile = new Tile();
+		try {
+			BufferedImage image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(tilePath)));
+			tile.setImage(image);
+		}
+		catch (IOException e) {
 			e.printStackTrace(System.out);
 		}
 		return tile ;

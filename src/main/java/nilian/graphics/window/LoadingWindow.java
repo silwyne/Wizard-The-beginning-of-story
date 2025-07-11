@@ -38,4 +38,9 @@ public class LoadingWindow extends JFrame {
         messageLabel.setText(message);
     }
 
+    public void setOperation(Runnable runnable) {
+        Thread thread = new Thread(runnable);
+        thread.start();
+    }
+
 }

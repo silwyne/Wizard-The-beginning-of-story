@@ -14,6 +14,7 @@ import nilian.online.connector.joiner.GameClient;
  */
 public class ConnectionHandler {
 
+    private boolean isConnected = false;
     private final OnlineMode onlineMode;
     private final Properties props;
     private GameServer gameServer;
@@ -46,29 +47,29 @@ public class ConnectionHandler {
     }
 
     public void setUpServer() {
-        // step 1
-        // starting the server
         serverListener = new Thread(this.gameServer::startServer);
         serverListener.start();
     }
 
-    public boolean setUpClient() {
-        // first try to connect to server
-        boolean connected;
+    public void setUpClientAndListenForMessages() {
         try {
             this.gameClient.connect();
-            connected = true;
+            this.isConnected = true;
         } catch (IOException e) {
-            connected = false;
+            this.isConnected = false;
         }
-        if (connected) {
+
+        if (this.isConnected) {
             // starting client listener
             // listen for incoming messages
             System.out.println("Listening to server messages");
             this.gameClient.listenForMessage();
             // connected to server successfully
         }
-        return connected;
+    }
+
+    public boolean isConnected() {
+        return this.isConnected;
     }
 
     public GameClient getGameClient() {

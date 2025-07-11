@@ -68,8 +68,8 @@ public class OnlineMenuPanel extends MenuPanel{
 
 
         // buttons
-        hostServerButton = createButton("Host server", e -> hostServer());
-        joinServerButton = createButton("Join server", e -> joinServer());
+        hostServerButton = createButton("Host server", e -> joinGame(OnlineMode.host));
+        joinServerButton = createButton("Join server", e -> joinGame(OnlineMode.joiner));
         goBackButton = createButton("Back", e -> goBack());
     }
 
@@ -117,47 +117,8 @@ public class OnlineMenuPanel extends MenuPanel{
     private static JComboBox<String> createComboBoxLabel(ArrayList<String> options) {
         return new JComboBox<>(options.toArray(new String[0]));
     }
-    /**
-     * Does all the stuff needed to Create a Game server and then join it!
-     */
-    private static void hostServer() {
-        SwingUtilities.invokeLater(() -> {
-            Properties props = getSelectedProps();
-            JFrame parentFrame = MainWindow.getMenuWindow();
-            LoadingWindow loadingWindow = new LoadingWindow(parentFrame, "Making the Server ...");
-            loadingWindow.setVisible(true);
 
-            new Thread(() -> {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                connectionHandler = new ConnectionHandler(OnlineMode.host, props);
-
-                loadingWindow.setMessage("setting up the server ...");
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                connectionHandler.setUpServer();
-
-                loadingWindow.setMessage("setting up the client ...");
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                connectingToServer(loadingWindow);
-            }).start();
-        });
-    }
-
-    /**
-     * Does all the stuff needed to join the game server
-     */
-    private static void joinServer() {
+    private static void joinGame(OnlineMode mode) {
         SwingUtilities.invokeLater(() -> {
             Properties props = getSelectedProps();
             JFrame parentFrame = MainWindow.getMenuWindow();
@@ -166,47 +127,30 @@ public class OnlineMenuPanel extends MenuPanel{
 
             new Thread(() -> {
 
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                connectionHandler = new ConnectionHandler(OnlineMode.joiner, props);
-
+                connectionHandler = new ConnectionHandler(mode, props);
                 loadingWindow.setMessage("Setting up the client ...");
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+
+                if(mode.equals(OnlineMode.host)) {
+                    connectionHandler.setUpServer();
                 }
-                connectingToServer(loadingWindow);
+
+                connectionHandler.setUpClientAndListenForMessages();
+                setUpGameIfConnected(loadingWindow, connectionHandler.isConnected());
+
             }).start();
         });
     }
 
-    private static void connectingToServer(LoadingWindow loadingWindow) {
-        boolean connected = connectionHandler.setUpClient();
-        if(connected){
+    private static void setUpGameIfConnected(LoadingWindow loadingWindow, boolean isConnected) {
+        if(isConnected){
             loadingWindow.setMessage("connected successfully ...");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
             loadingWindow.dispose();
-            // Finally setting up the Game
             setUpGame();
         } else {
             loadingWindow.setMessage("Failed to connect the server ...");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
             loadingWindow.dispose();
         }
     }
-
 
     /**
      * Button which goes back page in menu

@@ -1,10 +1,6 @@
 package nilian.gamepanel;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.util.Properties;
-
-import javax.swing.JPanel;
 
 import nilian.input.KeyHandler;
 import nilian.online.connector.joiner.GameClient;
@@ -15,7 +11,7 @@ import nilian.tile.TileManager;
 /**
  * Main Game Class which handles rendering
  */
-public class GamePanel extends JPanel {
+public class GamePanel  {
 
     public int originalTileSize = 16 ;
     public int scale = 3 ;
@@ -29,7 +25,7 @@ public class GamePanel extends JPanel {
     public int FPS = 60 ;
 
     private BackGroundPic backGroundPic;
-    private TileManager tileM = new TileManager(this) ;
+    private TileManager tileM;
     private KeyHandler keyH = new KeyHandler() ;
     private Thread gameThread ;
     private Player player ;
@@ -37,15 +33,10 @@ public class GamePanel extends JPanel {
 
 
     public GamePanel(Properties props, GameClient gameClient) {
-
-        this.player = new Player(this , this.keyH, props.getProperty("player.name"), props.getProperty("player.suit"));
-        System.out.println(props.getProperty("player.suit"));
         this.gameClient = gameClient;
-        this.setPreferredSize(new Dimension(screenWidth , screenHeight)) ;
-        this.setBackground(Color.black) ;
-        this.setDoubleBuffered(true);
-        this.addKeyListener(this.keyH);
-        this.setFocusable(true);
+        this.tileM = new TileManager(this);
+        this.tileM.loadTiles();
+        this.player = new Player(this, props.getProperty("player.name"), props.getProperty("player.suit"));
     }
 
     public TileManager getTileM() {

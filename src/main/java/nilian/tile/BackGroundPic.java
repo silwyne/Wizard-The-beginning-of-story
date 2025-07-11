@@ -4,10 +4,9 @@ import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.HeadlessException;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
-
-import nilian.gamepanel.GamePanel;
 
 /**
  * Provides background picture for game panel
@@ -21,11 +20,11 @@ public class BackGroundPic {
      * @param gamePanel the game panel you need the background for
      * @param imagePath path to background image
      */
-    public BackGroundPic(GamePanel gamePanel, String imagePath) {
+    public BackGroundPic(String imagePath, int width, int height) {
 
         try {
             // Load the original image
-            BufferedImage originalImage = gamePanel.getTileM().getTileImage(imagePath).image;
+            BufferedImage originalImage = new TileManager().getTileImage(imagePath).image;
 
             // Get the GraphicsConfiguration of the current screen
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -34,17 +33,17 @@ public class BackGroundPic {
 
             // Create a compatible image with the size of the game panel
             backgroundImage = gc.createCompatibleImage(
-                    gamePanel.screenWidth,
-                    gamePanel.screenHeight,
-                    Transparency.OPAQUE
+                width,
+                height,
+                Transparency.OPAQUE
             );
 
             // Draw the original image onto the compatible image, scaling it to fit
             Graphics2D g2d = backgroundImage.createGraphics();
-            g2d.drawImage(originalImage, 0, 0, gamePanel.screenWidth, gamePanel.screenHeight, null);
+            g2d.drawImage(originalImage, 0, 0, width, height, null);
             g2d.dispose();
 
-        } catch (Exception e) {
+        } catch (HeadlessException e) {
             throw new RuntimeException("Failed to load background image: " + imagePath, e);
         }
     }

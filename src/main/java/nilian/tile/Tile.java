@@ -15,4 +15,13 @@ public class Tile
 	public void setMoveable(boolean moveable) {
 		this.moveable = moveable;
 	}
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
+    }
+
 }

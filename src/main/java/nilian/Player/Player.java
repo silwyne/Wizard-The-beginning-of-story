@@ -7,7 +7,6 @@ import java.awt.Graphics2D;
 import java.util.Random;
 
 import nilian.gamepanel.GamePanel;
-import nilian.input.KeyHandler;
 import nilian.online.message.PlayerMessage;
 import nilian.online.message.PlayerMessageType;
 import nilian.player.suit.PlayerFrameProvider;
@@ -18,15 +17,10 @@ public class Player extends PlayerEntity {
 	private final PlayerUpdater playerUpdater;
 	private final String nameColor;
 
-	public Player(GamePanel gamePanel, KeyHandler key, String playerName, String suitName) {
+	public Player(GamePanel gamePanel, String playerName, String suitName)  {
 		playerSize = gamePanel.tileSize;
 
-		int playerHash;
-		if (gamePanel.getGameClient() != null) {
-			playerHash = gamePanel.getGameClient().getClientHashCode();
-		} else {
-			playerHash = ((System.currentTimeMillis() * 100) + "default").hashCode();
-		}
+		int playerHash = gamePanel.getGameClient().getClientHashCode();
 
 		// getting some random color
 		Color color = getRandomColor();
@@ -49,7 +43,7 @@ public class Player extends PlayerEntity {
 				new PlayerFrameProvider(suitName),
 				this.playerSchema,
 				movementHandler,
-				key);
+				gamePanel.getKeyH());
 	}
 
 	public boolean update() {
